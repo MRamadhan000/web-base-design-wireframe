@@ -24,15 +24,12 @@ const BERITA_DATA = [
 
 export default function WireframeBerita() {
   return (
-    <section className="w-full bg-white py-16 border-b-2 border-dashed border-gray-400">
+    <section className="w-full bg-slate-50 py-16 border-b border-slate-200 font-sans antialiased">
       <div className="mx-auto max-w-7xl px-6">
         
         {/* HEADER SECTION BERITA */}
-        <div className="mb-10 border-b border-gray-300 pb-6">
-          {/* <span className="rounded border border-gray-400 bg-gray-100 px-2.5 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-gray-700">
-            Informasi Terkini
-          </span> */}
-          <h2 className="mt-3 font-mono text-3xl font-bold uppercase tracking-tight text-gray-900">
+        <div className="mb-10 border-b border-slate-200 pb-6">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 text-center">
             Berita & Pengumuman
           </h2>
         </div>
@@ -42,23 +39,20 @@ export default function WireframeBerita() {
           {BERITA_DATA.map((berita) => (
             <article
               key={berita.id}
-              className="flex flex-col justify-between rounded-lg border-2 border-dashed border-gray-400 bg-gray-50 p-4 transition-all hover:border-gray-800"
+              className="flex flex-col justify-between rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all hover:border-emerald-500 hover:shadow-md"
             >
               <div>
                 {/* Gambar Berita */}
-                <div className="relative h-48 w-full overflow-hidden rounded border border-gray-300 bg-gray-200">
+                <div className="relative h-48 w-full overflow-hidden rounded-lg bg-slate-100">
                   <img
                     src={berita.image}
                     alt={berita.title}
-                    className="h-full w-full object-cover grayscale opacity-80 transition-all duration-300 hover:grayscale-0"
+                    className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                   />
-                  <div className="absolute top-2 left-2 rounded bg-black/70 px-2 py-0.5 font-mono text-[10px] text-white uppercase backdrop-blur-sm">
-                    [ Gambar ]
-                  </div>
                 </div>
 
                 {/* Date Publish */}
-                <div className="mt-4 flex items-center gap-2 font-mono text-xs text-gray-500">
+                <div className="mt-4 flex items-center gap-2 text-xs font-medium text-emerald-600">
                   <svg
                     className="h-3.5 w-3.5"
                     fill="none"
@@ -76,16 +70,16 @@ export default function WireframeBerita() {
                 </div>
 
                 {/* Judul Berita */}
-                <h3 className="mt-2 line-clamp-3 font-mono text-base font-bold text-gray-900 uppercase leading-snug">
+                <h3 className="mt-2 line-clamp-3 text-base font-bold text-slate-900 leading-snug">
                   {berita.title}
                 </h3>
               </div>
 
               {/* Button Baca Selengkapnya */}
-              <div className="mt-6 pt-4 border-t border-gray-300">
+              <div className="mt-6 pt-4 border-t border-slate-100">
                 <Link
                   href="/berita"
-                  className="inline-block w-full text-center rounded border border-gray-800 bg-white py-2 font-mono text-xs font-semibold uppercase tracking-wider text-gray-900 transition-colors hover:bg-gray-900 hover:text-white"
+                  className="inline-block w-full text-center rounded-lg border border-emerald-600 bg-white py-2 text-xs font-semibold tracking-wider text-emerald-600 transition-colors hover:bg-emerald-600 hover:text-white"
                 >
                   Baca Berita
                 </Link>
@@ -98,7 +92,7 @@ export default function WireframeBerita() {
         <div className="mt-12 text-center">
           <Link
             href="/berita"
-            className="inline-block rounded border-2 border-dashed border-gray-800 bg-gray-100 px-8 py-3 font-mono text-xs font-bold uppercase tracking-wider text-gray-900 transition-colors hover:bg-gray-900 hover:text-white"
+            className="inline-block rounded-lg bg-emerald-600 px-8 py-3 text-xs font-bold tracking-wider text-white transition-colors hover:bg-emerald-700 shadow-sm"
           >
             Lihat Semua Berita &rarr;
           </Link>

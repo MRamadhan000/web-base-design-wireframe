@@ -54,20 +54,14 @@ const GALLERY_DATA = [
 
 export default function WireframeGaleri() {
   return (
-    <section className="w-full bg-gray-50 py-16 border-b-2 border-dashed border-gray-400">
+    <section className="w-full bg-slate-50 py-16 border-b border-slate-200 font-sans antialiased">
       <div className="mx-auto max-w-7xl px-6">
         
         {/* HEADER SECTION */}
         <div className="mb-10 text-center">
-          {/* <span className="rounded border border-gray-400 bg-gray-200 px-2.5 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-gray-700"> */}
-            {/* Dokumentasi Kegiatan */}
-          {/* </span> */}
-          <h2 className="mt-3 font-mono text-3xl font-bold uppercase tracking-tight text-gray-900">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
             Galeri Kota Batu
           </h2>
-          <p className="mt-2 font-mono text-xs text-gray-500">
-            [ Hover pada foto untuk melihat detail dokumentasi ]
-          </p>
         </div>
 
         {/* GRID PERFECT BENTO (TOTAL 7 ITEM) */}
@@ -75,29 +69,24 @@ export default function WireframeGaleri() {
           {GALLERY_DATA.map((item) => (
             <div
               key={item.id}
-              className={`group relative overflow-hidden rounded-lg border-2 border-dashed border-gray-400 bg-gray-200 ${item.aspect}`}
+              className={`group relative overflow-hidden rounded-xl border border-slate-200/80 bg-slate-100 shadow-sm transition-all duration-300 hover:border-emerald-500 hover:shadow-md ${item.aspect}`}
             >
               {/* Gambar */}
               <img
                 src={item.image}
                 alt={item.title}
-                className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
 
-              {/* Tag Wireframe Placeholder */}
-              <div className="absolute top-3 left-3 z-10 rounded bg-black/70 px-2 py-0.5 font-mono text-[10px] text-white uppercase backdrop-blur-sm transition-opacity group-hover:opacity-0">
-                [ FOTO {item.id} ]
-              </div>
-
               {/* OVERLAY TEKS (HOVER) */}
-              <div className="absolute inset-0 flex flex-col justify-end bg-black/75 p-5 opacity-0 transition-opacity duration-300 backdrop-blur-[2px] group-hover:opacity-100">
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-gray-300">
+              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-slate-950/85 via-slate-900/40 to-transparent p-5 opacity-0 transition-opacity duration-300 backdrop-blur-[1px] group-hover:opacity-100">
+                <span className="inline-block rounded-md bg-emerald-500/20 px-2 py-0.5 text-[10px] font-semibold text-emerald-300 w-fit backdrop-blur-xs">
                   {item.category}
                 </span>
-                <h3 className="mt-1 font-mono text-base font-bold uppercase tracking-wide text-white">
+                <h3 className="mt-1.5 text-base font-bold text-white leading-snug">
                   {item.title}
                 </h3>
-                <div className="mt-3 border-t border-dashed border-gray-500 pt-2 font-mono text-[11px] text-gray-300">
+                <div className="mt-3 border-t border-slate-700/60 pt-2 text-xs font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">
                   Lihat Dokumentasi &rarr;
                 </div>
               </div>

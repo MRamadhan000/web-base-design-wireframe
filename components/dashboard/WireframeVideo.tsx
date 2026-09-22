@@ -27,15 +27,15 @@ const VIDEO_DATA = [
 
 export default function WireframeVideo() {
   return (
-    <section className="w-full bg-gray-50 py-16 border-b-2 border-dashed border-gray-400">
+    <section className="w-full bg-slate-50 py-16 border-b border-slate-200 font-sans antialiased">
       <div className="mx-auto max-w-7xl px-6">
         
         {/* HEADER SECTION VIDEO */}
-        <div className="mb-10 border-b border-gray-300 pb-6">
+        <div className="mb-10 border-b border-slate-200 pb-6">
           {/* <span className="rounded border border-gray-400 bg-gray-200 px-2.5 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-gray-700"> */}
             {/* Galeri Multimedia */}
           {/* </span> */}
-          <h2 className="mt-3 font-mono text-3xl font-bold uppercase tracking-tight text-gray-900">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 text-center">
             Video Kegiatan & Dokumentasi
           </h2>
         </div>
@@ -45,39 +45,21 @@ export default function WireframeVideo() {
           {VIDEO_DATA.map((video) => (
             <article
               key={video.id}
-              className="group flex flex-col justify-between rounded-lg border-2 border-dashed border-gray-400 bg-white p-4 transition-all hover:border-gray-800"
+              className="group flex flex-col justify-between rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all hover:border-emerald-500 hover:shadow-md"
             >
               <div>
                 {/* THUMBNAIL VIDEO DENGAN PLAY BUTTON */}
-                <div className="relative h-48 w-full overflow-hidden rounded border border-gray-300 bg-gray-900">
+                <div className="relative h-48 w-full overflow-hidden rounded-lg bg-slate-900">
                   <img
                     src={video.thumbnail}
                     alt={video.title}
-                    className="h-full w-full object-cover grayscale opacity-70 transition-all duration-300 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-90"
+                    className="h-full w-full object-cover opacity-90 transition-transform duration-300 group-hover:scale-105"
                   />
                   
-                  {/* Overlay Wireframe Label */}
-                  <div className="absolute top-2 left-2 rounded bg-black/70 px-2 py-0.5 font-mono text-[10px] text-white uppercase backdrop-blur-sm">
-                    [ Thumbnail Video ]
-                  </div>
-
-                  {/* Badge Durasi Video */}
-                  <div className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-0.5 font-mono text-[11px] text-white">
-                    {video.duration}
-                  </div>
-
-                  {/* Play Icon Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-black/60 text-white transition-transform duration-300 group-hover:scale-110 group-hover:bg-red-600">
-                      <svg className="ml-0.5 h-4 w-4 fill-current" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Date Publish */}
-                <div className="mt-4 flex items-center gap-2 font-mono text-xs text-gray-500">
+                <div className="mt-4 flex items-center gap-2 text-xs font-medium text-emerald-600">
                   <svg
                     className="h-3.5 w-3.5"
                     fill="none"
@@ -95,16 +77,16 @@ export default function WireframeVideo() {
                 </div>
 
                 {/* Judul Video */}
-                <h3 className="mt-2 line-clamp-2 font-mono text-base font-bold uppercase leading-snug text-gray-900">
+                <h3 className="mt-2 line-clamp-2 text-base font-bold text-slate-900 leading-snug">
                   {video.title}
                 </h3>
               </div>
 
               {/* Action Button Ke Halaman Detail */}
-              <div className="mt-6 pt-4 border-t border-gray-300">
+              <div className="mt-6 pt-4 border-t border-slate-100">
                 <Link
                   href="/video"
-                  className="inline-block w-full text-center rounded border border-gray-800 bg-white py-2 font-mono text-xs font-semibold uppercase tracking-wider text-gray-900 transition-colors hover:bg-gray-900 hover:text-white"
+                  className="inline-block w-full text-center rounded-lg border border-emerald-600 bg-white py-2 text-xs font-semibold tracking-wider text-emerald-600 transition-colors hover:bg-emerald-600 hover:text-white"
                 >
                   Lihat Video
                 </Link>
@@ -117,7 +99,7 @@ export default function WireframeVideo() {
         <div className="mt-12 text-center">
           <Link
             href="/video"
-            className="inline-block rounded border-2 border-dashed border-gray-800 bg-white px-8 py-3 font-mono text-xs font-bold uppercase tracking-wider text-gray-900 transition-colors hover:bg-gray-900 hover:text-white"
+            className="inline-block rounded-lg bg-emerald-600 px-8 py-3 text-xs font-bold tracking-wider text-white transition-colors hover:bg-emerald-700 shadow-sm"
           >
             Lihat Semua Video &rarr;
           </Link>

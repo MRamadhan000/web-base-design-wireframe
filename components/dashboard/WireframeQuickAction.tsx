@@ -63,49 +63,41 @@ const QUICK_ACTIONS = [
 
 export default function WireframeQuickAction() {
   return (
-    <section className="w-full bg-white py-16 border-b-2 border-dashed border-gray-400">
+    <section className="w-full bg-slate-50 py-16 border-b border-slate-200 font-sans antialiased">
       <div className="mx-auto max-w-7xl px-6">
         
         {/* HEADER SECTION */}
-        <div className="mb-10 text-center">
-          {/* <span className="rounded border border-gray-400 bg-gray-100 px-2.5 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-gray-700"> */}
-            {/* Akses Cepat */}
-          {/* </span> */}
-          <h2 className="mt-3 font-mono text-3xl font-bold uppercase tracking-tight text-gray-900">
+        <div className="mb-12 text-center">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
             Layanan Utama Kota Batu
           </h2>
-          <p className="mt-2 font-mono text-xs text-gray-500">
-            [ Pilih layanan untuk menuju portal resmi ]
+          <p className="mt-2 text-sm text-slate-500">
+            Pilih layanan untuk menuju portal resmi
           </p>
         </div>
 
         {/* GRID 8 QUICK ACTIONS */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-4 lg:grid-cols-4">
           {QUICK_ACTIONS.map((action) => {
             const Icon = action.icon;
             return (
               <a
                 key={action.id}
                 href="#"
-                className="group flex flex-col items-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-50 p-6 text-center transition-all duration-200 hover:border-gray-800 hover:bg-gray-100 hover:shadow-md"
+                className="group relative flex min-h-[220px] flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-10 text-center shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-500 hover:bg-emerald-50/20 hover:shadow-xl hover:shadow-emerald-500/10"
               >
                 {/* ICON BOX */}
-                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full border-2 border-gray-400 bg-white text-gray-800 transition-colors group-hover:border-gray-800 group-hover:bg-gray-900 group-hover:text-white">
-                  <Icon className="h-6 w-6" />
+                <div className="flex flex-col items-center justify-center">
+                  <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-100/70 text-emerald-700 ring-1 ring-emerald-600/20 shadow-xs transition-all duration-300 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white group-hover:ring-emerald-600 group-hover:shadow-md group-hover:shadow-emerald-600/30">
+                    <Icon className="h-7 w-7" />
+                  </div>
+
+                  {/* TITLE */}
+                  <h3 className="text-base font-bold tracking-wide text-slate-900 transition-colors duration-200 group-hover:text-emerald-700">
+                    {action.title}
+                  </h3>
                 </div>
 
-                {/* TITLE & DESC */}
-                <h3 className="font-mono text-sm font-bold uppercase tracking-wide text-gray-900">
-                  {action.title}
-                </h3>
-                {/* <p className="mt-1 font-mono text-[11px] text-gray-500">
-                  {action.desc}
-                </p> */}
-
-                {/* WIREFRAME LABEL */}
-                <span className="mt-3 font-mono text-[9px] uppercase tracking-widest text-gray-400 opacity-0 transition-opacity group-hover:opacity-100">
-                  [ Buka Layanan ]
-                </span>
               </a>
             );
           })}
