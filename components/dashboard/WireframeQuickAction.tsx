@@ -98,7 +98,7 @@ export default function WireframeQuickAction() {
                   </h3>
                 </div>
 
-              </a>
+              </a>  
             );
           })}
         </div>

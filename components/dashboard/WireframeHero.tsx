@@ -31,7 +31,7 @@ export default function WireframeHero() {
   };
 
   return (
-    <section className="relative h-[80vh] w-full overflow-hidden bg-gray-900 border-b-2 border-dashed border-gray-400">
+    <section className="relative h-[80vh] w-full overflow-hidden bg-gray-900 border-b border-gray-800">
       {/* Background Images Slider */}
       {IMAGES.map((src, index) => (
         <div
@@ -57,12 +57,12 @@ export default function WireframeHero() {
           wisatawan.
         </p>
 
-        {/* Search Input Box */}
+        {/* Search Input Box (Tanpa Garis Wireframe/Dashed) */}
         <form 
           onSubmit={handleSearch}
-          className="mt-8 flex w-full max-w-md items-center overflow-hidden rounded border-2 border-dashed border-white bg-white/10 p-1 backdrop-blur-sm focus-within:border-solid focus-within:bg-black/40"
+          className="mt-8 flex w-full max-w-md items-center overflow-hidden rounded-full border border-gray-200 bg-white p-1.5 shadow-lg focus-within:border-gray-400 focus-within:ring-2 focus-within:ring-gray-400/20"
         >
-          <div className="flex pl-3 text-white/70">
+          <div className="flex pl-4 text-gray-400">
             <FaSearch className="h-4 w-4" />
           </div>
           <input
@@ -70,17 +70,17 @@ export default function WireframeHero() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Anda cari apa..."
-            className="w-full bg-transparent px-3 py-2 font-mono text-sm text-white placeholder-white/60 focus:outline-none"
+            className="w-full bg-transparent px-3 py-2 font-sans text-sm text-gray-900 placeholder-gray-400 focus:outline-none"
           />
           <button
             type="submit"
-            className="rounded border border-dashed border-white bg-white/20 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white hover:text-black"
+            className="rounded-full bg-gray-900 px-6 py-2.5 font-sans text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-gray-800 active:scale-95"
           >
             Cari
           </button>
         </form>
 
-        {/* Wireframe Slide Indicator */}
+        {/* Slide Indicator */}
         <div className="mt-10 flex gap-2">
           {IMAGES.map((_, idx) => (
             <button

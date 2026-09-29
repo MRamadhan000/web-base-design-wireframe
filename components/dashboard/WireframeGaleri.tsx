@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'next/link';
+import { FaImage, FaArrowRight } from 'react-icons/fa';
 
 const GALLERY_DATA = [
   {
@@ -48,7 +50,7 @@ const GALLERY_DATA = [
     title: "Sentra UMKM Kota Batu",
     category: "Ekonomi Kreatif",
     image: "/images/hero1.png",
-    aspect: "md:col-span-2 md:row-span-1 h-[200px]", // Wide Landscape Bawah Kanan (Pelengkap)
+    aspect: "md:col-span-2 md:row-span-1 h-[200px]", // Wide Landscape Bawah Kanan
   },
 ];
 
@@ -86,12 +88,25 @@ export default function WireframeGaleri() {
                 <h3 className="mt-1.5 text-base font-bold text-white leading-snug">
                   {item.title}
                 </h3>
-                <div className="mt-3 border-t border-slate-700/60 pt-2 text-xs font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">
-                  Lihat Dokumentasi &rarr;
+                <div className="mt-3 flex items-center gap-1.5 border-t border-slate-700/60 pt-2 text-xs font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">
+                  <span>Lihat Dokumentasi</span>
+                  <FaArrowRight className="h-3 w-3" />
                 </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* BUTTON JELAJAHI GALERI FOTO (DI BAWAH GRID) */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/galeri"
+            className="group inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-8 py-3 text-xs font-bold tracking-wider text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-95"
+          >
+            <FaImage className="h-3.5 w-3.5" />
+            <span>Jelajahi Galeri Foto</span>
+            <FaArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+          </Link>
         </div>
 
       </div>

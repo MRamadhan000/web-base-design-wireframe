@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { FaCalendarAlt, FaBookOpen, FaArrowRight } from 'react-icons/fa';
 
 const BERITA_DATA = [
   {
@@ -51,21 +52,9 @@ export default function WireframeBerita() {
                   />
                 </div>
 
-                {/* Date Publish */}
-                <div className="mt-4 flex items-center gap-2 text-xs font-medium text-emerald-600">
-                  <svg
-                    className="h-3.5 w-3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
+                {/* Date Publish (Warna Secondary) */}
+                <div className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-500">
+                  <FaCalendarAlt className="h-3.5 w-3.5 text-slate-400" />
                   <span>{berita.date}</span>
                 </div>
 
@@ -75,13 +64,14 @@ export default function WireframeBerita() {
                 </h3>
               </div>
 
-              {/* Button Baca Selengkapnya */}
+              {/* Button Baca Selengkapnya dengan Ikon */}
               <div className="mt-6 pt-4 border-t border-slate-100">
                 <Link
-                  href="/berita"
-                  className="inline-block w-full text-center rounded-lg border border-emerald-600 bg-white py-2 text-xs font-semibold tracking-wider text-emerald-600 transition-colors hover:bg-emerald-600 hover:text-white"
+                  href="/berita/detail"
+                  className="inline-flex items-center justify-center gap-2 w-full text-center rounded-lg border border-emerald-600 bg-white py-2 text-xs font-semibold tracking-wider text-emerald-600 transition-colors hover:bg-emerald-600 hover:text-white"
                 >
-                  Baca Berita
+                  <FaBookOpen className="h-3.5 w-3.5" />
+                  <span>Baca Berita</span>
                 </Link>
               </div>
             </article>
@@ -92,9 +82,10 @@ export default function WireframeBerita() {
         <div className="mt-12 text-center">
           <Link
             href="/berita"
-            className="inline-block rounded-lg bg-emerald-600 px-8 py-3 text-xs font-bold tracking-wider text-white transition-colors hover:bg-emerald-700 shadow-sm"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-8 py-3 text-xs font-bold tracking-wider text-white transition-colors hover:bg-emerald-700 shadow-sm"
           >
-            Lihat Semua Berita &rarr;
+            <span>Lihat Semua Berita</span>
+            <FaArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
 
