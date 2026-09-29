@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { FaChevronRight } from "react-icons/fa";
+import { FaChevronRight, FaWhatsapp } from "react-icons/fa";
 import {
   HiOutlineIdentification,
   HiOutlineUserGroup,
@@ -14,6 +14,7 @@ import {
   HiOutlineChatBubbleLeftRight,
   HiOutlinePhone,
   HiOutlineMagnifyingGlass,
+  HiOutlineEnvelope,
 } from "react-icons/hi2";
 
 const SERVICES = [
@@ -199,13 +200,11 @@ export default function LayananKependudukanPage() {
               href="https://wa.me/6280000000000"
               className="group relative overflow-hidden bg-[#005b4f] p-7 text-white transition hover:bg-[#00483e] sm:p-9"
             >
-              <div className="absolute -bottom-8 -right-5 text-[120px] font-black leading-none text-white/5">
-                WA
-              </div>
+              <FaWhatsapp className="absolute -bottom-6 -right-4 h-36 w-36 text-white/10" />
               <div className="relative z-10">
-                <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
-                  WhatsApp
-                </span>
+                <div className="flex items-center justify-between gap-4">
+                  
+                </div>
                 <h3 className="mt-6 text-2xl font-bold sm:text-3xl">
                   08xx-xxxx-xxxx
                 </h3>
@@ -213,7 +212,7 @@ export default function LayananKependudukanPage() {
                   Konsultasi pengajuan dokumen dan kendala data kependudukan.
                 </p>
                 <span className="mt-8 inline-flex items-center gap-2 text-xs font-bold text-white">
-                  <HiOutlinePhone className="h-4 w-4" />
+                  <FaWhatsapp className="h-4 w-4 text-white" />
                   Chat WhatsApp →
                 </span>
               </div>
@@ -221,20 +220,23 @@ export default function LayananKependudukanPage() {
 
             <a
               href="mailto:disdukcapil@batukota.go.id"
-              className="group bg-[#f1faf8] p-7 transition hover:bg-emerald-50 sm:p-9"
+              className="group relative overflow-hidden bg-[#f1faf8] p-7 transition hover:bg-emerald-50 sm:p-9"
             >
-              <span className="inline-flex rounded-full bg-emerald-100 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-700">
-                Email
-              </span>
-              <h3 className="mt-6 break-all text-2xl font-bold text-[#12345b] sm:text-3xl">
-                disdukcapil@batukota.go.id
-              </h3>
-              <p className="mt-3 max-w-md text-sm leading-6 text-slate-500">
-                Kirim pertanyaan atau kelengkapan dokumen melalui email resmi.
-              </p>
-              <span className="mt-8 inline-flex items-center gap-2 text-xs font-bold text-emerald-700">
-                Kirim Email →
-              </span>
+              <div className="relative z-10">
+                <div className="flex gap-4">
+                
+                </div>
+                <h3 className="mt-6 break-all text-2xl font-bold text-[#12345b] sm:text-3xl">
+                  disdukcapil@batukota.go.id
+                </h3>
+                <p className="mt-3 max-w-md text-sm leading-6 text-slate-500">
+                  Kirim pertanyaan atau kelengkapan dokumen melalui email resmi.
+                </p>
+                <span className="mt-8 inline-flex items-center gap-2 text-xs font-bold text-emerald-700">
+                  <HiOutlineEnvelope className="h-4 w-4" />
+                  Kirim Email →
+                </span>
+              </div>
             </a>
           </div>
         </section>

@@ -83,7 +83,7 @@ export default function WireframeQuickAction() {
             return (
               <a
                 key={action.id}
-                href="#"
+                href="/layanan"
                 className="group relative flex min-h-[220px] flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-10 text-center shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-500 hover:bg-emerald-50/20 hover:shadow-xl hover:shadow-emerald-500/10"
               >
                 {/* ICON BOX */}
