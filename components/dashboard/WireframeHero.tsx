@@ -31,7 +31,7 @@ export default function WireframeHero() {
   };
 
   return (
-    <section className="relative h-[80vh] w-full overflow-hidden bg-gray-900 border-b border-gray-800">
+    <section className="relative h-screen w-full overflow-hidden bg-gray-900 border-b border-gray-800 top-0">
       {/* Background Images Slider */}
       {IMAGES.map((src, index) => (
         <div
@@ -46,8 +46,8 @@ export default function WireframeHero() {
         </div>
       ))}
 
-      {/* Hero Content (Statis / Tidak Berubah) */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white">
+      {/* Hero Content (Padding Top tambahkan pt-28 agar konten tidak tertutup floating navbar) */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 pt-28 text-center text-white">
         <h1 className="max-w-3xl font-mono text-3xl font-bold uppercase tracking-wide sm:text-5xl">
           Selamat Datang di Kota Batu
         </h1>
@@ -57,7 +57,7 @@ export default function WireframeHero() {
           wisatawan.
         </p>
 
-        {/* Search Input Box (Tanpa Garis Wireframe/Dashed) */}
+        {/* Search Input Box */}
         <form 
           onSubmit={handleSearch}
           className="mt-8 flex w-full max-w-md items-center overflow-hidden rounded-full border border-gray-200 bg-white p-1.5 shadow-lg focus-within:border-gray-400 focus-within:ring-2 focus-within:ring-gray-400/20"
