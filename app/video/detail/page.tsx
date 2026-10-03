@@ -1,13 +1,22 @@
 import Footer from "@/components/dashboard/WireframeFooter";
-import DetailVideoContent from "@/components/detail-video/DetailVideoContent";
+import { VideoDetailView } from "@/features/video/views/VideoDetailView";
 
-const page = () => {
+interface VideoDetailPageProps {
+  searchParams: Promise<{
+    id?: string;
+  }>;
+}
+
+export default async function VideoDetailPage({
+  searchParams,
+}: VideoDetailPageProps) {
+  const { id } = await searchParams;
+  const videoId = Number(id ?? 1);
+
   return (
     <>
-      <DetailVideoContent />
+      <VideoDetailView id={Number.isInteger(videoId) ? videoId : 1} />
       <Footer />
     </>
   );
-};
-
-export default page;
+}
