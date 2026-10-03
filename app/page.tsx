@@ -4,8 +4,8 @@ import WireframeTentangBatu from "@/components/dashboard/WireframeTentangBatu";
 import WireframeGaleri from "@/components/dashboard/WireframeGaleri";
 import WireframeQuickAction from "@/components/dashboard/WireframeQuickAction";
 import WireframeFooter from "@/components/dashboard/WireframeFooter";
-import WireframeVideo from "@/components/dashboard/WireframeVideo";
 import { BeritaSection } from "@/features/berita/views/BeritaSection";
+import { VideoSection } from "@/features/video/views/VideoSection";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       <WireframeHero />
       <WireframeTentangBatu />
       <BeritaSection />
-      <WireframeVideo />
+      <VideoSection />
       <WireframeGaleri />
       <WireframeQuickAction />
       <WireframeFooter />
