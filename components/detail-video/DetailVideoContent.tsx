@@ -1,1 +1,0 @@
-export { DetailVideoContent as default } from "@/features/video/components/DetailVideoContent";
