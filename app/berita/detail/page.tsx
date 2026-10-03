@@ -1,13 +1,15 @@
-import DetailBeritaContent from "@/components/detail-berita/DetailBeritaContent";
-import Footer from "@/components/dashboard/WireframeFooter";
+import { BeritaDetailView } from "@/features/berita/views/BeritaDetailView";
 
-const page = () => {
-  return (
-    <>
-      <DetailBeritaContent />
-      <Footer />
-    </>
-  );
-};
+interface BeritaDetailPageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
 
-export default page;
+export default async function BeritaDetailPage({
+  params,
+}: BeritaDetailPageProps) {
+  const { id } = await params;
+
+  return <BeritaDetailView id={Number(1)} />;
+}
