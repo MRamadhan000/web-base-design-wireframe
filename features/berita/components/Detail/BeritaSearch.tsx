@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
+import { Button } from "@/components/ui/button/Button";
+import { Input } from "@/components/ui/input/Input";
+
 export function BeritaSearch() {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -17,22 +20,21 @@ export function BeritaSearch() {
       </h3>
 
       <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 p-1 transition-all focus-within:border-emerald-600 focus-within:ring-1 focus-within:ring-emerald-600">
-        <input
+        <Input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Ketik kata kunci..."
-          className="w-full bg-transparent px-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none"
         />
 
-        <button
+        <Button
           type="button"
           onClick={handleSearch}
-          className="rounded-md bg-emerald-600 p-2 text-white transition-colors hover:bg-emerald-700"
+          variant="primary"
+          className="rounded-md p-2"
           aria-label="Cari"
-        >
-          <FaSearch className="h-3 w-3" />
-        </button>
+          icon={<FaSearch className="h-3 w-3" />}
+        />
       </div>
     </div>
   );
