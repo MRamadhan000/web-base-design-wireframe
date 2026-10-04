@@ -28,7 +28,7 @@ export default function ContactView() {
           />
         )}
 
-        <ContactInfo items={contactInfo} />
+        {/* <ContactInfo items={contactInfo} /> */}
 
         <ContactForm
           form={form}
