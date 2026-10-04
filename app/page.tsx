@@ -1,4 +1,4 @@
-import WireframeNavbar from "@/components/dashboard/WireframeNavbar";
+import NavbarView from "@/features/navbar/views/NavbarView";
 import WireframeHero from "@/components/dashboard/WireframeHero";
 import WireframeTentangBatu from "@/components/dashboard/WireframeTentangBatu";
 import WireframeFooter from "@/components/dashboard/WireframeFooter";
@@ -9,7 +9,7 @@ import { GaleriPreviewSection } from "@/features/galeri/views/GaleriPreviewSecti
 
 export default function Home() {
   return (
-    <WireframeNavbar>
+    <NavbarView>
       <WireframeHero />
       <WireframeTentangBatu />
       <BeritaSection />
@@ -17,6 +17,6 @@ export default function Home() {
       <GaleriPreviewSection />
       <QuickActionSection />
       <WireframeFooter />
-    </WireframeNavbar>
+    </NavbarView>
   );
 }
