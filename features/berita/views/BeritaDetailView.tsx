@@ -27,7 +27,7 @@ export function BeritaDetailView({ id }: BeritaDetailViewProps) {
 
   if (isLoadingDetail) {
     return (
-      <section className="w-full bg-slate-50 py-16">
+      <section className="w-full bg-background py-16">
         <LoadingState message="Loading berita..." />
       </section>
     );
@@ -35,7 +35,7 @@ export function BeritaDetailView({ id }: BeritaDetailViewProps) {
 
   if (errorDetail || !berita) {
     return (
-      <section className="w-full bg-slate-50 py-16">
+      <section className="w-full bg-background py-16">
         <ErrorState
           message={
             errorDetail instanceof Error
@@ -49,14 +49,14 @@ export function BeritaDetailView({ id }: BeritaDetailViewProps) {
   }
 
   return (
-    <section className="w-full bg-slate-50 py-8 font-sans antialiased text-slate-800 md:py-12">
+    <section className="w-full bg-background py-8 font-sans antialiased text-black md:py-12">
       <Container>
         {/* BACK BUTTON */}
         <div className="mb-6">
-          <div className="flex items-center border-b border-slate-200 pb-4">
+          <div className="flex items-center border-b border-border pb-4">
             <Link
               href="/berita"
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition-all hover:border-emerald-600 hover:text-emerald-600 hover:shadow-sm"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black transition-all hover:border-primary hover:text-primary hover:shadow-sm"
             >
               <FaArrowLeft className="h-3 w-3" />
               <span>Kembali ke Berita</span>

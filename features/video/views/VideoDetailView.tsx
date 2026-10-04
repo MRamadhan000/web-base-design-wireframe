@@ -26,7 +26,7 @@ export function VideoDetailView({ id }: VideoDetailViewProps) {
 
   if (errorDetail || !video) {
     return (
-      <section className="w-full bg-slate-50 py-16">
+      <section className="w-full bg-background py-16">
         <Container>
           <ErrorState
             message={

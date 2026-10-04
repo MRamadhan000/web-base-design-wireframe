@@ -135,21 +135,21 @@ export default function LayananKependudukanPage() {
   }, [query]);
 
   return (
-    <main className="min-h-screen bg-[#f8fafc] font-sans antialiased text-slate-800">
-      <section className="border-b border-slate-200/80 bg-white py-12 md:py-16">
+    <main className="min-h-screen bg-background font-sans antialiased text-black">
+      <section className="border-b border-border/80 bg-surface py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <nav className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-500">
-            <Link href="/" className="transition-colors hover:text-emerald-600">
+          <nav className="mb-4 flex flex-wrap items-center gap-2 text-xs text-muted">
+            <Link href="/" className="transition-colors hover:text-primary">
               Beranda
             </Link>
-            <FaChevronRight className="h-2.5 w-2.5 text-slate-400" />
-            <span className="font-semibold text-emerald-600">Kependudukan</span>
+            <FaChevronRight className="h-2.5 w-2.5 text-muted-light" />
+            <span className="font-semibold text-primary">Kependudukan</span>
           </nav>
 
           <div className="max-w-3xl">
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+            <h1 className="text-3xl font-extrabold tracking-tight text-black sm:text-4xl">
               Layanan Kependudukan &{" "}
-              <span className="text-emerald-600">Catatan Sipil</span>
+              <span className="text-primary">Catatan Sipil</span>
             </h1>
           </div>
         </div>
@@ -159,13 +159,13 @@ export default function LayananKependudukanPage() {
         <section className="mt-4">
           <label className="relative block w-full">
             <span className="sr-only">Cari layanan</span>
-            <HiOutlineMagnifyingGlass className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <HiOutlineMagnifyingGlass className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-light" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Cari layanan, misalnya KTP, KK, KIA..."
-              className="h-11 w-full rounded-full border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+              className="h-11 w-full rounded-full border border-border bg-surface pl-11 pr-4 text-sm text-black outline-none transition placeholder:text-muted-light focus:border-primary-light focus:ring-2 focus:ring-primary-light/20"
             />
           </label>
 
@@ -176,17 +176,17 @@ export default function LayananKependudukanPage() {
               ))}
             </div>
           ) : (
-            <div className="mt-7 rounded-2xl border border-dashed border-slate-200 bg-white px-6 py-16 text-center">
-              <p className="text-sm font-bold text-[#12345b]">
+            <div className="mt-7 rounded-2xl border border-dashed border-border bg-surface px-6 py-16 text-center">
+              <p className="text-sm font-bold text-black">
                 Layanan tidak ditemukan
               </p>
-              <p className="mt-2 text-xs text-slate-500">
+              <p className="mt-2 text-xs text-muted">
                 Tidak ada hasil untuk “{query}”. Coba kata kunci lain.
               </p>
               <button
                 type="button"
                 onClick={() => setQuery("")}
-                className="mt-5 text-xs font-bold text-emerald-700 hover:text-emerald-500"
+                className="mt-5 text-xs font-bold text-primary hover:text-primary-light"
               >
                 Hapus pencarian
               </button>
@@ -195,10 +195,10 @@ export default function LayananKependudukanPage() {
         </section>
 
         <section className="mt-16">
-          <div className="mt-7 grid overflow-hidden rounded-2xl border border-slate-200 bg-white lg:grid-cols-2">
+          <div className="mt-7 grid overflow-hidden rounded-2xl border border-border bg-surface lg:grid-cols-2">
             <a
               href="https://wa.me/6280000000000"
-              className="group relative overflow-hidden bg-[#005b4f] p-7 text-white transition hover:bg-[#00483e] sm:p-9"
+              className="group relative overflow-hidden bg-primary p-7 text-white transition hover:bg-primary-dark sm:p-9"
             >
               <FaWhatsapp className="absolute -bottom-6 -right-4 h-36 w-36 text-white/10" />
               <div className="relative z-10">
@@ -208,7 +208,7 @@ export default function LayananKependudukanPage() {
                 <h3 className="mt-6 text-2xl font-bold sm:text-3xl">
                   08xx-xxxx-xxxx
                 </h3>
-                <p className="mt-3 max-w-md text-sm leading-6 text-emerald-50">
+                <p className="mt-3 max-w-md text-sm leading-6 text-accent">
                   Konsultasi pengajuan dokumen dan kendala data kependudukan.
                 </p>
                 <span className="mt-8 inline-flex items-center gap-2 text-xs font-bold text-white">
@@ -220,19 +220,19 @@ export default function LayananKependudukanPage() {
 
             <a
               href="mailto:disdukcapil@batukota.go.id"
-              className="group relative overflow-hidden bg-[#f1faf8] p-7 transition hover:bg-emerald-50 sm:p-9"
+              className="group relative overflow-hidden bg-accent-soft p-7 transition hover:bg-accent sm:p-9"
             >
               <div className="relative z-10">
                 <div className="flex gap-4">
                 
                 </div>
-                <h3 className="mt-6 break-all text-2xl font-bold text-[#12345b] sm:text-3xl">
+                <h3 className="mt-6 break-all text-2xl font-bold text-black sm:text-3xl">
                   disdukcapil@batukota.go.id
                 </h3>
-                <p className="mt-3 max-w-md text-sm leading-6 text-slate-500">
+                <p className="mt-3 max-w-md text-sm leading-6 text-muted">
                   Kirim pertanyaan atau kelengkapan dokumen melalui email resmi.
                 </p>
-                <span className="mt-8 inline-flex items-center gap-2 text-xs font-bold text-emerald-700">
+                <span className="mt-8 inline-flex items-center gap-2 text-xs font-bold text-primary">
                   <HiOutlineEnvelope className="h-4 w-4" />
                   Kirim Email →
                 </span>
@@ -242,17 +242,17 @@ export default function LayananKependudukanPage() {
         </section>
       </div>
 
-      <footer className="mt-16 border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-8 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+      <footer className="mt-16 border-t border-border bg-surface">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-8 text-xs text-muted-light sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <p>© Pemerintah Kota Batu</p>
           <div className="flex gap-5">
-            <a href="#" className="hover:text-emerald-700">
+            <a href="#" className="hover:text-primary">
               Informasi
             </a>
-            <a href="#" className="hover:text-emerald-700">
+            <a href="#" className="hover:text-primary">
               Kontak
             </a>
-            <a href="#" className="hover:text-emerald-700">
+            <a href="#" className="hover:text-primary">
               Kebijakan
             </a>
           </div>
@@ -264,40 +264,40 @@ export default function LayananKependudukanPage() {
 
 function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-900/5">
-      <div className="relative h-36 overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#12345b]/80 via-[#005b4f]/70 to-emerald-700/60" />
+    <article className="group overflow-hidden rounded-2xl border border-border bg-surface transition duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl hover:shadow-primary/5">
+      <div className="relative h-36 overflow-hidden bg-gradient-to-br from-accent-soft to-accent-soft">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-primary/70 to-primary/60" />
         <div className="relative flex h-full items-end justify-between p-5 text-white">
           <div>
-            <p className="text-[9px] font-bold uppercase tracking-widest text-emerald-200">
+            <p className="text-[9px] font-bold uppercase tracking-widest text-accent">
               {service.visual}
             </p>
             <p className="mt-1 max-w-[220px] text-xs leading-5 text-white/80">
               {service.visualNote}
             </p>
           </div>
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 text-white backdrop-blur">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-surface/15 text-white backdrop-blur">
             {service.icon}
           </div>
         </div>
       </div>
 
       <div className="flex flex-col p-5 sm:p-6">
-        <h3 className="mt-3 text-lg font-bold text-[#12345b]">
+        <h3 className="mt-3 text-lg font-bold text-black">
           {service.title}
         </h3>
-        <p className="mt-2 text-xs leading-6 text-slate-500">
+        <p className="mt-2 text-xs leading-6 text-muted">
           {service.description}
         </p>
-        {/* <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-3">
-          <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">
+        {/* <div className="mt-4 rounded-xl border border-border bg-background p-3">
+          <p className="text-[9px] font-bold uppercase tracking-wider text-muted-light">
             Persyaratan Ringkas
           </p>
-          <p className="mt-1.5 text-xs leading-5 text-slate-600">
+          <p className="mt-1.5 text-xs leading-5 text-muted">
             {service.requirements}
           </p>
         </div> */}
-        <button className="mt-5 w-fit text-left text-xs font-bold text-emerald-700 transition group-hover:text-emerald-500">
+        <button className="mt-5 w-fit text-left text-xs font-bold text-primary transition group-hover:text-primary-light">
           {service.button}
         </button>
       </div>

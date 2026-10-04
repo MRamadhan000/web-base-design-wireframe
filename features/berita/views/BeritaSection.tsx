@@ -16,7 +16,7 @@ export function BeritaSection() {
 
   if (isLoadingLatest) {
     return (
-      <section className="w-full bg-slate-50 py-16">
+      <section className="w-full bg-background py-16">
         <LoadingState message="Loading berita terbaru..." />
       </section>
     );
@@ -24,7 +24,7 @@ export function BeritaSection() {
 
   if (errorLatest) {
     return (
-      <section className="w-full bg-slate-50 py-16">
+      <section className="w-full bg-background py-16">
         <ErrorState
           message="Gagal mengambil berita terbaru."
           onRetry={() => refetchLatestBerita()}
@@ -34,10 +34,10 @@ export function BeritaSection() {
   }
 
   return (
-    <section className="w-full border-b border-slate-200 bg-slate-50 py-16 font-sans antialiased">
+    <section className="w-full border-b border-border bg-background py-16 font-sans antialiased">
       <Container>
-        <div className="mb-10 border-b border-slate-200 pb-6">
-          <h2 className="mt-3 text-center text-3xl font-bold tracking-tight text-slate-900">
+        <div className="mb-10 border-b border-border pb-6">
+          <h2 className="mt-3 text-center text-3xl font-bold tracking-tight text-black">
             Berita & Pengumuman
           </h2>
         </div>
@@ -47,7 +47,7 @@ export function BeritaSection() {
         <div className="mt-12 text-center">
           <Link
             href="/berita"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-8 py-3 text-xs font-bold tracking-wider text-white shadow-sm transition-colors hover:bg-emerald-700"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-8 py-3 text-xs font-bold tracking-wider text-white shadow-sm transition-colors hover:bg-primary"
           >
             <span>Lihat Semua Berita</span>
             <FaArrowRight className="h-3.5 w-3.5" />

@@ -20,7 +20,7 @@ export function GaleriPreviewSection() {
 
   if (isLoadingPreview) {
     return (
-      <section className="w-full bg-slate-50 py-16">
+      <section className="w-full bg-background py-16">
         <LoadingState message="Loading galeri..." />
       </section>
     );
@@ -28,7 +28,7 @@ export function GaleriPreviewSection() {
 
   if (errorPreview) {
     return (
-      <section className="w-full bg-slate-50 py-16">
+      <section className="w-full bg-background py-16">
         <ErrorState
           message="Gagal mengambil galeri foto."
           onRetry={() => refetchPreviewGaleri()}
@@ -38,10 +38,10 @@ export function GaleriPreviewSection() {
   }
 
   return (
-    <section className="w-full border-b border-slate-200 bg-slate-50 py-16 font-sans antialiased">
+    <section className="w-full border-b border-border bg-background py-16 font-sans antialiased">
       <Container>
         <div className="mb-10 text-center">
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-black">
             Galeri Kota Batu
           </h2>
         </div>
@@ -51,7 +51,7 @@ export function GaleriPreviewSection() {
         <div className="mt-12 text-center">
           <Link
             href="/galeri"
-            className="group inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-8 py-3 text-xs font-bold tracking-wider text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-95"
+            className="group inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-8 py-3 text-xs font-bold tracking-wider text-white shadow-sm transition-all hover:bg-primary active:scale-95"
           >
             <FaImage className="h-3.5 w-3.5" />
             <span>Jelajahi Galeri Foto</span>

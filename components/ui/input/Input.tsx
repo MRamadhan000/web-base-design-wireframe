@@ -9,7 +9,7 @@ export function Input({
 }: InputProps) {
   return (
     <input
-      className={`w-full bg-transparent px-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none ${className}`}
+      className={`w-full bg-transparent px-3 py-1.5 text-xs text-black placeholder-slate-400 focus:outline-none ${className}`}
       {...props}
     />
   );

@@ -11,7 +11,7 @@ interface GaleriCardProps {
 export function GaleriCard({ item, preview = false }: GaleriCardProps) {
   return (
     <div
-      className={`group relative h-64 overflow-hidden rounded-xl border border-slate-200/80 bg-slate-100 shadow-sm transition-all duration-300 hover:border-emerald-500 hover:shadow-md ${preview ? item.previewAspect : ""}`}
+      className={`group relative h-64 overflow-hidden rounded-xl border border-border/80 bg-accent-soft shadow-sm transition-all duration-300 hover:border-primary-light hover:shadow-md ${preview ? item.previewAspect : ""}`}
     >
       <Image
         src={item.image}
@@ -25,9 +25,9 @@ export function GaleriCard({ item, preview = false }: GaleriCardProps) {
         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
 
-      <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-slate-950/85 via-slate-900/40 to-transparent p-5 opacity-0 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-100">
+      <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/85 via-black/40 to-transparent p-5 opacity-0 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-100">
         {preview && (
-          <span className="inline-block w-fit rounded-md bg-emerald-500/20 px-2 py-0.5 text-[10px] font-semibold text-emerald-300 backdrop-blur-xs">
+          <span className="inline-block w-fit rounded-md bg-primary-light/20 px-2 py-0.5 text-[10px] font-semibold text-accent backdrop-blur-xs">
             {item.category}
           </span>
         )}
@@ -36,7 +36,7 @@ export function GaleriCard({ item, preview = false }: GaleriCardProps) {
           {item.title}
         </h2>
 
-        <div className="mt-3 flex items-center gap-1.5 border-t border-slate-700/60 pt-2 text-xs font-medium text-emerald-400 transition-colors group-hover:text-emerald-300">
+        <div className="mt-3 flex items-center gap-1.5 border-t border-border/60 pt-2 text-xs font-medium text-primary-light transition-colors group-hover:text-accent">
           <span>Lihat Dokumentasi</span>
           <FaArrowRight className="h-3 w-3" />
         </div>

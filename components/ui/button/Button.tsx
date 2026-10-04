@@ -19,8 +19,8 @@ export function Button({
 }: ButtonProps) {
   const variantClass =
     variant === "primary"
-      ? "bg-emerald-600 text-white hover:bg-emerald-700"
-      : "border border-emerald-600 bg-white text-emerald-600 hover:bg-emerald-600 hover:text-white";
+      ? "bg-primary text-white hover:bg-primary"
+      : "border border-primary bg-surface text-primary hover:bg-primary hover:text-white";
 
   const classes = `
     inline-flex items-center justify-center gap-2

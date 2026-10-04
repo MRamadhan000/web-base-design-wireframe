@@ -9,8 +9,8 @@ interface VideoRelatedProps {
 
 export function VideoRelated({ videoList }: VideoRelatedProps) {
   return (
-    <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm">
-      <h2 className="mb-4 border-b border-slate-100 pb-2 text-sm font-bold text-slate-900">
+    <div className="rounded-xl border border-border/80 bg-surface p-5 shadow-sm">
+      <h2 className="mb-4 border-b border-border pb-2 text-sm font-bold text-black">
         Video Lainnya
       </h2>
       <div className="space-y-4">
@@ -20,7 +20,7 @@ export function VideoRelated({ videoList }: VideoRelatedProps) {
             href={`/video/detail?id=${item.id}`}
             className="group flex items-start gap-3"
           >
-            <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-lg bg-slate-900">
+            <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-lg bg-black">
               <img
                 src={item.thumbnail}
                 alt={item.title}
@@ -30,23 +30,23 @@ export function VideoRelated({ videoList }: VideoRelatedProps) {
                 {item.duration}
               </div>
               <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-90 transition-opacity group-hover:bg-black/10">
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-white shadow-xs transition-transform group-hover:scale-110">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white shadow-xs transition-transform group-hover:scale-110">
                   <FaPlay className="ml-0.5 h-2 w-2" />
                 </div>
               </div>
             </div>
             <div className="flex-1 space-y-1">
-              <span className="text-[10px] font-medium text-emerald-600">
+              <span className="text-[10px] font-medium text-primary">
                 {item.date}
               </span>
-              <h3 className="line-clamp-2 text-xs font-semibold leading-snug text-slate-800 transition-colors group-hover:text-emerald-600">
+              <h3 className="line-clamp-2 text-xs font-semibold leading-snug text-black transition-colors group-hover:text-primary">
                 {item.title}
               </h3>
             </div>
           </Link>
         ))}
         {videoList.length === 0 && (
-          <p className="text-xs text-slate-500">Video tidak ditemukan.</p>
+          <p className="text-xs text-muted">Video tidak ditemukan.</p>
         )}
       </div>
     </div>

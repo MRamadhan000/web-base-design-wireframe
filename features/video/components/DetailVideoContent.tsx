@@ -24,12 +24,12 @@ export function DetailVideoContent({
   );
 
   return (
-    <section className="w-full bg-slate-50 py-8 font-sans antialiased text-slate-800 md:py-12">
+    <section className="w-full bg-background py-8 font-sans antialiased text-black md:py-12">
       <div className="mx-auto mb-6 max-w-7xl px-4 sm:px-6">
-        <div className="flex items-center justify-between gap-4 border-b border-slate-200 pb-4">
+        <div className="flex items-center justify-between gap-4 border-b border-border pb-4">
           <Link
             href="/video"
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition-all hover:border-emerald-600 hover:text-emerald-600 hover:shadow-sm"
+            className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black transition-all hover:border-primary hover:text-primary hover:shadow-sm"
           >
             <FaArrowLeft className="h-3 w-3" />
             <span>Kembali ke Video</span>

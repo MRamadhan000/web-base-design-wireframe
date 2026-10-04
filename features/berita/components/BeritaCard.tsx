@@ -9,10 +9,10 @@ interface BeritaCardProps {
 
 export function BeritaCard({ berita }: BeritaCardProps) {
   return (
-    <article className="flex flex-col justify-between rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all hover:border-emerald-500 hover:shadow-md">
+    <article className="flex flex-col justify-between rounded-xl border border-border/80 bg-surface p-4 shadow-sm transition-all hover:border-primary-light hover:shadow-md">
       <div>
         {/* Gambar Berita */}
-        <div className="relative h-48 w-full overflow-hidden rounded-lg bg-slate-100">
+        <div className="relative h-48 w-full overflow-hidden rounded-lg bg-accent-soft">
           <img
             src={berita.image}
             alt={berita.title}
@@ -21,19 +21,19 @@ export function BeritaCard({ berita }: BeritaCardProps) {
         </div>
 
         {/* Date Publish */}
-        <div className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-500">
-          <FaCalendarAlt className="h-3.5 w-3.5 text-slate-400" />
+        <div className="mt-4 flex items-center gap-2 text-xs font-medium text-muted">
+          <FaCalendarAlt className="h-3.5 w-3.5 text-muted-light" />
           <span>{berita.date}</span>
         </div>
 
         {/* Judul Berita */}
-        <h3 className="mt-2 line-clamp-3 text-base font-bold leading-snug text-slate-900">
+        <h3 className="mt-2 line-clamp-3 text-base font-bold leading-snug text-black">
           {berita.title}
         </h3>
       </div>
 
       {/* Button Baca Selengkapnya */}
-      <div className="mt-6 border-t border-slate-100 pt-4">
+      <div className="mt-6 border-t border-border pt-4">
         <Button
           href={`/berita/detail`}
           variant="outline"

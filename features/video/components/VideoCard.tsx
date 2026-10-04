@@ -11,9 +11,9 @@ export function VideoCard({ video }: VideoCardProps) {
   const detailHref = `/video/detail?id=${video.id}`;
 
   return (
-    <article className="group flex flex-col justify-between rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all hover:border-emerald-500 hover:shadow-md">
+    <article className="group flex flex-col justify-between rounded-xl border border-border/80 bg-surface p-4 shadow-sm transition-all hover:border-primary-light hover:shadow-md">
       <div>
-        <div className="relative h-48 w-full overflow-hidden rounded-lg bg-slate-900">
+        <div className="relative h-48 w-full overflow-hidden rounded-lg bg-black">
           <img
             src={video.thumbnail}
             alt={video.title}
@@ -25,20 +25,20 @@ export function VideoCard({ video }: VideoCardProps) {
           </div>
         </div>
 
-        <div className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-500">
-          <FaCalendarAlt className="h-3.5 w-3.5 text-slate-400" />
+        <div className="mt-4 flex items-center gap-2 text-xs font-medium text-muted">
+          <FaCalendarAlt className="h-3.5 w-3.5 text-muted-light" />
           <span>{video.date}</span>
         </div>
 
-        <h2 className="mt-2 line-clamp-3 text-base font-bold leading-snug text-slate-900 transition-colors group-hover:text-emerald-600">
+        <h2 className="mt-2 line-clamp-3 text-base font-bold leading-snug text-black transition-colors group-hover:text-primary">
           <Link href={detailHref}>{video.title}</Link>
         </h2>
       </div>
 
-      <div className="mt-6 border-t border-slate-100 pt-4">
+      <div className="mt-6 border-t border-border pt-4">
         <Link
           href={detailHref}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-emerald-600 bg-white py-2 text-center text-xs font-semibold tracking-wider text-emerald-600 transition-colors hover:bg-emerald-600 hover:text-white"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-primary bg-surface py-2 text-center text-xs font-semibold tracking-wider text-primary transition-colors hover:bg-primary hover:text-white"
         >
           <FaPlay className="h-3 w-3" />
           <span>Lihat Video</span>

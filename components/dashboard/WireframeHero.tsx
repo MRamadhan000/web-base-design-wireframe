@@ -36,7 +36,7 @@ export default function WireframeHero() {
   };
 
   return (
-    <section className="relative top-0 h-screen w-full overflow-hidden border-b border-gray-800 bg-gray-900">
+    <section className="relative top-0 h-screen w-full overflow-hidden border-b border-border bg-black">
       {/* BACKGROUND IMAGES SLIDER */}
       {IMAGES.map((src, index) => (
         <div
@@ -61,7 +61,7 @@ export default function WireframeHero() {
               Selamat Datang di Kota Batu
             </h1>
 
-            <p className="mt-4 max-w-xl font-mono text-sm text-gray-200 sm:text-base">
+            <p className="mt-4 max-w-xl font-mono text-sm text-muted-light sm:text-base">
               Layanan informasi publik dan transportasi terpadu untuk
               masyarakat dan wisatawan.
             </p>
@@ -69,9 +69,9 @@ export default function WireframeHero() {
             {/* SEARCH */}
             <form
               onSubmit={handleSearch}
-              className="mt-8 flex w-full max-w-md items-center overflow-hidden rounded-full border border-gray-200 bg-white p-1.5 shadow-lg focus-within:border-gray-400 focus-within:ring-2 focus-within:ring-gray-400/20"
+              className="mt-8 flex w-full max-w-md items-center overflow-hidden rounded-full border border-border bg-surface p-1.5 shadow-lg focus-within:border-border focus-within:ring-2 focus-within:ring-border/20"
             >
-              <div className="flex pl-4 text-gray-400">
+              <div className="flex pl-4 text-muted-light">
                 <FaSearch className="h-4 w-4" />
               </div>
 
@@ -80,12 +80,12 @@ export default function WireframeHero() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Anda cari apa..."
-                className="w-full bg-transparent px-3 py-2 font-sans text-sm text-gray-900 placeholder-gray-400 focus:outline-none"
+                className="w-full bg-transparent px-3 py-2 font-sans text-sm text-black placeholder-gray-400 focus:outline-none"
               />
 
               <button
                 type="submit"
-                className="rounded-full bg-gray-900 px-6 py-2.5 font-sans text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-gray-800 active:scale-95"
+                className="rounded-full bg-black px-6 py-2.5 font-sans text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-accent-soft active:scale-95"
               >
                 Cari
               </button>
@@ -100,8 +100,8 @@ export default function WireframeHero() {
                   onClick={() => setCurrentIndex(idx)}
                   className={`h-2.5 rounded-full transition-all ${
                     idx === currentIndex
-                      ? "w-8 bg-white"
-                      : "w-2.5 bg-white/40"
+                      ? "w-8 bg-surface"
+                      : "w-2.5 bg-surface/40"
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />

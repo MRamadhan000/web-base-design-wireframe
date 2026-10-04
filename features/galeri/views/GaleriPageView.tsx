@@ -28,23 +28,23 @@ export function GaleriPageView() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans antialiased text-slate-800">
-      <section className="border-b border-slate-200/80 bg-white py-12 md:py-16">
+    <div className="min-h-screen bg-background font-sans antialiased text-black">
+      <section className="border-b border-border/80 bg-surface py-12 md:py-16">
         <Container>
-          <nav className="mb-4 flex items-center gap-2 text-xs text-slate-500">
-            <Link href="/" className="transition-colors hover:text-emerald-600">
+          <nav className="mb-4 flex items-center gap-2 text-xs text-muted">
+            <Link href="/" className="transition-colors hover:text-primary">
               Beranda
             </Link>
-            <FaChevronRight className="h-2.5 w-2.5 text-slate-400" />
-            <span className="font-semibold text-emerald-600">Galeri Foto</span>
+            <FaChevronRight className="h-2.5 w-2.5 text-muted-light" />
+            <span className="font-semibold text-primary">Galeri Foto</span>
           </nav>
 
           <div className="max-w-3xl">
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+            <h1 className="text-3xl font-extrabold tracking-tight text-black sm:text-4xl">
               Galeri Dokumentasi &{" "}
-              <span className="text-emerald-600">Foto Daerah</span>
+              <span className="text-primary">Foto Daerah</span>
             </h1>
-            <p className="mt-3 text-sm leading-relaxed text-slate-500 sm:text-base">
+            <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
               Kumpulan dokumentasi visual mengenai potensi wisata, kegiatan
               pemerintah, seni budaya, serta momen berharga di Kota Batu.
             </p>
@@ -60,25 +60,25 @@ export function GaleriPageView() {
             <button
               type="button"
               disabled
-              className="cursor-not-allowed rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-400"
+              className="cursor-not-allowed rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-muted-light"
             >
               ← Sebelumnya
             </button>
             <button
               type="button"
-              className="rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-xs"
+              className="rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white shadow-xs"
             >
               1
             </button>
             <button
               type="button"
-              className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition-colors hover:border-emerald-600 hover:text-emerald-600"
+              className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black transition-colors hover:border-primary hover:text-primary"
             >
               2
             </button>
             <button
               type="button"
-              className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition-colors hover:border-emerald-600 hover:text-emerald-600"
+              className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black transition-colors hover:border-primary hover:text-primary"
             >
               Selanjutnya →
             </button>

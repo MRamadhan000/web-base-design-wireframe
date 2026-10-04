@@ -14,33 +14,33 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
   return (
     <>
       {/* FULL FLOATING NAVBAR */}
-      <header className="fixed top-4 left-1/2 z-50 w-[92%] max-w-7xl -translate-x-1/2 rounded-2xl border-2 border-dashed border-gray-400 bg-white/90 px-4 py-3 shadow-lg backdrop-blur-md transition-all sm:px-6">
+      <header className="fixed top-4 left-1/2 z-50 w-[92%] max-w-7xl -translate-x-1/2 rounded-2xl border-2 border-dashed border-border bg-surface/90 px-4 py-3 shadow-lg backdrop-blur-md transition-all sm:px-6">
         <nav className="flex items-center justify-between">
           
           {/* SISI KIRI: Logo Pemkot & Tulisan Kota Batu */}
           <div className="flex items-center gap-3">
             {/* Placeholder Logo Pemkot */}
-            <div className="flex h-10 w-10 items-center justify-center rounded border-2 border-dashed border-gray-500 bg-gray-200 font-mono text-xs text-gray-600">
+            <div className="flex h-10 w-10 items-center justify-center rounded border-2 border-dashed border-border bg-accent-soft font-mono text-xs text-muted">
               LOGO
             </div>
 
             {/* Teks Kota Batu */}
             <div className="flex flex-col">
-              <span className="font-mono text-base font-bold uppercase tracking-wide text-gray-800 sm:text-lg">
+              <span className="font-mono text-base font-bold uppercase tracking-wide text-black sm:text-lg">
                 Kota Batu
               </span>
-              <span className="font-mono text-[10px] text-gray-500 sm:text-xs">
+              <span className="font-mono text-[10px] text-muted sm:text-xs">
                 [Sub-heading / Instansi]
               </span>
             </div>
           </div>
 
           {/* TENGAH: Navigasi Desktop (Hanya muncul di sm ke atas) */}
-          <ul className="hidden items-center gap-2 font-mono text-sm text-gray-700 sm:flex sm:gap-4">
+          <ul className="hidden items-center gap-2 font-mono text-sm text-black sm:flex sm:gap-4">
             <li>
               <Link
                 href="#"
-                className="block rounded border border-gray-300 bg-white px-3 py-1.5 transition-colors hover:bg-gray-200"
+                className="block rounded border border-border bg-surface px-3 py-1.5 transition-colors hover:bg-accent-soft"
               >
                 Nav 1
               </Link>
@@ -48,7 +48,7 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
             <li>
               <Link
                 href="#"
-                className="block rounded border border-gray-300 bg-white px-3 py-1.5 transition-colors hover:bg-gray-200"
+                className="block rounded border border-border bg-surface px-3 py-1.5 transition-colors hover:bg-accent-soft"
               >
                 Nav 2
               </Link>
@@ -56,7 +56,7 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
             <li>
               <Link
                 href="#"
-                className="block rounded border border-gray-300 bg-white px-3 py-1.5 transition-colors hover:bg-gray-200"
+                className="block rounded border border-border bg-surface px-3 py-1.5 transition-colors hover:bg-accent-soft"
               >
                 Nav 3
               </Link>
@@ -64,7 +64,7 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
             <li>
               <Link
                 href="#"
-                className="block rounded border border-gray-300 bg-white px-3 py-1.5 transition-colors hover:bg-gray-200"
+                className="block rounded border border-border bg-surface px-3 py-1.5 transition-colors hover:bg-accent-soft"
               >
                 Nav 4
               </Link>
@@ -76,13 +76,13 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
             {/* Toggle Light / Dark Mode */}
             <button
               onClick={() => setIsDarkMode(!isDarkMode)}
-              className="flex items-center gap-2 rounded border-2 border-dashed border-gray-400 bg-white px-2.5 py-1.5 font-mono text-xs text-gray-700 transition-colors hover:bg-gray-200 sm:px-3"
+              className="flex items-center gap-2 rounded border-2 border-dashed border-border bg-surface px-2.5 py-1.5 font-mono text-xs text-black transition-colors hover:bg-accent-soft sm:px-3"
               title="Toggle Light/Dark Mode"
             >
               {isDarkMode ? (
                 <>
                   <svg
-                    className="h-4 w-4 text-amber-500"
+                    className="h-4 w-4 text-primary-light"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -99,7 +99,7 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
               ) : (
                 <>
                   <svg
-                    className="h-4 w-4 text-slate-700"
+                    className="h-4 w-4 text-black"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -119,7 +119,7 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
             {/* Hamburger Button (Hanya tampil di layar Mobile) */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="flex h-9 w-9 items-center justify-center rounded border-2 border-dashed border-gray-400 bg-white text-gray-700 transition-colors hover:bg-gray-200 sm:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded border-2 border-dashed border-border bg-surface text-black transition-colors hover:bg-accent-soft sm:hidden"
               aria-label="Toggle Mobile Menu"
             >
               {isMobileMenuOpen ? (
@@ -139,13 +139,13 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
 
         {/* MOBILE MENU DROPDOWN (Tampil saat Hamburger di-klik) */}
         {isMobileMenuOpen && (
-          <div className="mt-3 border-t-2 border-dashed border-gray-300 pt-3 sm:hidden">
-            <ul className="flex flex-col gap-2 font-mono text-sm text-gray-700">
+          <div className="mt-3 border-t-2 border-dashed border-border pt-3 sm:hidden">
+            <ul className="flex flex-col gap-2 font-mono text-sm text-black">
               <li>
                 <Link
                   href="#"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block w-full rounded border border-gray-300 bg-white px-4 py-2 text-center transition-colors hover:bg-gray-200"
+                  className="block w-full rounded border border-border bg-surface px-4 py-2 text-center transition-colors hover:bg-accent-soft"
                 >
                   Nav 1
                 </Link>
@@ -154,7 +154,7 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
                 <Link
                   href="#"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block w-full rounded border border-gray-300 bg-white px-4 py-2 text-center transition-colors hover:bg-gray-200"
+                  className="block w-full rounded border border-border bg-surface px-4 py-2 text-center transition-colors hover:bg-accent-soft"
                 >
                   Nav 2
                 </Link>
@@ -163,7 +163,7 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
                 <Link
                   href="#"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block w-full rounded border border-gray-300 bg-white px-4 py-2 text-center transition-colors hover:bg-gray-200"
+                  className="block w-full rounded border border-border bg-surface px-4 py-2 text-center transition-colors hover:bg-accent-soft"
                 >
                   Nav 3
                 </Link>
@@ -172,7 +172,7 @@ export default function WireframeNavbar({ children }: WireframeNavbarProps) {
                 <Link
                   href="#"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block w-full rounded border border-gray-300 bg-white px-4 py-2 text-center transition-colors hover:bg-gray-200"
+                  className="block w-full rounded border border-border bg-surface px-4 py-2 text-center transition-colors hover:bg-accent-soft"
                 >
                   Nav 4
                 </Link>

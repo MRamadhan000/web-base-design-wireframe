@@ -8,14 +8,14 @@ export default function QuickActionSection() {
   const { actions, handleActionClick } = useQuickActionsViewModel();
 
   return (
-    <section className="w-full border-b border-slate-200 bg-slate-50 py-16 font-sans antialiased">
+    <section className="w-full border-b border-border bg-background py-16 font-sans antialiased">
       <Container>
         {/* HEADER SECTION */}
         <div className="mb-12 text-center">
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-black">
             Layanan Utama Kota Batu
           </h2>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-muted">
             Pilih layanan untuk menuju portal resmi
           </p>
         </div>

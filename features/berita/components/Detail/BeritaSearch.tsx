@@ -14,12 +14,12 @@ export function BeritaSearch() {
   };
 
   return (
-    <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm">
-      <h3 className="mb-3 border-b border-slate-100 pb-2 text-sm font-bold text-slate-900">
+    <div className="rounded-xl border border-border/80 bg-surface p-5 shadow-sm">
+      <h3 className="mb-3 border-b border-border pb-2 text-sm font-bold text-black">
         Cari Berita
       </h3>
 
-      <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 p-1 transition-all focus-within:border-emerald-600 focus-within:ring-1 focus-within:ring-emerald-600">
+      <div className="flex items-center rounded-lg border border-border bg-background p-1 transition-all focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
         <Input
           type="text"
           value={searchQuery}

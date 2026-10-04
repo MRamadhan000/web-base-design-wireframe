@@ -10,8 +10,8 @@ export function BeritaRelated({
   beritaList,
 }: BeritaRelatedProps) {
   return (
-    <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm">
-      <h3 className="mb-4 border-b border-slate-100 pb-2 text-sm font-bold text-slate-900">
+    <div className="rounded-xl border border-border/80 bg-surface p-5 shadow-sm">
+      <h3 className="mb-4 border-b border-border pb-2 text-sm font-bold text-black">
         Berita Terkait
       </h3>
 
@@ -22,7 +22,7 @@ export function BeritaRelated({
             href={`/berita/${item.id}`}
             className="group flex items-start gap-3"
           >
-            <div className="relative h-16 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-slate-100">
+            <div className="relative h-16 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-accent-soft">
               <img
                 src={item.image}
                 alt={item.title}
@@ -31,11 +31,11 @@ export function BeritaRelated({
             </div>
 
             <div className="flex-1 space-y-1">
-              <span className="text-[10px] font-medium text-emerald-600">
+              <span className="text-[10px] font-medium text-primary">
                 {item.date}
               </span>
 
-              <h4 className="line-clamp-2 text-xs font-semibold leading-snug text-slate-800 transition-colors group-hover:text-emerald-600">
+              <h4 className="line-clamp-2 text-xs font-semibold leading-snug text-black transition-colors group-hover:text-primary">
                 {item.title}
               </h4>
             </div>

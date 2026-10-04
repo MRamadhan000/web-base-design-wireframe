@@ -15,11 +15,11 @@ export function ErrorState({
         </div>
 
         <div>
-          <p className="text-sm font-semibold text-slate-800">
+          <p className="text-sm font-semibold text-black">
             Terjadi Kesalahan
           </p>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-muted">
             {message}
           </p>
         </div>
@@ -28,7 +28,7 @@ export function ErrorState({
           <button
             type="button"
             onClick={onRetry}
-            className="rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
+            className="rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-primary"
           >
             Coba Lagi
           </button>
