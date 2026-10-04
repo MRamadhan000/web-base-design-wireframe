@@ -12,23 +12,25 @@ import {
 } from "../models/berita.types";
 
 export async function findLatestBerita(): Promise<Berita[]> {
-  return getLatestBerita();
+  const response = await getLatestBerita();
+  return response.data;
 }
 
 export async function findAllBerita(): Promise<Berita[]> {
-  return getAllBerita();
+  const response = await getAllBerita();
+  return response.data;
 }
 
 export async function findBeritaById(
   id: number
 ): Promise<BeritaDetail | null> {
-  const data = await getBeritaById(id);
-
-  return data ?? null;
+  const response = await getBeritaById(id);
+  return response.data;
 }
 
 export async function findRelatedBerita(
   id: number
 ): Promise<BeritaRelated[]> {
-  return getRelatedBerita(id);
+  const response = await getRelatedBerita(id);
+  return response.data;
 }

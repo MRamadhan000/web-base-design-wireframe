@@ -7,18 +7,21 @@ import {
 import { Video, VideoDetail, VideoRelated } from "../models/video.types";
 
 export async function findLatestVideos(): Promise<Video[]> {
-  return getLatestVideos();
+  const response = await getLatestVideos();
+  return response.data;
 }
 
 export async function findAllVideos(): Promise<Video[]> {
-  return getAllVideos();
+  const response = await getAllVideos();
+  return response.data;
 }
 
 export async function findVideoById(id: number): Promise<VideoDetail | null> {
-  const video = await getVideoById(id);
-  return video ?? null;
+  const response = await getVideoById(id);
+  return response.data;
 }
 
 export async function findRelatedVideos(id: number): Promise<VideoRelated[]> {
-  return getRelatedVideos(id);
+  const response = await getRelatedVideos(id);
+  return response.data;
 }

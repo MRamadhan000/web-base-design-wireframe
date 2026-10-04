@@ -1,4 +1,5 @@
 import { Berita, BeritaDetail, BeritaRelated } from "./berita.types";
+import { ApiResponse } from "@/shared/models/api-response";
 
 const DUMMY_BERITA: BeritaDetail[] = [
   {
@@ -89,32 +90,43 @@ const DUMMY_BERITA: BeritaDetail[] = [
   },
 ];
 
-export async function getLatestBerita(): Promise<Berita[]> {
-  return DUMMY_BERITA.slice(0, 3).map(({ id, title, date, image }) => ({
+export async function getLatestBerita(): Promise<ApiResponse<Berita[]>> {
+  const data = DUMMY_BERITA.slice(0, 3).map(({ id, title, date, image }) => ({
     id,
     title,
     date,
     image,
   }));
+
+  return new ApiResponse(data, "Berita terbaru berhasil dimuat");
 }
 
-export async function getAllBerita(): Promise<Berita[]> {
-  return DUMMY_BERITA.map(({ id, title, date, image }) => ({
+export async function getAllBerita(): Promise<ApiResponse<Berita[]>> {
+  const data = DUMMY_BERITA.map(({ id, title, date, image }) => ({
     id,
     title,
     date,
     image,
   }));
+
+  return new ApiResponse(data, "Daftar berita berhasil dimuat");
 }
 
 export async function getBeritaById(
   id: number,
-): Promise<BeritaDetail | undefined> {
-  return DUMMY_BERITA.find((berita) => berita.id === id);
+): Promise<ApiResponse<BeritaDetail | null>> {
+  const data = DUMMY_BERITA.find((berita) => berita.id === id) ?? null;
+
+  return new ApiResponse(
+    data,
+    data ? "Detail berita berhasil dimuat" : "Berita tidak ditemukan",
+  );
 }
 
-export async function getRelatedBerita(id: number): Promise<BeritaRelated[]> {
-  return DUMMY_BERITA.filter((berita) => berita.id !== id)
+export async function getRelatedBerita(
+  id: number,
+): Promise<ApiResponse<BeritaRelated[]>> {
+  const data = DUMMY_BERITA.filter((berita) => berita.id !== id)
     .slice(0, 2)
     .map(({ id, title, date, image }) => ({
       id,
@@ -122,4 +134,6 @@ export async function getRelatedBerita(id: number): Promise<BeritaRelated[]> {
       date,
       image,
     }));
+
+  return new ApiResponse(data, "Berita terkait berhasil dimuat");
 }

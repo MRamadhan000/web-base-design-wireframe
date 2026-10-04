@@ -1,4 +1,5 @@
 import { Video, VideoDetail, VideoRelated } from "./video.types";
+import { ApiResponse } from "@/shared/models/api-response";
 
 const DUMMY_VIDEOS: VideoDetail[] = [
   {
@@ -88,8 +89,8 @@ const DUMMY_VIDEOS: VideoDetail[] = [
   },
 ];
 
-export async function getLatestVideos(): Promise<Video[]> {
-  return DUMMY_VIDEOS.slice(0, 3).map(
+export async function getLatestVideos(): Promise<ApiResponse<Video[]>> {
+  const data = DUMMY_VIDEOS.slice(0, 3).map(
     ({ id, title, date, duration, thumbnail }) => ({
       id,
       title,
@@ -98,26 +99,37 @@ export async function getLatestVideos(): Promise<Video[]> {
       thumbnail,
     }),
   );
+
+  return new ApiResponse(data, "Video terbaru berhasil dimuat");
 }
 
-export async function getAllVideos(): Promise<Video[]> {
-  return DUMMY_VIDEOS.map(({ id, title, date, duration, thumbnail }) => ({
+export async function getAllVideos(): Promise<ApiResponse<Video[]>> {
+  const data = DUMMY_VIDEOS.map(({ id, title, date, duration, thumbnail }) => ({
     id,
     title,
     date,
     duration,
     thumbnail,
   }));
+
+  return new ApiResponse(data, "Daftar video berhasil dimuat");
 }
 
 export async function getVideoById(
   id: number,
-): Promise<VideoDetail | undefined> {
-  return DUMMY_VIDEOS.find((video) => video.id === id);
+): Promise<ApiResponse<VideoDetail | null>> {
+  const data = DUMMY_VIDEOS.find((video) => video.id === id) ?? null;
+
+  return new ApiResponse(
+    data,
+    data ? "Detail video berhasil dimuat" : "Video tidak ditemukan",
+  );
 }
 
-export async function getRelatedVideos(id: number): Promise<VideoRelated[]> {
-  return DUMMY_VIDEOS.filter((video) => video.id !== id)
+export async function getRelatedVideos(
+  id: number,
+): Promise<ApiResponse<VideoRelated[]>> {
+  const data = DUMMY_VIDEOS.filter((video) => video.id !== id)
     .slice(0, 2)
     .map(({ id, title, date, duration, thumbnail }) => ({
       id,
@@ -126,4 +138,6 @@ export async function getRelatedVideos(id: number): Promise<VideoRelated[]> {
       duration,
       thumbnail,
     }));
+
+  return new ApiResponse(data, "Video terkait berhasil dimuat");
 }
