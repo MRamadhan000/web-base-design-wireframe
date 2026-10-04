@@ -29,7 +29,7 @@ export default function NavbarView({
         <nav className="flex items-center justify-between">
           <NavbarLogo />
 
-          <NavbarDesktopMenu />
+          {/* <NavbarDesktopMenu /> */}
 
           <NavbarActions
             isDarkMode={isDarkMode}

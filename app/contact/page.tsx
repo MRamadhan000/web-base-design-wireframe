@@ -1,10 +1,9 @@
 import Footer from "@/components/dashboard/WireframeFooter";
-import WireframeContact from "@/components/contact/WireframeContact";
-
+import ContactView from "@/features/contact/views/ContactView";
 const page = () => {
   return (
     <>
-      <WireframeContact />
+      <ContactView />
       <Footer />
     </>
   );
