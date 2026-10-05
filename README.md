@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Panduan Arsitektur MVVM (Next.js) — Feature Based
 
-## Getting Started
+Dokumen ini menjelaskan standar struktur kode project Next.js dengan pola **MVVM (Model – View – ViewModel)** yang dikelompokkan **berdasarkan fitur** (*feature-based*), dan menggunakan **TanStack Query (React Query)** untuk data fetching & caching. Semua developer wajib mengikuti panduan ini agar kode konsisten dan mudah dirawat.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 1. Konsep Singkat
+
+| Layer | Folder | Tanggung Jawab |
+|---|---|---|
+| **View** | `views/` | Tampilan (UI). Hanya render & menerima data dari ViewModel. |
+| **ViewModel** | `hooks/` | State server (TanStack Query), loading/error, dan handler. Menghubungkan View dengan Repository. |
+| **Model** | `models/` | Kontrak data (`.types.ts`) dan akses API (`.service.ts`). |
+| **Repository** | `repositories/` | Perantara ViewModel ↔ Service. Mapping/transform data, gabung beberapa service. |
+
+---
+
+## 2. Struktur Folder
+
+```
+src/
+├── app/                          # Routing Next.js (App Router) — tipis, hanya memanggil View
+│   └── berita/
+│       ├── page.tsx
+│       └── [id]/page.tsx
+│
+├── features/                     # Semua kode dikelompokkan per fitur
+│   └── berita/
+│       ├── components/           # Komponen kecil khusus fitur ini (Card, Filter, dll)
+│       ├── hooks/                # ViewModel
+│       │   └── useBeritaViewModel.ts
+│       ├── models/
+│       │   ├── berita.service.ts # Fetch API
+│       │   └── berita.types.ts   # Interface / type
+│       ├── repositories/
+│       │   └── berita.repository.ts
+│       └── views/                # View utama (Page View / Section)
+│           ├── BeritaPageView.tsx
+│           ├── BeritaDetailView.tsx
+│           └── BeritaSection.tsx
+│
+├── components/                   # Komponen UI global/reusable (Button, Modal, dll)
+├── lib/                          # Helper global (axios instance, QueryProvider, utils)
+└── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Fitur baru (misal `produk`, `pengumuman`) cukup menyalin struktur folder `berita/` dan mengganti namanya.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 3. Aturan Tiap Folder
 
-## Learn More
+### 3.1 `views/` — View (Wajib)
+- Merupakan **entry utama** sebuah fitur. Bisa berupa:
+  - **Page View** → satu halaman penuh, contoh: `BeritaPageView.tsx`, `BeritaDetailView.tsx`
+  - **Section** → bagian dari halaman, contoh: `BeritaSection.tsx` (misal dipakai di Home)
+- Nama file diakhiri `View` atau `Section`, format **PascalCase**.
 
-To learn more about Next.js, take a look at the following resources:
+### 3.2 `hooks/` — ViewModel (Wajib)
+- Berisi custom hook dengan format `use<NamaFitur>ViewModel.ts`.
+- Memakai **`useQuery` / `useMutation`** dari TanStack Query, dengan `queryFn` yang memanggil **repository**.
+- Mendefinisikan **query keys** fitur (di luar fungsi hook).
+- Mengembalikan object yang siap dipakai View (data default, `isLoading`, `error`, `refetch`).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3.3 `models/` — Model (Wajib)
+- `*.types.ts` → seluruh `interface`/`type` fitur (response API, entity, payload).
+- `*.service.ts` → fungsi murni untuk **fetch API** (GET/POST/PUT/DELETE). Tidak ada state, tidak ada React/TanStack Query.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3.4 `repositories/` — Repository (Wajib)
+- Format nama: `<fitur>.repository.ts`.
+- Berisi fungsi dengan prefix **`find...`** (baca) dan **`create/update/delete...`** (tulis), contoh: `findAllBerita`, `findBeritaById`.
+- Memanggil service, lalu **mapping/normalisasi** response menjadi tipe yang dipakai UI.
 
-## Deploy on Vercel
+### 3.5 `components/` — Komponen Fitur (Opsional)
+- Komponen kecil yang **hanya dipakai di fitur ini**. Komponen yang dipakai lintas fitur pindahkan ke `src/components/`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 4. Alur Data
+
+```
+View  ──►  ViewModel (hooks + TanStack Query)  ──►  Repository  ──►  Service  ──►  API
+ ▲                       │                              │               │
+ └───────────────────────┴────── data / loading / error ◄───────────────┘
+```
+
+Satu arah: **View → ViewModel → Repository → Service**. Layer di bawah tidak boleh meng-import layer di atasnya.
+
+---
