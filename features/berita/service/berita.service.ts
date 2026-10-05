@@ -1,6 +1,9 @@
 import { ApiResponse } from "@/shared/models/api-response";
 import { BeritaDetail, Berita, BeritaRelated } from "../models/berita.types";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const IS_LOCAL = true;
+
 const DUMMY_BERITA: BeritaDetail[] = [
   {
     id: 1,
@@ -91,49 +94,89 @@ const DUMMY_BERITA: BeritaDetail[] = [
 ];
 
 export async function getLatestBerita(): Promise<ApiResponse<Berita[]>> {
-  const data = DUMMY_BERITA.slice(0, 3).map(({ id, title, date, image }) => ({
-    id,
-    title,
-    date,
-    image,
-  }));
-
-  return new ApiResponse(data, "Berita terbaru berhasil dimuat");
-}
-
-export async function getAllBerita(): Promise<ApiResponse<Berita[]>> {
-  const data = DUMMY_BERITA.map(({ id, title, date, image }) => ({
-    id,
-    title,
-    date,
-    image,
-  }));
-
-  return new ApiResponse(data, "Daftar berita berhasil dimuat");
-}
-
-export async function getBeritaById(
-  id: number,
-): Promise<ApiResponse<BeritaDetail | null>> {
-  const data = DUMMY_BERITA.find((berita) => berita.id === id) ?? null;
-
-  return new ApiResponse(
-    data,
-    data ? "Detail berita berhasil dimuat" : "Berita tidak ditemukan",
-  );
-}
-
-export async function getRelatedBerita(
-  id: number,
-): Promise<ApiResponse<BeritaRelated[]>> {
-  const data = DUMMY_BERITA.filter((berita) => berita.id !== id)
-    .slice(0, 2)
-    .map(({ id, title, date, image }) => ({
+  if (IS_LOCAL) {
+    const data = DUMMY_BERITA.slice(0, 3).map(({ id, title, date, image }) => ({
       id,
       title,
       date,
       image,
     }));
 
-  return new ApiResponse(data, "Berita terkait berhasil dimuat");
+    return new ApiResponse(data, "Berita terbaru berhasil dimuat");
+  }
+
+  const response = await fetch(`${API_BASE_URL}/berita/latest`);
+
+  if (!response.ok) {
+    throw new Error("Gagal mengambil berita terbaru");
+  }
+
+  return response.json();
+}
+
+export async function getAllBerita(): Promise<ApiResponse<Berita[]>> {
+  if (IS_LOCAL) {
+    const data = DUMMY_BERITA.map(({ id, title, date, image }) => ({
+      id,
+      title,
+      date,
+      image,
+    }));
+
+    return new ApiResponse(data, "Daftar berita berhasil dimuat");
+  }
+
+  const response = await fetch(`${API_BASE_URL}/berita`);
+
+  if (!response.ok) {
+    throw new Error("Gagal mengambil daftar berita");
+  }
+
+  return response.json();
+}
+
+export async function getBeritaById(
+  id: number,
+): Promise<ApiResponse<BeritaDetail | null>> {
+  if (IS_LOCAL) {
+    const data = DUMMY_BERITA.find((berita) => berita.id === id) ?? null;
+
+    return new ApiResponse(
+      data,
+      data ? "Detail berita berhasil dimuat" : "Berita tidak ditemukan",
+    );
+  }
+
+  const response = await fetch(`${API_BASE_URL}/berita/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Gagal mengambil detail berita");
+  }
+
+  return response.json();
+}
+
+export async function getRelatedBerita(
+  id: number,
+): Promise<ApiResponse<BeritaRelated[]>> {
+  if (IS_LOCAL) {
+    const data = DUMMY_BERITA.filter((berita) => berita.id !== id)
+      .slice(0, 2)
+      .map(({ id, title, date, image }) => ({
+        id,
+        title,
+        date,
+        image,
+      }));
+
+    return new ApiResponse(data, "Berita terkait berhasil dimuat");
+  }
+
+  const response = await fetch(`${API_BASE_URL}/berita/${id}/related`);
+
+  if (!response.ok) {
+    throw new Error("Gagal mengambil berita terkait");
+  }
+
+  return response.json();
 }
