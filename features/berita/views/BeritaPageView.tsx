@@ -8,25 +8,22 @@ import { LoadingState } from "@/components/ui/state/LoadingState";
 import { ErrorState } from "@/components/ui/state/ErrorState";
 
 import { BeritaList } from "../components/BeritaList";
-import { useBeritaViewModel } from "../hooks/useBeritaViewModel";
+import { useAllBeritaViewModel } from "../hooks/useAllBeritaViewModel";
 
 export function BeritaPageView() {
-  const { allBerita, isLoadingAll, errorAll, refetchAllBerita } =
-    useBeritaViewModel();
+  const { allBerita, isLoading, error, refetch } = useAllBeritaViewModel();
 
-  if (isLoadingAll) {
+  if (isLoading) {
     return <LoadingState message="Loading berita..." />;
   }
 
-  if (errorAll) {
+  if (error) {
     return (
       <ErrorState
         message={
-          errorAll instanceof Error
-            ? errorAll.message
-            : "Gagal mengambil berita."
+          error instanceof Error ? error.message : "Gagal mengambil berita."
         }
-        onRetry={() => refetchAllBerita()}
+        onRetry={() => refetch()}
       />
     );
   }
@@ -50,8 +47,7 @@ export function BeritaPageView() {
 
           <div className="max-w-3xl">
             <h1 className="text-3xl font-extrabold tracking-tight text-black sm:text-4xl">
-              Berita &{" "}
-              <span className="text-primary">Informasi Publik</span>
+              Berita & <span className="text-primary">Informasi Publik</span>
             </h1>
 
             <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">

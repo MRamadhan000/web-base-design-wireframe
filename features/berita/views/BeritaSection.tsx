@@ -7,14 +7,19 @@ import { Container } from "@/components/ui/layout/Container";
 import { LoadingState } from "@/components/ui/state/LoadingState";
 import { ErrorState } from "@/components/ui/state/ErrorState";
 
-import { useBeritaViewModel } from "../hooks/useBeritaViewModel";
+import { useLatestBeritaViewModel } from "../hooks/useLatestBeritaViewModel";
+
 import { BeritaList } from "../components/BeritaList";
 
 export function BeritaSection() {
-  const { beritaList, isLoadingLatest, errorLatest, refetchLatestBerita } =
-    useBeritaViewModel();
+  const {
+    beritaList: latestBeritaList,
+    isLoading,
+    error,
+    refetch,
+  } = useLatestBeritaViewModel();
 
-  if (isLoadingLatest) {
+  if (isLoading) {
     return (
       <section className="w-full bg-background py-16">
         <LoadingState message="Loading berita terbaru..." />
@@ -22,12 +27,12 @@ export function BeritaSection() {
     );
   }
 
-  if (errorLatest) {
+  if (error) {
     return (
       <section className="w-full bg-background py-16">
         <ErrorState
           message="Gagal mengambil berita terbaru."
-          onRetry={() => refetchLatestBerita()}
+          onRetry={() => refetch()}
         />
       </section>
     );
@@ -42,7 +47,7 @@ export function BeritaSection() {
           </h2>
         </div>
 
-        <BeritaList beritaList={beritaList} />
+        <BeritaList beritaList={latestBeritaList} />
 
         <div className="mt-12 text-center">
           <Link

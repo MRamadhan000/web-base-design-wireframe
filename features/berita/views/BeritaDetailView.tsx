@@ -7,10 +7,12 @@ import { Container } from "@/components/ui/layout/Container";
 import { LoadingState } from "@/components/ui/state/LoadingState";
 import { ErrorState } from "@/components/ui/state/ErrorState";
 
-import { useBeritaViewModel } from "../hooks/useBeritaViewModel";
 import { BeritaDetail } from "../components/Detail/BeritaDetail";
 import { BeritaSearch } from "../components/Detail/BeritaSearch";
 import { BeritaRelated } from "../components/Detail/BeritaRelated";
+
+import { useLatestBeritaViewModel } from "../hooks/useLatestBeritaViewModel";
+import { useBeritaDetailViewModel } from "../hooks/useBeritaDetailViewModel";
 
 interface BeritaDetailViewProps {
   id: number;
@@ -18,12 +20,18 @@ interface BeritaDetailViewProps {
 
 export function BeritaDetailView({ id }: BeritaDetailViewProps) {
   const {
+    beritaList: latestBeritaList,
+    isLoading: isLoadingLatest,
+    error: errorLatest,
+  } = useLatestBeritaViewModel();
+
+  const {
     berita,
     relatedBerita,
-    isLoadingDetail,
-    errorDetail,
-    refetchBeritaDetail,
-  } = useBeritaViewModel(id);
+    isLoading: isLoadingDetail,
+    error: errorDetail,
+    refetchDetail,
+  } = useBeritaDetailViewModel(id);
 
   if (isLoadingDetail) {
     return (
@@ -42,7 +50,7 @@ export function BeritaDetailView({ id }: BeritaDetailViewProps) {
               ? errorDetail.message
               : "Berita tidak ditemukan."
           }
-          onRetry={() => refetchBeritaDetail()}
+          onRetry={() => refetchDetail()}
         />
       </section>
     );
@@ -71,7 +79,11 @@ export function BeritaDetailView({ id }: BeritaDetailViewProps) {
           <aside className="space-y-6">
             <BeritaSearch />
 
-            <BeritaRelated beritaList={relatedBerita} />
+            <BeritaRelated
+              beritaList={
+                relatedBerita.length > 0 ? relatedBerita : latestBeritaList
+              }
+            />
           </aside>
         </div>
       </Container>
