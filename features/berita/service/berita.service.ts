@@ -1,5 +1,5 @@
-import { Berita, BeritaDetail, BeritaRelated } from "./berita.types";
 import { ApiResponse } from "@/shared/models/api-response";
+import { BeritaDetail, Berita, BeritaRelated } from "../models/berita.types";
 
 const DUMMY_BERITA: BeritaDetail[] = [
   {

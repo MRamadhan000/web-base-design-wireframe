@@ -3,7 +3,7 @@ import {
   getAllBerita,
   getBeritaById,
   getRelatedBerita,
-} from "../models/berita.service";
+} from "../service/berita.service";
 
 import {
   Berita,
