@@ -9,28 +9,25 @@ import {
   Berita,
   BeritaDetail,
   BeritaRelated,
+  PaginatedBerita,
 } from "../models/berita.types";
 
 export async function findLatestBerita(): Promise<Berita[]> {
-  const response = await getLatestBerita();
-  return response.data;
+  return getLatestBerita();
 }
 
-export async function findAllBerita(): Promise<Berita[]> {
-  const response = await getAllBerita();
-  return response.data;
+export async function findAllBerita(page: number): Promise<PaginatedBerita> {
+  return getAllBerita(page, 9);
 }
 
 export async function findBeritaById(
-  id: number
+  id: string
 ): Promise<BeritaDetail | null> {
-  const response = await getBeritaById(id);
-  return response.data;
+  return getBeritaById(id);
 }
 
 export async function findRelatedBerita(
-  id: number
+  id: string
 ): Promise<BeritaRelated[]> {
-  const response = await getRelatedBerita(id);
-  return response.data;
+  return getRelatedBerita(id);
 }

@@ -1,15 +1,15 @@
 import { BeritaDetailView } from "@/features/berita/views/BeritaDetailView";
 
 interface BeritaDetailPageProps {
-  params: Promise<{
-    id: string;
+  searchParams: Promise<{
+    id?: string;
   }>;
 }
 
 export default async function BeritaDetailPage({
-  params,
+  searchParams,
 }: BeritaDetailPageProps) {
-  const { id } = await params;
+  const { id } = await searchParams;
 
-  return <BeritaDetailView id={Number(1)} />;
+  return <BeritaDetailView id={id ?? ""} />;
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa";
 
@@ -11,7 +12,9 @@ import { BeritaList } from "../components/BeritaList";
 import { useAllBeritaViewModel } from "../hooks/useAllBeritaViewModel";
 
 export function BeritaPageView() {
-  const { allBerita, isLoading, error, refetch } = useAllBeritaViewModel();
+  const [page, setPage] = useState(1);
+  const { allBerita, pagination, isLoading, error, refetch } =
+    useAllBeritaViewModel(page);
 
   if (isLoading) {
     return <LoadingState message="Loading berita..." />;
@@ -63,37 +66,46 @@ export function BeritaPageView() {
         <Container>
           <BeritaList beritaList={allBerita} />
 
-          {/* Pagination */}
-          <div className="mt-12 flex items-center justify-center gap-2">
-            <button
-              type="button"
-              disabled
-              className="cursor-not-allowed rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-muted-light"
-            >
-              ← Sebelumnya
-            </button>
+          {pagination && (
+            <div className="mt-12 flex items-center justify-center gap-2">
+              <button
+                type="button"
+                disabled={page <= 1}
+                onClick={() => setPage((current) => current - 1)}
+                className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black disabled:cursor-not-allowed disabled:text-muted-light"
+              >
+                ← Sebelumnya
+              </button>
 
-            <button
-              type="button"
-              className="rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white"
-            >
-              1
-            </button>
+              {Array.from(
+                { length: pagination.pageCount },
+                (_, index) => index + 1,
+              ).map((pageNumber) => (
+                <button
+                  key={pageNumber}
+                  type="button"
+                  aria-current={pageNumber === page ? "page" : undefined}
+                  onClick={() => setPage(pageNumber)}
+                  className={
+                    pageNumber === page
+                      ? "rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white"
+                      : "rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black hover:border-primary hover:text-primary"
+                  }
+                >
+                  {pageNumber}
+                </button>
+              ))}
 
-            <button
-              type="button"
-              className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black hover:border-primary hover:text-primary"
-            >
-              2
-            </button>
-
-            <button
-              type="button"
-              className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black hover:border-primary hover:text-primary"
-            >
-              Selanjutnya →
-            </button>
-          </div>
+              <button
+                type="button"
+                disabled={page >= pagination.pageCount}
+                onClick={() => setPage((current) => current + 1)}
+                className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:text-muted-light"
+              >
+                Selanjutnya →
+              </button>
+            </div>
+          )}
         </Container>
       </section>
     </div>

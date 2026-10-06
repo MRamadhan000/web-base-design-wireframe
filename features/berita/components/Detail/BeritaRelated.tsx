@@ -19,7 +19,7 @@ export function BeritaRelated({
         {beritaList.map((item) => (
           <Link
             key={item.id}
-            href={`/berita/${item.id}`}
+            href={`/berita/detail?id=${encodeURIComponent(item.documentId)}`}
             className="group flex items-start gap-3"
           >
             <div className="relative h-16 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-accent-soft">

@@ -7,17 +7,17 @@ import {
 
 import { BERITA_QUERY_KEYS } from "../constants/berita.query-keys";
 
-export function useBeritaDetailViewModel(id?: number) {
+export function useBeritaDetailViewModel(id?: string) {
   const detailQuery = useQuery({
-    queryKey: BERITA_QUERY_KEYS.detail(id!),
+    queryKey: BERITA_QUERY_KEYS.detail(id ?? ""),
     queryFn: () => findBeritaById(id!),
-    enabled: id !== undefined,
+    enabled: Boolean(id),
   });
 
   const relatedQuery = useQuery({
-    queryKey: BERITA_QUERY_KEYS.related(id!),
+    queryKey: BERITA_QUERY_KEYS.related(id ?? ""),
     queryFn: () => findRelatedBerita(id!),
-    enabled: id !== undefined,
+    enabled: Boolean(id),
   });
 
   return {

@@ -19,7 +19,7 @@ export function BeritaCard({ berita }: BeritaCardProps) {
             className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
           />
         </div>
-
+    
         {/* Date Publish */}
         <div className="mt-4 flex items-center gap-2 text-xs font-medium text-muted">
           <FaCalendarAlt className="h-3.5 w-3.5 text-muted-light" />
@@ -35,7 +35,7 @@ export function BeritaCard({ berita }: BeritaCardProps) {
       {/* Button Baca Selengkapnya */}
       <div className="mt-6 border-t border-border pt-4">
         <Button
-          href={`/berita/detail`}
+          href={`/berita/detail?id=${encodeURIComponent(berita.documentId)}`}
           variant="outline"
           icon={<FaBookOpen className="h-3.5 w-3.5" />}
           className="w-full"

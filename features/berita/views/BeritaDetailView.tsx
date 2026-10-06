@@ -15,7 +15,7 @@ import { useLatestBeritaViewModel } from "../hooks/useLatestBeritaViewModel";
 import { useBeritaDetailViewModel } from "../hooks/useBeritaDetailViewModel";
 
 interface BeritaDetailViewProps {
-  id: number;
+  id: string;
 }
 
 export function BeritaDetailView({ id }: BeritaDetailViewProps) {
