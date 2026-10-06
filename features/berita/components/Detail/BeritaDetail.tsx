@@ -46,15 +46,15 @@ export function BeritaDetail({ berita }: BeritaDetailProps) {
           </p>
         ))}
 
-        <blockquote className="my-6 rounded-r-lg border-l-4 border-primary bg-accent/50 p-4 text-sm italic text-black">
+        {/* <blockquote className="my-6 rounded-r-lg border-l-4 border-primary bg-accent/50 p-4 text-sm italic text-black">
           "Inovasi digital ini bukan sekadar mengikuti tren, tetapi
           merupakan bentuk komitmen nyata Pemkot Batu dalam
           menghadirkan pelayanan publik yang responsif, cepat, dan
           transparan bagi seluruh warga."
-        </blockquote>
+        </blockquote> */}
       </div>
 
-      <BeritaTags tags={berita.tags} />
+      {/* <BeritaTags tags={berita.tags} /> */}
     </article>
   );
 }
