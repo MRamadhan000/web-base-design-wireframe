@@ -4,7 +4,6 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 
 import { Container } from "@/components/ui/layout/Container";
-import { LoadingState } from "@/components/ui/state/LoadingState";
 import { ErrorState } from "@/components/ui/state/ErrorState";
 
 import { useLatestBeritaViewModel } from "../hooks/useLatestBeritaViewModel";
@@ -18,14 +17,6 @@ export function BeritaSection() {
     error,
     refetch,
   } = useLatestBeritaViewModel();
-
-  if (isLoading) {
-    return (
-      <section className="w-full bg-background py-16">
-        <LoadingState message="Loading berita terbaru..." />
-      </section>
-    );
-  }
 
   if (error) {
     return (
@@ -47,7 +38,11 @@ export function BeritaSection() {
           </h2>
         </div>
 
-        <BeritaList beritaList={latestBeritaList} />
+        <BeritaList
+          beritaList={latestBeritaList}
+          isLoading={isLoading}
+          skeletonCount={3}
+        />
 
         <div className="mt-12 text-center">
           <Link

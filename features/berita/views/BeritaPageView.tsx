@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa";
 
 import { Container } from "@/components/ui/layout/Container";
-import { LoadingState } from "@/components/ui/state/LoadingState";
 import { ErrorState } from "@/components/ui/state/ErrorState";
 
 import { BeritaList } from "../components/BeritaList";
@@ -15,10 +14,6 @@ export function BeritaPageView() {
   const [page, setPage] = useState(1);
   const { allBerita, pagination, isLoading, error, refetch } =
     useAllBeritaViewModel(page);
-
-  if (isLoading) {
-    return <LoadingState message="Loading berita..." />;
-  }
 
   if (error) {
     return (
@@ -64,7 +59,11 @@ export function BeritaPageView() {
       {/* LIST */}
       <section className="py-12">
         <Container>
-          <BeritaList beritaList={allBerita} />
+          <BeritaList
+            beritaList={allBerita}
+            isLoading={isLoading}
+            skeletonCount={9}
+          />
 
           {pagination && (
             <div className="mt-12 flex items-center justify-center gap-2">
