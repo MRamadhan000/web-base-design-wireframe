@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaChevronRight } from "react-icons/fa";
 
 import { Container } from "@/components/ui/layout/Container";
@@ -10,10 +10,23 @@ import { ErrorState } from "@/components/ui/state/ErrorState";
 import { BeritaList } from "../components/BeritaList";
 import { useAllBeritaViewModel } from "../hooks/useAllBeritaViewModel";
 
-export function BeritaPageView() {
-  const [page, setPage] = useState(1);
+export function BeritaPageView({
+  page,
+  limit,
+}: {
+  page: number;
+  limit: number;
+}) {
+  const router = useRouter();
   const { allBerita, pagination, isLoading, error, refetch } =
-    useAllBeritaViewModel(page);
+    useAllBeritaViewModel(page, limit);
+
+  function navigateToPage(nextPage: number) {
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", String(nextPage));
+    params.set("limit", String(limit));
+    router.push(`/berita?${params.toString()}`, { scroll: false });
+  }
 
   if (error) {
     return (
@@ -62,7 +75,7 @@ export function BeritaPageView() {
           <BeritaList
             beritaList={allBerita}
             isLoading={isLoading}
-            skeletonCount={9}
+            skeletonCount={limit}
           />
 
           {pagination && (
@@ -70,7 +83,7 @@ export function BeritaPageView() {
               <button
                 type="button"
                 disabled={page <= 1}
-                onClick={() => setPage((current) => current - 1)}
+                onClick={() => navigateToPage(page - 1)}
                 className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black disabled:cursor-not-allowed disabled:text-muted-light"
               >
                 ← Sebelumnya
@@ -84,7 +97,7 @@ export function BeritaPageView() {
                   key={pageNumber}
                   type="button"
                   aria-current={pageNumber === page ? "page" : undefined}
-                  onClick={() => setPage(pageNumber)}
+                  onClick={() => navigateToPage(pageNumber)}
                   className={
                     pageNumber === page
                       ? "rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white"
@@ -98,7 +111,7 @@ export function BeritaPageView() {
               <button
                 type="button"
                 disabled={page >= pagination.pageCount}
-                onClick={() => setPage((current) => current + 1)}
+                onClick={() => navigateToPage(page + 1)}
                 className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:text-muted-light"
               >
                 Selanjutnya →

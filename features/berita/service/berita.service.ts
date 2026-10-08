@@ -3,6 +3,7 @@ import {
   BeritaApi,
   BeritaApiResponse,
   BeritaDetail,
+  BeritaListParams,
   BeritaListResponse,
   BeritaRelated,
   PaginatedBerita,
@@ -55,17 +56,24 @@ function toBeritaDetail(item: BeritaApi): BeritaDetail {
 }
 
 async function fetchBeritaList(
-  page: number,
-  pageSize: number,
+  url = "/beritas",
+  params: BeritaListParams = {},
 ): Promise<BeritaListResponse> {
-  const query = new URLSearchParams({
-    populate: "*",
-    "pagination[page]": String(page),
-    "pagination[pageSize]": String(pageSize),
+  const { page = 1, limit = 10, ...queryParams } = params;
+  const requestUrl = new URL(getApiUrl(url));
+  const query = requestUrl.searchParams;
+
+  query.set("populate", String(queryParams.populate ?? query.get("populate") ?? "*"));
+  query.set("pagination[page]", String(page));
+  query.set("pagination[pageSize]", String(limit));
+
+  Object.entries(queryParams).forEach(([key, value]) => {
+    if (value !== undefined) {
+      query.set(key, String(value));
+    }
   });
 
-  console.log("Fetching berita list from:", getApiUrl(`/beritas?${query.toString()}`));
-  const response = await fetch(getApiUrl(`/beritas?${query.toString()}`));
+  const response = await fetch(requestUrl);
 
   if (!response.ok) {
     throw new Error("Gagal mengambil daftar berita");
@@ -75,15 +83,15 @@ async function fetchBeritaList(
 }
 
 export async function getLatestBerita(): Promise<Berita[]> {
-  const response = await fetchBeritaList(1, 3);
+  const response = await fetchBeritaList("/beritas", { page: 1, limit: 3 });
   return response.data.map(toBerita);
 }
 
 export async function getAllBerita(
-  page = 1,
-  pageSize = 9,
+  url = "/beritas",
+  params: BeritaListParams = {},
 ): Promise<PaginatedBerita> {
-  const response = await fetchBeritaList(page, pageSize);
+  const response = await fetchBeritaList(url, params);
 
   return {
     data: response.data.map(toBerita),
@@ -106,7 +114,7 @@ export async function getBeritaById(id: string): Promise<BeritaDetail | null> {
 }
 
 export async function getRelatedBerita(id: string): Promise<BeritaRelated[]> {
-  const response = await fetchBeritaList(1, 9);
+  const response = await fetchBeritaList("/beritas", { page: 1, limit: 9 });
 
   return response.data
     .filter((item) => item.documentId !== id)

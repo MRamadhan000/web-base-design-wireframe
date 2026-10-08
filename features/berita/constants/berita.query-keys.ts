@@ -3,7 +3,7 @@ export const BERITA_QUERY_KEYS = {
 
   latest: () => ["berita", "latest"] as const,
 
-  list: (page: number) => ["berita", "list", page] as const,
+  list: (page: number, limit: number) => ["berita", "list", page, limit] as const,
 
   detail: (id: string) => ["berita", "detail", id] as const,
 

@@ -14,6 +14,12 @@ export type BeritaApi = Omit<Berita, "image"> & {
 
 export type BeritaApiResponse<T> = { data: T };
 
+export type BeritaListParams = {
+  page?: number;
+  limit?: number;
+  [key: string]: string | number | undefined;
+};
+
 export type BeritaListResponse = BeritaApiResponse<BeritaApi[]> & {
   meta: { pagination: BeritaPagination };
 };

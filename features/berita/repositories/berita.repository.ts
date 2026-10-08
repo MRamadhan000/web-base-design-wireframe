@@ -16,8 +16,11 @@ export async function findLatestBerita(): Promise<Berita[]> {
   return getLatestBerita();
 }
 
-export async function findAllBerita(page: number): Promise<PaginatedBerita> {
-  return getAllBerita(page, 9);
+export async function findAllBerita(
+  page = 1,
+  limit = 10,
+): Promise<PaginatedBerita> {
+  return getAllBerita("/beritas", { page, limit });
 }
 
 export async function findBeritaById(
