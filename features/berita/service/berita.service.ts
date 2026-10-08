@@ -1,35 +1,14 @@
 import {
   Berita,
+  BeritaApi,
+  BeritaApiResponse,
   BeritaDetail,
-  BeritaPagination,
+  BeritaListResponse,
   BeritaRelated,
   PaginatedBerita,
 } from "../models/berita.types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-interface StrapiMedia {
-  url: string;
-}
-
-interface StrapiBerita {
-  id: number;
-  documentId: string;
-  title: string;
-  date: string;
-  image: StrapiMedia | string | null;
-  author: string | null;
-  content: string | null;
-}
-
-interface StrapiListResponse {
-  data: StrapiBerita[];
-  meta: { pagination: BeritaPagination };
-}
-
-interface StrapiDetailResponse {
-  data: StrapiBerita;
-}
 
 function getApiUrl(path: string): string {
   if (!API_BASE_URL) {
@@ -39,7 +18,7 @@ function getApiUrl(path: string): string {
   return `${API_BASE_URL.replace(/\/$/, "")}${path}`;
 }
 
-function getImageUrl(image: StrapiMedia | string | null): string {
+function getImageUrl(image: BeritaApi["image"]): string {
   if (!image) {
     return "";
   }
@@ -56,7 +35,7 @@ function getImageUrl(image: StrapiMedia | string | null): string {
   return new URL(imagePath, `${new URL(API_BASE_URL).origin}/`).toString();
 }
 
-function toBerita(item: StrapiBerita): Berita {
+function toBerita(item: BeritaApi): Berita {
   return {
     id: item.id,
     documentId: item.documentId,
@@ -66,7 +45,7 @@ function toBerita(item: StrapiBerita): Berita {
   };
 }
 
-function toBeritaDetail(item: StrapiBerita): BeritaDetail {
+function toBeritaDetail(item: BeritaApi): BeritaDetail {
   return {
     ...toBerita(item),
     author: item.author,
@@ -78,7 +57,7 @@ function toBeritaDetail(item: StrapiBerita): BeritaDetail {
 async function fetchBeritaList(
   page: number,
   pageSize: number,
-): Promise<StrapiListResponse> {
+): Promise<BeritaListResponse> {
   const query = new URLSearchParams({
     populate: "*",
     "pagination[page]": String(page),
@@ -122,7 +101,7 @@ export async function getBeritaById(id: string): Promise<BeritaDetail | null> {
     throw new Error("Gagal mengambil detail berita");
   }
 
-  const result: StrapiDetailResponse = await response.json();
+  const result: BeritaApiResponse<BeritaApi> = await response.json();
   return toBeritaDetail(result.data);
 }
 

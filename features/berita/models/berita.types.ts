@@ -6,6 +6,18 @@ export interface Berita {
   image: string;
 }
 
+export type BeritaApi = Omit<Berita, "image"> & {
+  image: { url: string } | string | null;
+  author: string | null;
+  content: string | null;
+};
+
+export type BeritaApiResponse<T> = { data: T };
+
+export type BeritaListResponse = BeritaApiResponse<BeritaApi[]> & {
+  meta: { pagination: BeritaPagination };
+};
+
 export interface BeritaDetail extends Berita {
   author: string | null;
   content: string[];
