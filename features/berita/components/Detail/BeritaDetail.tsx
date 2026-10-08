@@ -2,7 +2,6 @@ import { FaCalendarAlt } from "react-icons/fa";
 
 import { BeritaDetail as BeritaDetailType } from "../../models/berita.types";
 import { BeritaShare } from "./BeritaShare";
-import { BeritaTags } from "./BeritaTags";
 
 interface BeritaDetailProps {
   berita: BeritaDetailType;
@@ -54,7 +53,6 @@ export function BeritaDetail({ berita }: BeritaDetailProps) {
         </blockquote> */}
       </div>
 
-      {/* <BeritaTags tags={berita.tags} /> */}
     </article>
   );
 }
