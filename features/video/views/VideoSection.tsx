@@ -8,13 +8,12 @@ import { ErrorState } from "@/components/ui/state/ErrorState";
 import { LoadingState } from "@/components/ui/state/LoadingState";
 
 import { VideoList } from "../components/VideoList";
-import { useVideoViewModel } from "../hooks/useVideoViewModel";
+import { useLatestVideoViewModel } from "../hooks/useLatestVideoViewModel";
 
 export function VideoSection() {
-  const { videoList, isLoadingLatest, errorLatest, refetchLatestVideos } =
-    useVideoViewModel();
+  const { videoList, isLoading, error, refetch } = useLatestVideoViewModel();
 
-  if (isLoadingLatest) {
+  if (isLoading) {
     return (
       <section className="w-full bg-background py-16">
         <LoadingState message="Loading video terbaru..." />
@@ -22,12 +21,12 @@ export function VideoSection() {
     );
   }
 
-  if (errorLatest) {
+  if (error) {
     return (
       <section className="w-full bg-background py-16">
         <ErrorState
           message="Gagal mengambil video terbaru."
-          onRetry={() => refetchLatestVideos()}
+          onRetry={() => refetch()}
         />
       </section>
     );

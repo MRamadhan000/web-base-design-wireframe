@@ -1,143 +1,129 @@
-import { Video, VideoDetail, VideoRelated } from "./video.types";
-import { ApiResponse } from "@/shared/models/api-response";
+import {
+  PaginatedVideos,
+  Video,
+  VideoApi,
+  VideoApiResponse,
+  VideoDetail,
+  VideoListParams,
+  VideoListResponse,
+} from "./video.types";
 
-const DUMMY_VIDEOS: VideoDetail[] = [
-  {
-    id: 1,
-    title: "Profil & Potensi Pariwisata Kota Batu Terbaru",
-    date: "21 Sep 2026",
-    duration: "05:20",
-    thumbnail: "/images/hero1.png",
-    author: "Dinas Pariwisata & Humas Pemkot Batu",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    description: [
-      "BATU — Video dokumentasi resmi yang menampilkan keindahan panorama alam, keanekaragaman agrowisata, serta fasilitas destinasi wisata unggulan di Kota Batu.",
-      "Pemerintah Kota Batu terus mempromosikan potensi lokal dan mendukung para pelaku UMKM melalui informasi terpadu bagi wisatawan.",
-      "Simak dokumentasi lengkap perkembangan pariwisata dan destinasi unggulan Kota Batu.",
-    ],
-    tags: ["Pariwisata", "Wisata Batu", "Agrowisata", "Dokumentasi"],
-  },
-  {
-    id: 2,
-    title: "Dokumentasi Liputan Inovasi Pelayanan Publik Smart City",
-    date: "19 Sep 2026",
-    duration: "03:45",
-    thumbnail: "/images/hero2.png",
-    author: "Humas Pemkot Batu",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    description: [
-      "Dokumentasi inovasi pelayanan publik Kota Batu dalam mendukung layanan yang mudah diakses dan terintegrasi.",
-      "Inisiatif Smart City menghubungkan teknologi dengan kebutuhan masyarakat dan peningkatan kualitas pelayanan.",
-    ],
-    tags: ["Smart City", "Pelayanan Publik", "Inovasi"],
-  },
-  {
-    id: 3,
-    title: "Keseruan Festival Seni & Budaya Pegunungan Kota Batu",
-    date: "14 Sep 2026",
-    duration: "08:12",
-    thumbnail: "/images/hero3.png",
-    author: "Humas Pemkot Batu",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    description: [
-      "Festival seni dan budaya menghadirkan beragam pertunjukan serta tradisi masyarakat Kota Batu.",
-      "Kegiatan ini menjadi ruang apresiasi bagi seniman lokal sekaligus memperkenalkan kekayaan budaya daerah.",
-    ],
-    tags: ["Seni", "Budaya", "Festival", "Kota Batu"],
-  },
-  {
-    id: 4,
-    title: "Sistem Informasi Transportasi Terpadu Angkutan Kota",
-    date: "10 Sep 2026",
-    duration: "05:15",
-    thumbnail: "/images/hero1.png",
-    author: "Humas Pemkot Batu",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    description: [
-      "Informasi mengenai pengembangan transportasi terpadu dan layanan angkutan umum di Kota Batu.",
-      "Sistem informasi ini membantu masyarakat merencanakan perjalanan dengan lebih mudah.",
-    ],
-    tags: ["Transportasi", "Layanan Publik", "Kota Batu"],
-  },
-  {
-    id: 5,
-    title: "Gelar Produk UMKM Unggulan dan Pasar Tani Kota Batu",
-    date: "05 Sep 2026",
-    duration: "07:30",
-    thumbnail: "/images/hero2.png",
-    author: "Dinas Koperasi dan UMKM Kota Batu",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    description: [
-      "Gelar produk dan pasar tani mempertemukan pelaku UMKM, petani, dan masyarakat untuk mengenal produk unggulan lokal.",
-      "Kegiatan ini mendukung pemasaran produk daerah serta pertumbuhan ekonomi masyarakat Kota Batu.",
-    ],
-    tags: ["UMKM", "Pasar Tani", "Produk Lokal"],
-  },
-  {
-    id: 6,
-    title: "Sosialisasi Pengelolaan Sampah Berbasis Komunitas",
-    date: "01 Sep 2026",
-    duration: "06:10",
-    thumbnail: "/images/hero3.png",
-    author: "Dinas Lingkungan Hidup Kota Batu",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    description: [
-      "Sosialisasi ini mengajak masyarakat berperan aktif mengurangi dan memilah sampah dari lingkungan sekitar.",
-      "Kolaborasi komunitas menjadi bagian penting dalam menjaga kebersihan dan kelestarian lingkungan Kota Batu.",
-    ],
-    tags: ["Lingkungan", "Pengelolaan Sampah", "Komunitas"],
-  },
-];
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export async function getLatestVideos(): Promise<ApiResponse<Video[]>> {
-  const data = DUMMY_VIDEOS.slice(0, 3).map(
-    ({ id, title, date, duration, thumbnail }) => ({
-      id,
-      title,
-      date,
-      duration,
-      thumbnail,
-    }),
-  );
+function getApiUrl(path: string): string {
+  if (!API_BASE_URL) {
+    throw new Error("NEXT_PUBLIC_API_BASE_URL belum dikonfigurasi");
+  }
 
-  return new ApiResponse(data, "Video terbaru berhasil dimuat");
+  return `${API_BASE_URL.replace(/\/$/, "")}${path}`;
 }
 
-export async function getAllVideos(): Promise<ApiResponse<Video[]>> {
-  const data = DUMMY_VIDEOS.map(({ id, title, date, duration, thumbnail }) => ({
-    id,
-    title,
-    date,
-    duration,
-    thumbnail,
-  }));
+function getYoutubeId(url: string): string | null {
+  try {
+    const parsedUrl = new URL(url);
 
-  return new ApiResponse(data, "Daftar video berhasil dimuat");
+    if (parsedUrl.hostname === "youtu.be") {
+      return parsedUrl.pathname.slice(1) || null;
+    }
+
+    if (parsedUrl.hostname.endsWith("youtube.com")) {
+      return (
+        parsedUrl.searchParams.get("v") ??
+        parsedUrl.pathname.match(/^\/(?:embed|shorts|live)\/([^/?]+)/)?.[1] ??
+        null
+      );
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
 }
 
-export async function getVideoById(
-  id: number,
-): Promise<ApiResponse<VideoDetail | null>> {
-  const data = DUMMY_VIDEOS.find((video) => video.id === id) ?? null;
-
-  return new ApiResponse(
-    data,
-    data ? "Detail video berhasil dimuat" : "Video tidak ditemukan",
-  );
+function toEmbedUrl(url: string): string {
+  const youtubeId = getYoutubeId(url);
+  return youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : url;
 }
 
-export async function getRelatedVideos(
-  id: number,
-): Promise<ApiResponse<VideoRelated[]>> {
-  const data = DUMMY_VIDEOS.filter((video) => video.id !== id)
+function toVideo(item: VideoApi): Video {
+  const youtubeId = getYoutubeId(item.url);
+
+  return {
+    id: item.id,
+    documentId: item.documentId,
+    title: item.title,
+    date: item.date,
+    slug: item.slug,
+    url: item.url,
+    thumbnail: youtubeId
+      ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
+      : "",
+  };
+}
+
+function toVideoDetail(item: VideoApi): VideoDetail {
+  return {
+    ...toVideo(item),
+    videoUrl: toEmbedUrl(item.url),
+    description: item.description?.split(/\r?\n/).filter(Boolean) ?? [],
+  };
+}
+
+async function fetchVideoList(
+  params: VideoListParams = {},
+): Promise<VideoListResponse> {
+  const { page = 1, limit = 9 } = params;
+  const requestUrl = new URL(getApiUrl("/videos/"));
+  requestUrl.searchParams.set("pagination[page]", String(page));
+  requestUrl.searchParams.set("pagination[pageSize]", String(limit));
+
+  const response = await fetch(requestUrl);
+
+  if (!response.ok) {
+    throw new Error("Gagal mengambil daftar video");
+  }
+
+  return response.json();
+}
+
+export async function getLatestVideos(): Promise<Video[]> {
+  const response = await fetchVideoList({ page: 1, limit: 3 });
+  return response.data.map(toVideo);
+}
+
+export async function getAllVideos(
+  page = 1,
+  limit = 9,
+): Promise<PaginatedVideos> {
+  const response = await fetchVideoList({ page, limit });
+
+  return {
+    data: response.data.map(toVideo),
+    pagination: response.meta.pagination,
+  };
+}
+
+export async function getVideoBySlug(
+  slug: string,
+): Promise<VideoDetail | null> {
+  const query = new URLSearchParams({ "filters[slug][$eq]": slug });
+  const response = await fetch(getApiUrl(`/videos?${query.toString()}`));
+
+  if (!response.ok) {
+    throw new Error("Gagal mengambil detail video");
+  }
+
+  const result: VideoApiResponse<VideoApi[]> = await response.json();
+  const video = result.data?.[0];
+
+  return video ? toVideoDetail(video) : null;
+}
+
+export async function getRelatedVideos(slug: string): Promise<Video[]> {
+  const response = await fetchVideoList({ page: 1, limit: 9 });
+
+  return response.data
+    .filter((item) => item.slug !== slug)
     .slice(0, 2)
-    .map(({ id, title, date, duration, thumbnail }) => ({
-      id,
-      title,
-      date,
-      duration,
-      thumbnail,
-    }));
-
-  return new ApiResponse(data, "Video terkait berhasil dimuat");
+    .map(toVideo);
 }

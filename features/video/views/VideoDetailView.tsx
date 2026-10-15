@@ -5,36 +5,36 @@ import { ErrorState } from "@/components/ui/state/ErrorState";
 import { LoadingState } from "@/components/ui/state/LoadingState";
 
 import { DetailVideoContent } from "../components/DetailVideoContent";
-import { useVideoViewModel } from "../hooks/useVideoViewModel";
+import { useVideoDetailBySlugViewModel } from "../hooks/useVideoDetailBySlugViewModel";
 
 interface VideoDetailViewProps {
-  id: number;
+  slug: string;
 }
 
-export function VideoDetailView({ id }: VideoDetailViewProps) {
+export function VideoDetailView({ slug }: VideoDetailViewProps) {
   const {
     video,
     relatedVideos,
-    isLoadingDetail,
-    errorDetail,
-    refetchVideoDetail,
-  } = useVideoViewModel(id);
+    isLoading,
+    error,
+    refetchDetail,
+  } = useVideoDetailBySlugViewModel(slug);
 
-  if (isLoadingDetail) {
+  if (isLoading) {
     return <LoadingState message="Loading video..." />;
   }
 
-  if (errorDetail || !video) {
+  if (error || !video) {
     return (
       <section className="w-full bg-background py-16">
         <Container>
           <ErrorState
             message={
-              errorDetail instanceof Error
-                ? errorDetail.message
+              error instanceof Error
+                ? error.message
                 : "Video tidak ditemukan."
             }
-            onRetry={() => refetchVideoDetail()}
+            onRetry={() => refetchDetail()}
           />
         </Container>
       </section>

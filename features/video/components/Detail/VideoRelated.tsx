@@ -17,18 +17,17 @@ export function VideoRelated({ videoList }: VideoRelatedProps) {
         {videoList.map((item) => (
           <Link
             key={item.id}
-            href={`/video/detail?id=${item.id}`}
+            href={`/video/${item.slug}`}
             className="group flex items-start gap-3"
           >
             <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-lg bg-black">
-              <img
-                src={item.thumbnail}
-                alt={item.title}
-                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute bottom-1 right-1 rounded bg-black/70 px-1 py-0.5 text-[9px] font-medium text-white">
-                {item.duration}
-              </div>
+              {item.thumbnail && (
+                <img
+                  src={item.thumbnail}
+                  alt={item.title}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              )}
               <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-90 transition-opacity group-hover:bg-black/10">
                 <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white shadow-xs transition-transform group-hover:scale-110">
                   <FaPlay className="ml-0.5 h-2 w-2" />

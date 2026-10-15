@@ -3,7 +3,6 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { VideoDetail as VideoDetailType } from "../../models/video.types";
 import { VideoPlayer } from "./VideoPlayer";
 import { VideoShare } from "./VideoShare";
-import { VideoTags } from "./VideoTags";
 
 interface VideoDetailProps {
   video: VideoDetailType;
@@ -20,8 +19,6 @@ export function VideoDetail({ video }: VideoDetailProps) {
         <div className="flex items-center gap-1.5">
           <FaCalendarAlt className="text-primary" />
           <span>{video.date}</span>
-          <span className="px-1">|</span>
-          <span>{video.author}</span>
         </div>
         <VideoShare />
       </div>
@@ -39,7 +36,6 @@ export function VideoDetail({ video }: VideoDetailProps) {
         ))}
       </div>
 
-      <VideoTags tags={video.tags} />
     </article>
   );
 }

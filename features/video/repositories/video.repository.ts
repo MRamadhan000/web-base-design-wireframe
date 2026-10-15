@@ -2,26 +2,27 @@ import {
   getAllVideos,
   getLatestVideos,
   getRelatedVideos,
-  getVideoById,
+  getVideoBySlug,
 } from "../models/video.service";
-import { Video, VideoDetail, VideoRelated } from "../models/video.types";
+import { PaginatedVideos, Video, VideoDetail } from "../models/video.types";
 
 export async function findLatestVideos(): Promise<Video[]> {
-  const response = await getLatestVideos();
-  return response.data;
+  return getLatestVideos();
 }
 
-export async function findAllVideos(): Promise<Video[]> {
-  const response = await getAllVideos();
-  return response.data;
+export async function findAllVideos(
+  page = 1,
+  limit = 9,
+): Promise<PaginatedVideos> {
+  return getAllVideos(page, limit);
 }
 
-export async function findVideoById(id: number): Promise<VideoDetail | null> {
-  const response = await getVideoById(id);
-  return response.data;
+export async function findVideoBySlug(
+  slug: string,
+): Promise<VideoDetail | null> {
+  return getVideoBySlug(slug);
 }
 
-export async function findRelatedVideos(id: number): Promise<VideoRelated[]> {
-  const response = await getRelatedVideos(id);
-  return response.data;
+export async function findRelatedVideos(slug: string): Promise<Video[]> {
+  return getRelatedVideos(slug);
 }

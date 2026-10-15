@@ -8,21 +8,19 @@ interface VideoCardProps {
 }
 
 export function VideoCard({ video }: VideoCardProps) {
-  const detailHref = `/video/detail?id=${video.id}`;
+  const detailHref = `/video/${video.slug}`;
 
   return (
     <article className="group flex flex-col justify-between rounded-xl border border-border/80 bg-surface p-4 shadow-sm transition-all hover:border-primary-light hover:shadow-md">
       <div>
         <div className="relative h-48 w-full overflow-hidden rounded-lg bg-black">
-          <img
-            src={video.thumbnail}
-            alt={video.title}
-            className="h-full w-full object-cover opacity-90 transition-transform duration-300 group-hover:scale-105"
-          />
-          <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-md bg-black/75 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-xs">
-            <FaPlay className="h-2.5 w-2.5" />
-            <span>{video.duration}</span>
-          </div>
+          {video.thumbnail && (
+            <img
+              src={video.thumbnail}
+              alt={video.title}
+              className="h-full w-full object-cover opacity-90 transition-transform duration-300 group-hover:scale-105"
+            />
+          )}
         </div>
 
         <div className="mt-4 flex items-center gap-2 text-xs font-medium text-muted">
