@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FaChevronRight } from "react-icons/fa";
 
 import { Container } from "@/components/ui/layout/Container";
 import { ErrorState } from "@/components/ui/state/ErrorState";
 import { LoadingState } from "@/components/ui/state/LoadingState";
+import { Pagination } from "@/components/ui/navigation/Pagination";
 
 import { GaleriGrid } from "../components/GaleriGrid";
 import { useAllGaleriViewModel } from "../hooks/useAllGaleriViewModel";
@@ -18,16 +18,8 @@ export function GaleriPageView({
   page?: number;
   limit?: number;
 }) {
-  const router = useRouter();
   const { allGaleri, pagination, isLoading, error, refetch } =
     useAllGaleriViewModel(page, limit);
-
-  function navigateToPage(nextPage: number) {
-    const params = new URLSearchParams(window.location.search);
-    params.set("page", String(nextPage));
-    params.set("limit", String(limit));
-    router.push(`/galeri?${params.toString()}`, { scroll: false });
-  }
 
   if (isLoading) {
     return <LoadingState message="Loading galeri..." />;
@@ -72,44 +64,12 @@ export function GaleriPageView({
           <GaleriGrid items={allGaleri} />
 
           {pagination && (
-            <div className="mt-12 flex items-center justify-center gap-2">
-              <button
-                type="button"
-                disabled={page <= 1}
-                onClick={() => navigateToPage(page - 1)}
-                className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black disabled:cursor-not-allowed disabled:text-muted-light"
-              >
-                ← Sebelumnya
-              </button>
-
-              {Array.from(
-                { length: pagination.pageCount },
-                (_, index) => index + 1,
-              ).map((pageNumber) => (
-                <button
-                  key={pageNumber}
-                  type="button"
-                  aria-current={pageNumber === page ? "page" : undefined}
-                  onClick={() => navigateToPage(pageNumber)}
-                  className={
-                    pageNumber === page
-                      ? "rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white"
-                      : "rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black hover:border-primary hover:text-primary"
-                  }
-                >
-                  {pageNumber}
-                </button>
-              ))}
-
-              <button
-                type="button"
-                disabled={page >= pagination.pageCount}
-                onClick={() => navigateToPage(page + 1)}
-                className="rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:text-muted-light"
-              >
-                Selanjutnya →
-              </button>
-            </div>
+            <Pagination
+              page={page}
+              pageCount={pagination.pageCount}
+              limit={limit}
+              basePath="/galeri"
+            />
           )}
         </Container>
       </section>
