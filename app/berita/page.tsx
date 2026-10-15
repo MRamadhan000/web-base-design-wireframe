@@ -21,7 +21,7 @@ export default async function BeritaPage({
 }) {
   const params = await searchParams;
   const page = getPositiveInteger(params.page, 1);
-  const limit = getPositiveInteger(params.limit, 10);
+  const limit = getPositiveInteger(params.limit, 9);
 
   if (params.page !== String(page) || params.limit !== String(limit)) {
     const query = new URLSearchParams();

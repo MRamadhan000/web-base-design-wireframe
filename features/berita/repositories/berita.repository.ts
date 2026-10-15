@@ -3,6 +3,7 @@ import {
   getAllBerita,
   getBeritaById,
   getRelatedBerita,
+  getBeritaBySlug,
 } from "../service/berita.service";
 
 import {
@@ -23,10 +24,10 @@ export async function findAllBerita(
   return getAllBerita("/beritas", { page, limit });
 }
 
-export async function findBeritaById(
-  id: string
+export async function findBeritaBySlug(
+  slug: string
 ): Promise<BeritaDetail | null> {
-  return getBeritaById(id);
+  return getBeritaBySlug(slug);
 }
 
 export async function findRelatedBerita(

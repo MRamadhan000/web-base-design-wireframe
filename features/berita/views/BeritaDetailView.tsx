@@ -12,13 +12,13 @@ import { BeritaSearch } from "../components/Detail/BeritaSearch";
 import { BeritaRelated } from "../components/Detail/BeritaRelated";
 
 import { useLatestBeritaViewModel } from "../hooks/useLatestBeritaViewModel";
-import { useBeritaDetailViewModel } from "../hooks/useBeritaDetailViewModel";
+import { useBeritaDetailBySlugViewModel } from "../hooks/useBeritaDetailBySlugViewModel";
 
 interface BeritaDetailViewProps {
-  id: string;
+  slug: string;
 }
 
-export function BeritaDetailView({ id }: BeritaDetailViewProps) {
+export function BeritaDetailView({ slug }: BeritaDetailViewProps) {
   const {
     beritaList: latestBeritaList,
     isLoading: isLoadingLatest,
@@ -31,7 +31,7 @@ export function BeritaDetailView({ id }: BeritaDetailViewProps) {
     isLoading: isLoadingDetail,
     error: errorDetail,
     refetchDetail,
-  } = useBeritaDetailViewModel(id);
+  } = useBeritaDetailBySlugViewModel(slug);
 
   if (isLoadingDetail) {
     return (

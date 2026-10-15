@@ -4,6 +4,8 @@ export interface Berita {
   title: string;
   date: string;
   image: string;
+
+  slug:string;
 }
 
 export type BeritaApi = Omit<Berita, "image"> & {

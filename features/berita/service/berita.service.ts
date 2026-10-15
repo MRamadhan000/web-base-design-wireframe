@@ -43,6 +43,7 @@ function toBerita(item: BeritaApi): Berita {
     title: item.title,
     date: item.date,
     image: getImageUrl(item.image),
+    slug: item.slug,
   };
 }
 
@@ -59,7 +60,7 @@ async function fetchBeritaList(
   url = "/beritas",
   params: BeritaListParams = {},
 ): Promise<BeritaListResponse> {
-  const { page = 1, limit = 10, ...queryParams } = params;
+  const { page = 1, limit = 9, ...queryParams } = params;
   const requestUrl = new URL(getApiUrl(url));
   const query = requestUrl.searchParams;
 
@@ -111,6 +112,29 @@ export async function getBeritaById(id: string): Promise<BeritaDetail | null> {
 
   const result: BeritaApiResponse<BeritaApi> = await response.json();
   return toBeritaDetail(result.data);
+}
+
+export async function getBeritaBySlug(slug: string): Promise<BeritaDetail | null> {
+  const query = new URLSearchParams({
+    "filters[slug][$eq]": slug,
+    populate: "*",
+  });
+  const response = await fetch(
+    getApiUrl(`/beritas?${query.toString()}`),
+  );
+
+  if (!response.ok) {
+    throw new Error("Gagal mengambil detail berita");
+  }
+
+  const result: BeritaApiResponse<BeritaApi[]> = await response.json();
+  const berita = result.data?.[0];
+
+  if (!berita) {
+    return null;
+  }
+
+  return toBeritaDetail(berita);
 }
 
 export async function getRelatedBerita(id: string): Promise<BeritaRelated[]> {
