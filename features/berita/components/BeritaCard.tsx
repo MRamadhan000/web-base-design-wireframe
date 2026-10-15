@@ -35,7 +35,7 @@ export function BeritaCard({ berita }: BeritaCardProps) {
       {/* Button Baca Selengkapnya */}
       <div className="mt-6 border-t border-border pt-4">
         <Button
-          href={`/berita/detail?slug=${(berita.slug)}`}
+          href={`/berita/${(berita.slug)}`}
           variant="outline"
           icon={<FaBookOpen className="h-3.5 w-3.5" />}
           className="w-full"
