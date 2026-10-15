@@ -8,17 +8,13 @@ import { ErrorState } from "@/components/ui/state/ErrorState";
 import { LoadingState } from "@/components/ui/state/LoadingState";
 
 import { GaleriGrid } from "../components/GaleriGrid";
-import { useGaleriViewModel } from "../hooks/useGaleriViewModel";
+import { useLatestGaleriViewModel } from "../hooks/useLatestGaleriViewModel";
 
 export function GaleriPreviewSection() {
-  const {
-    previewGaleri,
-    isLoadingPreview,
-    errorPreview,
-    refetchPreviewGaleri,
-  } = useGaleriViewModel();
+  const { previewGaleri, isLoading, error, refetch } =
+    useLatestGaleriViewModel();
 
-  if (isLoadingPreview) {
+  if (isLoading) {
     return (
       <section className="w-full bg-background py-16">
         <LoadingState message="Loading galeri..." />
@@ -26,12 +22,12 @@ export function GaleriPreviewSection() {
     );
   }
 
-  if (errorPreview) {
+  if (error) {
     return (
       <section className="w-full bg-background py-16">
         <ErrorState
           message="Gagal mengambil galeri foto."
-          onRetry={() => refetchPreviewGaleri()}
+          onRetry={() => refetch()}
         />
       </section>
     );

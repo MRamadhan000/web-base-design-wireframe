@@ -1,7 +1,6 @@
 import {
   getLatestBerita,
   getAllBerita,
-  getBeritaById,
   getRelatedBerita,
   getBeritaBySlug,
 } from "../service/berita.service";

@@ -100,20 +100,6 @@ export async function getAllBerita(
   };
 }
 
-export async function getBeritaById(id: string): Promise<BeritaDetail | null> {
-  const query = new URLSearchParams({ populate: "*" });
-  const response = await fetch(
-    getApiUrl(`/beritas/${encodeURIComponent(id)}?${query.toString()}`),
-  );
-
-  if (!response.ok) {
-    throw new Error("Gagal mengambil detail berita");
-  }
-
-  const result: BeritaApiResponse<BeritaApi> = await response.json();
-  return toBeritaDetail(result.data);
-}
-
 export async function getBeritaBySlug(slug: string): Promise<BeritaDetail | null> {
   const query = new URLSearchParams({
     "filters[slug][$eq]": slug,

@@ -1,78 +1,80 @@
-import { ApiResponse } from "@/shared/models/api-response";
+import {
+  GaleriApi,
+  GaleriListResponse,
+  GaleriListParams,
+  GaleriItem,
+  PaginatedGaleri,
+} from "./galeri.types";
 
-import { GaleriItem } from "./galeri.types";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-const ALL_GALLERY_DATA: GaleriItem[] = [
-  {
-    id: 1,
-    title: "Festival Bunga & Agrowisata Kota Batu",
-    category: "Event Daerah",
-    image: "/images/hero1.png",
-    previewAspect: "md:col-span-1 md:row-span-2 h-[416px]",
-  },
-  {
-    id: 2,
-    title: "Suasana Malam Alun-Alun Kota Batu",
-    category: "Pariwisata",
-    image: "/images/hero2.png",
-    previewAspect: "md:col-span-1 md:row-span-1 h-[200px]",
-  },
-  {
-    id: 3,
-    title: "Pelayanan Publik Terpadu Balai Kota",
-    category: "Dokumentasi",
-    image: "/images/hero3.png",
-    previewAspect: "md:col-span-1 md:row-span-1 h-[200px]",
-  },
-  {
-    id: 4,
-    title: "Kegiatan Kebudayaan & Pertunjukan Seni Lokal",
-    category: "Seni & Budaya",
-    image: "/images/hero1.png",
-    previewAspect: "md:col-span-1 md:row-span-2 h-[416px]",
-  },
-  {
-    id: 5,
-    title: "Panorama Pegunungan & Keindahan Alam Batu",
-    category: "Pariwisata",
-    image: "/images/hero2.png",
-    previewAspect: "md:col-span-2 md:row-span-1 h-[200px]",
-  },
-  {
-    id: 6,
-    title: "Peresmian Infrastruktur & Fasilitas Umum Baru",
-    category: "Dokumentasi",
-    image: "/images/hero3.png",
-    previewAspect: "md:col-span-2 md:row-span-1 h-[200px]",
-  },
-  {
-    id: 7,
-    title: "Pemberdayaan Sentra Olahan UMKM",
-    category: "Ekonomi Kreatif",
-    image: "/images/hero1.png",
-    previewAspect: "md:col-span-2 md:row-span-1 h-[200px]",
-  },
-  {
-    id: 8,
-    title: "Panen Raya Komoditas Hortikultura & Apel",
-    category: "Pertanian",
-    image: "/images/hero2.png",
-  },
-  {
-    id: 9,
-    title: "Edukasi Kebersihan & Pengelolaan Lingkungan",
-    category: "Lingkungan",
-    image: "/images/hero3.png",
-  },
-];
+function getApiUrl(path: string): string {
+  if (!API_BASE_URL) {
+    throw new Error("NEXT_PUBLIC_API_BASE_URL belum dikonfigurasi");
+  }
 
-export async function getAllGaleri(): Promise<ApiResponse<GaleriItem[]>> {
-  return new ApiResponse(ALL_GALLERY_DATA, "Galeri berhasil dimuat");
+  return `${API_BASE_URL.replace(/\/$/, "")}${path}`;
 }
 
-export async function getPreviewGaleri(): Promise<ApiResponse<GaleriItem[]>> {
-  return new ApiResponse(
-    ALL_GALLERY_DATA.filter((item) => item.previewAspect),
-    "Galeri pilihan berhasil dimuat",
-  );
+function getImageUrl(image: GaleriApi["image"]): string {
+  if (!image) {
+    return "";
+  }
+
+  const imagePath = typeof image === "string" ? image : image.url;
+  if (/^https?:\/\//i.test(imagePath)) {
+    return imagePath;
+  }
+
+  if (!API_BASE_URL) {
+    throw new Error("NEXT_PUBLIC_API_BASE_URL belum dikonfigurasi");
+  }
+
+  return new URL(imagePath, `${new URL(API_BASE_URL).origin}/`).toString();
+}
+
+function toGaleri(item: GaleriApi): GaleriItem {
+  return {
+    id: item.id,
+    documentId: item.documentId,
+    title: item.title,
+    slug: item.slug,
+    description: item.descrption ?? "",
+    image: getImageUrl(item.image),
+  };
+}
+
+async function fetchGaleriList(
+  params: GaleriListParams = {},
+): Promise<GaleriListResponse> {
+  const { page = 1, limit = 9 } = params;
+  const requestUrl = new URL(getApiUrl("/galleries"));
+  requestUrl.searchParams.set("populate", "*");
+  requestUrl.searchParams.set("pagination[page]", String(page));
+  requestUrl.searchParams.set("pagination[pageSize]", String(limit));
+
+  const response = await fetch(requestUrl);
+
+  if (!response.ok) {
+    throw new Error("Gagal mengambil daftar galeri");
+  }
+
+  return response.json();
+}
+
+export async function getLatestGaleri(): Promise<GaleriItem[]> {
+  const response = await fetchGaleriList({ page: 1, limit: 3 });
+  return response.data.map(toGaleri);
+}
+
+export async function getAllGaleri(
+  page = 1,
+  limit = 9,
+): Promise<PaginatedGaleri> {
+  const response = await fetchGaleriList({ page, limit });
+
+  return {
+    data: response.data.map(toGaleri),
+    pagination: response.meta.pagination,
+  };
 }
