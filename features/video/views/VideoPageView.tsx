@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { FaChevronRight } from "react-icons/fa";
-
 import { Container } from "@/components/ui/layout/Container";
+import { Breadcrumb } from "@/components/ui/navigation/Breadcrumb";
 import { ErrorState } from "@/components/ui/state/ErrorState";
 import { LoadingState } from "@/components/ui/state/LoadingState";
 import { Pagination } from "@/components/ui/navigation/Pagination";
@@ -40,13 +38,9 @@ export function VideoPageView({
     <div className="min-h-screen bg-background font-sans antialiased text-black">
       <section className="border-b border-border/80 bg-surface py-12 md:py-16">
         <Container>
-          <nav className="mb-4 flex items-center gap-2 text-xs text-muted">
-            <Link href="/" className="transition-colors hover:text-primary">
-              Beranda
-            </Link>
-            <FaChevronRight className="h-2.5 w-2.5 text-muted-light" />
-            <span className="font-semibold text-primary">Galeri Video</span>
-          </nav>
+          <Breadcrumb
+            items={[{ label: "Beranda", href: "/" }, { label: "Galeri Video" }]}
+          />
 
           <div className="max-w-3xl">
             <h1 className="text-3xl font-extrabold tracking-tight text-black sm:text-4xl">
