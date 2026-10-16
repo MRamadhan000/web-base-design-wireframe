@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
 
 import { Container } from "@/components/ui/layout/Container";
@@ -14,6 +15,7 @@ const IMAGES = [
 ];
 
 export default function WireframeHero() {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -30,8 +32,10 @@ export default function WireframeHero() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (searchQuery.trim()) {
-      alert(`Mencari: ${searchQuery}`);
+    const slug = searchQuery.trim().toLowerCase().replace(/\s+/g, "-");
+
+    if (slug) {
+      router.push(`/berita/${encodeURIComponent(slug)}`);
     }
   };
 
@@ -69,9 +73,9 @@ export default function WireframeHero() {
             {/* SEARCH */}
             <form
               onSubmit={handleSearch}
-              className="mt-8 flex w-full max-w-md items-center overflow-hidden rounded-full border border-border bg-surface p-1.5 shadow-lg focus-within:border-border focus-within:ring-2 focus-within:ring-border/20"
+              className="mt-8 flex w-full max-w-md items-center overflow-hidden rounded-full border border-white/35 bg-white/20 p-1.5 shadow-lg shadow-black/15 backdrop-blur-2xl backdrop-saturate-150 focus-within:border-white/60 focus-within:ring-2 focus-within:ring-white/25"
             >
-              <div className="flex pl-4 text-muted-light">
+              <div className="flex pl-4 text-white/85">
                 <FaSearch className="h-4 w-4" />
               </div>
 
@@ -80,12 +84,12 @@ export default function WireframeHero() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Anda cari apa..."
-                className="w-full bg-transparent px-3 py-2 font-sans text-sm text-black placeholder-gray-400 focus:outline-none"
+                className="w-full bg-transparent px-3 py-2 font-sans text-sm text-white placeholder-white/75 focus:outline-none"
               />
 
               <button
                 type="submit"
-                className="rounded-full bg-black px-6 py-2.5 font-sans text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-accent-soft active:scale-95"
+                className="rounded-full bg-white/90 px-6 py-2.5 font-sans text-xs font-semibold uppercase tracking-wider text-black transition-all hover:bg-white active:scale-95"
               >
                 Cari
               </button>
