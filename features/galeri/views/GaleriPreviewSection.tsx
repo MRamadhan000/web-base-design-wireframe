@@ -5,7 +5,6 @@ import { FaArrowRight, FaImage } from "react-icons/fa";
 
 import { Container } from "@/components/ui/layout/Container";
 import { ErrorState } from "@/components/ui/state/ErrorState";
-import { LoadingState } from "@/components/ui/state/LoadingState";
 
 import { GaleriGrid } from "../components/GaleriGrid";
 import { useLatestGaleriViewModel } from "../hooks/useLatestGaleriViewModel";
@@ -13,14 +12,6 @@ import { useLatestGaleriViewModel } from "../hooks/useLatestGaleriViewModel";
 export function GaleriPreviewSection() {
   const { previewGaleri, isLoading, error, refetch } =
     useLatestGaleriViewModel();
-
-  if (isLoading) {
-    return (
-      <section className="w-full bg-background py-16">
-        <LoadingState message="Loading galeri..." />
-      </section>
-    );
-  }
 
   if (error) {
     return (
@@ -42,7 +33,7 @@ export function GaleriPreviewSection() {
           </h2>
         </div>
 
-        <GaleriGrid items={previewGaleri} preview />
+        <GaleriGrid items={previewGaleri} preview isLoading={isLoading} />
 
         <div className="mt-12 text-center">
           <Link

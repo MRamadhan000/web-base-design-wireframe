@@ -48,10 +48,13 @@ async function fetchGaleriList(
   params: GaleriListParams = {},
 ): Promise<GaleriListResponse> {
   const { page = 1, limit = 9 } = params;
+  console.log("Fetching galeri list with params:", { page, limit });
   const requestUrl = new URL(getApiUrl("/galleries"));
   requestUrl.searchParams.set("populate", "*");
   requestUrl.searchParams.set("pagination[page]", String(page));
   requestUrl.searchParams.set("pagination[pageSize]", String(limit));
+
+  console.log("Fetching galeri list from:", requestUrl.toString());
 
   const response = await fetch(requestUrl);
 
@@ -63,7 +66,7 @@ async function fetchGaleriList(
 }
 
 export async function getLatestGaleri(): Promise<GaleriItem[]> {
-  const response = await fetchGaleriList({ page: 1, limit: 3 });
+  const response = await fetchGaleriList({ page: 1, limit: 4 });
   return response.data.map(toGaleri);
 }
 
