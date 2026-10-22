@@ -1,16 +1,16 @@
-import { useState, useCallback } from "react";
-import { QUICK_ACTIONS_DATA } from "../models/quick-action.data";
-import { QuickActionItem } from "../models/quick-action.types";
+import { useQuery } from "@tanstack/react-query";
+import { findAllQuickActions } from "../repositories/quick-action.repository";
 
 export function useQuickActionsViewModel() {
-  const [actions] = useState<QuickActionItem[]>(QUICK_ACTIONS_DATA);
-
-  const handleActionClick = useCallback((action: QuickActionItem) => {
-    console.log(`Action clicked: ${action.title}`);
-  }, []);
+  const query = useQuery({
+    queryKey: ["quick-actions"],
+    queryFn: findAllQuickActions,
+  });
 
   return {
-    actions,
-    handleActionClick,
+    actions: query.data ?? [],
+    isLoading: query.isLoading,
+    error: query.error,
+    refetch: query.refetch,
   };
 }
