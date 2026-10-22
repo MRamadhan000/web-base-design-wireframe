@@ -5,21 +5,12 @@ import { FaArrowRight } from "react-icons/fa";
 
 import { Container } from "@/components/ui/layout/Container";
 import { ErrorState } from "@/components/ui/state/ErrorState";
-import { LoadingState } from "@/components/ui/state/LoadingState";
 
 import { VideoList } from "../components/VideoList";
 import { useLatestVideoViewModel } from "../hooks/useLatestVideoViewModel";
 
 export function VideoSection() {
   const { videoList, isLoading, error, refetch } = useLatestVideoViewModel();
-
-  if (isLoading) {
-    return (
-      <section className="w-full bg-background py-16">
-        <LoadingState message="Loading video terbaru..." />
-      </section>
-    );
-  }
 
   if (error) {
     return (
@@ -41,7 +32,11 @@ export function VideoSection() {
           </h2>
         </div>
 
-        <VideoList videoList={videoList} />
+        <VideoList
+          videoList={videoList}
+          isLoading={isLoading}
+          skeletonCount={3}
+        />
 
         <div className="mt-12 text-center">
           <Link
