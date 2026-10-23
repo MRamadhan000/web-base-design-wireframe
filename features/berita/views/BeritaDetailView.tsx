@@ -8,10 +8,7 @@ import { LoadingState } from "@/components/ui/state/LoadingState";
 import { ErrorState } from "@/components/ui/state/ErrorState";
 
 import { BeritaDetail } from "../components/Detail/BeritaDetail";
-import { BeritaSearch } from "../components/Detail/BeritaSearch";
-import { BeritaRelated } from "../components/Detail/BeritaRelated";
 
-import { useLatestBeritaViewModel } from "../hooks/useLatestBeritaViewModel";
 import { useBeritaDetailBySlugViewModel } from "../hooks/useBeritaDetailBySlugViewModel";
 
 interface BeritaDetailViewProps {
@@ -20,14 +17,7 @@ interface BeritaDetailViewProps {
 
 export function BeritaDetailView({ slug }: BeritaDetailViewProps) {
   const {
-    beritaList: latestBeritaList,
-    isLoading: isLoadingLatest,
-    error: errorLatest,
-  } = useLatestBeritaViewModel();
-
-  const {
     berita,
-    relatedBerita,
     isLoading: isLoadingDetail,
     error: errorDetail,
     refetchDetail,
@@ -73,18 +63,8 @@ export function BeritaDetailView({ slug }: BeritaDetailViewProps) {
         </div>
 
         {/* CONTENT */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="w-full">
           <BeritaDetail berita={berita} />
-
-          <aside className="space-y-6">
-            <BeritaSearch />
-
-            <BeritaRelated
-              beritaList={
-                relatedBerita.length > 0 ? relatedBerita : latestBeritaList
-              }
-            />
-          </aside>
         </div>
       </Container>
     </section>

@@ -14,7 +14,6 @@ interface VideoDetailViewProps {
 export function VideoDetailView({ slug }: VideoDetailViewProps) {
   const {
     video,
-    relatedVideos,
     isLoading,
     error,
     refetchDetail,
@@ -41,5 +40,5 @@ export function VideoDetailView({ slug }: VideoDetailViewProps) {
     );
   }
 
-  return <DetailVideoContent video={video} relatedVideos={relatedVideos} />;
+  return <DetailVideoContent video={video}  />;
 }

@@ -87,3 +87,25 @@ View  ──►  ViewModel (hooks + TanStack Query)  ──►  Repository  ─�
 Satu arah: **View → ViewModel → Repository → Service**. Layer di bawah tidak boleh meng-import layer di atasnya.
 
 ---
+
+
+docker build -t fe .
+
+docker run -d \
+  --name fe \
+  -p 3000:3000 \
+  --restart unless-stopped \
+  fe
+
+docker build --no-cache -t fe .
+
+docker stop fe
+
+docker rm fe
+
+
+docker run -d \
+  --name fe \
+  -p 3000:3000 \
+  --restart unless-stopped \
+  fe
