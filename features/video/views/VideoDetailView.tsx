@@ -2,9 +2,10 @@
 
 import { Container } from "@/components/ui/layout/Container";
 import { ErrorState } from "@/components/ui/state/ErrorState";
-import { LoadingState } from "@/components/ui/state/LoadingState";
 
 import { DetailVideoContent } from "../components/DetailVideoContent";
+import { VideoDetailSkeleton } from "../components/Detail/VideoDetailSkeleton";
+
 import { useVideoDetailBySlugViewModel } from "../hooks/useVideoDetailBySlugViewModel";
 
 interface VideoDetailViewProps {
@@ -20,7 +21,21 @@ export function VideoDetailView({ slug }: VideoDetailViewProps) {
   } = useVideoDetailBySlugViewModel(slug);
 
   if (isLoading) {
-    return <LoadingState message="Loading video..." />;
+    return (
+      <section className="w-full bg-background py-8 font-sans antialiased text-black md:py-12">
+        <Container>
+          <div className="mb-6">
+            <div className="flex items-center border-b border-border pb-4">
+              <div className="h-10 w-40 animate-pulse rounded-lg bg-border/60" />
+            </div>
+          </div>
+
+          <div className="w-full">
+            <VideoDetailSkeleton />
+          </div>
+        </Container>
+      </section>
+    );
   }
 
   if (error || !video) {
@@ -40,5 +55,5 @@ export function VideoDetailView({ slug }: VideoDetailViewProps) {
     );
   }
 
-  return <DetailVideoContent video={video}  />;
+  return <DetailVideoContent video={video} />;
 }

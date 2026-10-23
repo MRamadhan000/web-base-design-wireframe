@@ -4,10 +4,10 @@ import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 
 import { Container } from "@/components/ui/layout/Container";
-import { LoadingState } from "@/components/ui/state/LoadingState";
 import { ErrorState } from "@/components/ui/state/ErrorState";
 
 import { BeritaDetail } from "../components/Detail/BeritaDetail";
+import { BeritaDetailSkeleton } from "../components/Detail/BeritaDetailSkeleton";
 
 import { useBeritaDetailBySlugViewModel } from "../hooks/useBeritaDetailBySlugViewModel";
 
@@ -25,8 +25,18 @@ export function BeritaDetailView({ slug }: BeritaDetailViewProps) {
 
   if (isLoadingDetail) {
     return (
-      <section className="w-full bg-background py-16">
-        <LoadingState message="Loading berita..." />
+      <section className="w-full bg-background py-8 font-sans antialiased text-black md:py-12">
+        <Container>
+          <div className="mb-6">
+            <div className="flex items-center border-b border-border pb-4">
+              <div className="h-10 w-40 animate-pulse rounded-lg bg-border/60" />
+            </div>
+          </div>
+
+          <div className="w-full">
+            <BeritaDetailSkeleton />
+          </div>
+        </Container>
       </section>
     );
   }
