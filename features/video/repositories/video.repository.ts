@@ -1,28 +1,35 @@
+import type {
+  Video,
+  VideoDetail,
+  VideoRelated,
+  PaginatedVideos,
+} from "../models/video.types";
 import {
   getAllVideos,
   getLatestVideos,
   getRelatedVideos,
   getVideoBySlug,
-} from "../models/video.service";
-import { PaginatedVideos, Video, VideoDetail } from "../models/video.types";
+} from "../service/video.service";
 
-export async function findLatestVideos(): Promise<Video[]> {
+const DEFAULT_PAGE_SIZE = 9;
+
+export function findLatestVideos(): Promise<Video[]> {
   return getLatestVideos();
 }
 
-export async function findAllVideos(
+export function findAllVideos(
   page = 1,
-  limit = 9,
+  limit = DEFAULT_PAGE_SIZE,
 ): Promise<PaginatedVideos> {
-  return getAllVideos(page, limit);
+  return getAllVideos({ page, limit });
 }
 
-export async function findVideoBySlug(
-  slug: string,
-): Promise<VideoDetail | null> {
+export function findVideoBySlug(slug: string): Promise<VideoDetail | null> {
   return getVideoBySlug(slug);
 }
 
-export async function findRelatedVideos(slug: string): Promise<Video[]> {
+export function findRelatedVideos(
+  slug: string,
+): Promise<VideoRelated[]> {
   return getRelatedVideos(slug);
 }
