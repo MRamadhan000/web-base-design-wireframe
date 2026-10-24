@@ -1,139 +1,67 @@
 import {
+  type QueryParams,
+  type StrapiListResponse,
+} from "@/shared/models/pagination";
+
+import type {
   Berita,
-  BeritaApi,
-  BeritaApiResponse,
-  BeritaDetail,
-  BeritaListParams,
-  BeritaListResponse,
+  BeritaRaw,
   BeritaRelated,
   PaginatedBerita,
 } from "../models/berita.types";
+import { toBerita, toBeritaRelated } from "../models/berita.mapper";
+import { buildStrapiQuery } from "@/shared/models/lib/build-strapi-query";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
+const ENDPOINT = `${BASE_URL}/beritas`;
 
-function getApiUrl(path: string): string {
-  if (!API_BASE_URL) {
-    throw new Error("NEXT_PUBLIC_API_BASE_URL belum dikonfigurasi");
-  }
+/**
+ * Mengambil data berita dari Strapi berdasarkan query params.
+ *
+ * @param params - Parameter filter, pagination, atau limit untuk query Strapi.
+ * @param errorMessage - Pesan error jika request gagal.
+ * @returns Response Strapi yang berisi data berita dan metadata pagination.
+ */
 
-  return `${API_BASE_URL.replace(/\/$/, "")}${path}`;
-}
-
-function getImageUrl(image: BeritaApi["image"]): string {
-  if (!image) {
-    return "";
-  }
-
-  const imagePath = typeof image === "string" ? image : image.url;
-  if (/^https?:\/\//i.test(imagePath)) {
-    return imagePath;
-  }
-
-  if (!API_BASE_URL) {
-    throw new Error("NEXT_PUBLIC_API_BASE_URL belum dikonfigurasi");
-  }
-
-  return new URL(imagePath, `${new URL(API_BASE_URL).origin}/`).toString();
-}
-
-function toBerita(item: BeritaApi): Berita {
-  return {
-    id: item.id,
-    documentId: item.documentId,
-    title: item.title,
-    date: item.date,
-    image: getImageUrl(item.image),
-    slug: item.slug,
-  };
-}
-
-function toBeritaDetail(item: BeritaApi): BeritaDetail {
-  return {
-    ...toBerita(item),
-    author: item.author,
-    content: item.content?.split(/\r?\n/).filter(Boolean) ?? [],
-    tags: [],
-  };
-}
-
-async function fetchBeritaList(
-  url = "/beritas",
-  params: BeritaListParams = {},
-): Promise<BeritaListResponse> {
-  const { page = 1, limit = 9, ...queryParams } = params;
-  const requestUrl = new URL(getApiUrl(url));
-  const query = requestUrl.searchParams;
-
-  query.set("populate", String(queryParams.populate ?? query.get("populate") ?? "*"));
-  query.set("pagination[page]", String(page));
-  query.set("pagination[pageSize]", String(limit));
-
-  Object.entries(queryParams).forEach(([key, value]) => {
-    if (value !== undefined) {
-      query.set(key, String(value));
-    }
-  });
-
-  const response = await fetch(requestUrl);
-
-  if (!response.ok) {
-    throw new Error("Gagal mengambil daftar berita");
-  }
-
+async function request(
+  params: QueryParams,
+  errorMessage: string,
+): Promise<StrapiListResponse<BeritaRaw>> {
+  const response = await fetch(`${ENDPOINT}?${buildStrapiQuery(params)}`);
+  if (!response.ok) throw new Error(errorMessage);
   return response.json();
 }
 
 export async function getLatestBerita(): Promise<Berita[]> {
-  const response = await fetchBeritaList("/beritas", { page: 1, limit: 3 });
-  return response.data.map(toBerita);
+  const { data } = await request(
+    { limit: 3 },
+    "Gagal mengambil berita terbaru",
+  );
+  return data.map(toBerita);
 }
 
 export async function getAllBerita(
-  url = "/beritas",
-  params: BeritaListParams = {},
+  params: QueryParams = {},
 ): Promise<PaginatedBerita> {
-  const response = await fetchBeritaList(url, params);
-
-  return {
-    data: response.data.map(toBerita),
-    pagination: response.meta.pagination,
-  };
+  const { data, meta } = await request(params, "Gagal mengambil daftar berita");
+  return { data: data.map(toBerita), pagination: meta.pagination };
 }
 
-export async function getBeritaBySlug(slug: string): Promise<BeritaDetail | null> {
-  const query = new URLSearchParams({
-    "filters[slug][$eq]": slug,
-    populate: "*",
-  });
-  const response = await fetch(
-    getApiUrl(`/beritas?${query.toString()}`),
+export async function getBeritaBySlug(slug: string): Promise<Berita | null> {
+  const { data } = await request(
+    { "filters[slug][$eq]": slug },
+    "Gagal mengambil detail berita",
   );
 
-  if (!response.ok) {
-    throw new Error("Gagal mengambil detail berita");
-  }
-
-  const result: BeritaApiResponse<BeritaApi[]> = await response.json();
-  const berita = result.data?.[0];
-
-  if (!berita) {
-    return null;
-  }
-
-  return toBeritaDetail(berita);
+  return data[0] ? toBerita(data[0]) : null;
 }
 
-export async function getRelatedBerita(id: string): Promise<BeritaRelated[]> {
-  const response = await fetchBeritaList("/beritas", { page: 1, limit: 9 });
-
-  return response.data
-    .filter((item) => item.documentId !== id)
-    .slice(0, 2)
-    .map((item) => ({
-      id: item.id,
-      documentId: item.documentId,
-      title: item.title,
-      date: item.date,
-      image: getImageUrl(item.image),
-    }));
+export async function getRelatedBerita(
+  documentId: string,
+): Promise<BeritaRelated[]> {
+  const { data } = await request(
+    { "filters[documentId][$ne]": documentId, limit: 2 },
+    "Gagal mengambil berita terkait",
+  );
+  return data.map(toBeritaRelated);
 }

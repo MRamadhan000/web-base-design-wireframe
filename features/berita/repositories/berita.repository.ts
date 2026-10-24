@@ -1,36 +1,34 @@
-import {
-  getLatestBerita,
-  getAllBerita,
-  getRelatedBerita,
-  getBeritaBySlug,
-} from "../service/berita.service";
-
-import {
+import type {
   Berita,
-  BeritaDetail,
   BeritaRelated,
   PaginatedBerita,
 } from "../models/berita.types";
+import {
+  getAllBerita,
+  getBeritaBySlug,
+  getLatestBerita,
+  getRelatedBerita,
+} from "../service/berita.service";
 
-export async function findLatestBerita(): Promise<Berita[]> {
+const DEFAULT_PAGE_SIZE = 9;
+
+export function findLatestBerita(): Promise<Berita[]> {
   return getLatestBerita();
 }
 
-export async function findAllBerita(
+export function findAllBerita(
   page = 1,
-  limit = 10,
+  limit = DEFAULT_PAGE_SIZE,
 ): Promise<PaginatedBerita> {
-  return getAllBerita("/beritas", { page, limit });
+  return getAllBerita({ page, limit });
 }
 
-export async function findBeritaBySlug(
-  slug: string
-): Promise<BeritaDetail | null> {
+export function findBeritaBySlug(slug: string): Promise<Berita | null> {
   return getBeritaBySlug(slug);
 }
 
-export async function findRelatedBerita(
-  id: string
+export function findRelatedBerita(
+  documentId: string,
 ): Promise<BeritaRelated[]> {
-  return getRelatedBerita(id);
+  return getRelatedBerita(documentId);
 }

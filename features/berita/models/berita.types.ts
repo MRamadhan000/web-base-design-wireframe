@@ -1,53 +1,16 @@
-export interface Berita {
+import type { Pagination } from "@/shared/models/pagination";
+
+export interface BeritaRaw {
   id: number;
   documentId: string;
   title: string;
   date: string;
-  image: string;
-
-  slug:string;
+  slug: string;
+  content: string;
+  image: { url: string } | null;
 }
 
-export type BeritaApi = Omit<Berita, "image"> & {
-  image: { url: string } | string | null;
-  author: string | null;
-  content: string | null;
-};
+export type Berita = Omit<BeritaRaw, "image"> & { image: string };
 
-export type BeritaApiResponse<T> = { data: T };
-
-export type BeritaListParams = {
-  page?: number;
-  limit?: number;
-  [key: string]: string | number | undefined;
-};
-
-export type BeritaListResponse = BeritaApiResponse<BeritaApi[]> & {
-  meta: { pagination: BeritaPagination };
-};
-
-export interface BeritaDetail extends Berita {
-  author: string | null;
-  content: string[];
-  tags: string[];
-}
-
-export interface BeritaRelated {
-  id: number;
-  documentId: string;
-  title: string;
-  date: string;
-  image: string;
-}
-
-export interface BeritaPagination {
-  page: number;
-  pageSize: number;
-  pageCount: number;
-  total: number;
-}
-
-export interface PaginatedBerita {
-  data: Berita[];
-  pagination: BeritaPagination;
-}
+export type BeritaRelated = Omit<Berita, "slug" | "content">;
+export type PaginatedBerita = { data: Berita[]; pagination: Pagination };
