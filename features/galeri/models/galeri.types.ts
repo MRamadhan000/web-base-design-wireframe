@@ -1,36 +1,17 @@
-export interface GaleriItem {
+import type { Pagination } from "@/shared/models/pagination";
+
+export interface GaleriRaw {
   id: number;
   documentId: string;
   title: string;
   slug: string;
-  description: string;
+  description: string | null;
+  image: { url: string } | null;
+}
+
+export type Galeri = Omit<GaleriRaw, "image" | "description"> & {
   image: string;
-}
-
-export interface GaleriApi extends Omit<GaleriItem, "image" | "description"> {
-  descrption: string | null;
-  image: { url: string } | string | null;
-}
-
-export type GaleriApiResponse<T> = { data: T };
-
-export type GaleriListParams = {
-  page?: number;
-  limit?: number;
+  description: string;
 };
 
-export type GaleriListResponse = GaleriApiResponse<GaleriApi[]> & {
-  meta: { pagination: GaleriPagination };
-};
-
-export interface GaleriPagination {
-  page: number;
-  pageSize: number;
-  pageCount: number;
-  total: number;
-}
-
-export interface PaginatedGaleri {
-  data: GaleriItem[];
-  pagination: GaleriPagination;
-}
+export type PaginatedGaleri = { data: Galeri[]; pagination: Pagination };

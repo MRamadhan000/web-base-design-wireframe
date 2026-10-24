@@ -1,13 +1,15 @@
-import { getAllGaleri, getLatestGaleri } from "../models/galeri.service";
-import { GaleriItem, PaginatedGaleri } from "../models/galeri.types";
+import type { Galeri, PaginatedGaleri } from "../models/galeri.types";
+import { getAllGaleri, getLatestGaleri } from "../service/galeri.service";
 
-export async function findLatestGaleri(): Promise<GaleriItem[]> {
+const DEFAULT_PAGE_SIZE = 9;
+
+export function findLatestGaleri(): Promise<Galeri[]> {
   return getLatestGaleri();
 }
 
-export async function findAllGaleri(
+export function findAllGaleri(
   page = 1,
-  limit = 9,
+  limit = DEFAULT_PAGE_SIZE,
 ): Promise<PaginatedGaleri> {
-  return getAllGaleri(page, limit);
+  return getAllGaleri({ page, limit });
 }
