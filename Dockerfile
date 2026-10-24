@@ -2,17 +2,18 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy dependency files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm i
+RUN npm ci
 
-# Copy seluruh source code
 COPY . .
 
-# Expose port aplikasi
-EXPOSE 3005
+RUN npm run build
 
-# Jalankan aplikasi
+ENV NODE_ENV=production
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
+
+EXPOSE 3000
+
 CMD ["npm", "start"]
