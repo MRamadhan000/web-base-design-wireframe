@@ -11,12 +11,12 @@ export default function Home() {
   return (
     <NavbarView>
       <WireframeHero />
-      {/* <WireframeTentangBatu /> */}
+      <WireframeTentangBatu />
       <BeritaSection />
-      {/* <VideoSection /> */}
-      {/* <GaleriPreviewSection /> */}
-      {/* <QuickActionSection /> */}
-      {/* <WireframeFooter /> */}
+      <VideoSection />
+      <GaleriPreviewSection />
+      <QuickActionSection />
+      <WireframeFooter />
     </NavbarView>
   );
 }
