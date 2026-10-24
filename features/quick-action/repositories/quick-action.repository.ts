@@ -27,7 +27,13 @@ function getMediaUrl(path: string | null | undefined): string | null {
     throw new Error("NEXT_PUBLIC_API_BASE_URL belum dikonfigurasi");
   }
 
-  return new URL(path, `${new URL(API_BASE_URL).origin}/`).toString();
+  const baseUrl = API_BASE_URL.replace(/\/api\/?$/, "");
+  const relativePath = path.replace(/^\/+/, "");
+
+  return new URL(
+    relativePath,
+    baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`,
+  ).toString();
 }
 
 function getLink(link: QuickActionApiItem["link"]): string | null {

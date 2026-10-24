@@ -10,10 +10,8 @@ function getApiUrl(): string {
     throw new Error("NEXT_PUBLIC_API_BASE_URL belum dikonfigurasi");
   }
 
-  const url = new URL(
-    `${API_BASE_URL.replace(/\/+$/, "")}/site-setting`,
-  );
-  url.searchParams.set("populate", "logo");
+  const url = new URL(`${API_BASE_URL.replace(/\/+$/, "")}/site-setting`);
+  url.searchParams.set("populate", "logoUrl");
   return url.toString();
 }
 
@@ -22,6 +20,7 @@ function getMediaUrl(path: string | null | undefined): string | null {
     return null;
   }
 
+  // Jika URL sudah lengkap, gunakan langsung.
   if (/^https?:\/\//i.test(path)) {
     return path;
   }
@@ -30,7 +29,16 @@ function getMediaUrl(path: string | null | undefined): string | null {
     throw new Error("NEXT_PUBLIC_API_BASE_URL belum dikonfigurasi");
   }
 
-  return new URL(path, `${new URL(API_BASE_URL).origin}/`).toString();
+  const baseUrl = API_BASE_URL.replace(/\/api\/?$/, "");
+
+  const relativePath = path.replace(/^\/+/, "");
+
+  const mediaUrl = new URL(
+    relativePath,
+    baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`,
+  ).toString();
+
+  return mediaUrl;
 }
 
 function getExternalUrl(value: string | string[] | null): string | null {
@@ -59,6 +67,8 @@ export async function findSiteSettings(): Promise<SiteSettings> {
 
   const { data }: SiteSettingsApiResponse = await response.json();
 
+  console.log(getMediaUrl(data.logoUrl?.url));
+
   return {
     siteName: data.siteName,
     siteSubtitle: data.siteSubtitle,
@@ -70,6 +80,6 @@ export async function findSiteSettings(): Promise<SiteSettings> {
     facebookUrl: getExternalUrl(data.facebookUrl),
     youtubeUrl: getExternalUrl(data.youtubeUrl),
     tiktokUrl: getExternalUrl(data.tiktokUrl),
-    logoUrl: getMediaUrl(data.logo?.url),
+    logoUrl: getMediaUrl(data.logoUrl?.url),
   };
 }

@@ -24,7 +24,7 @@ export interface SiteSettingsApiResponse {
     facebookUrl: string | string[] | null;
     youtubeUrl: string | string[] | null;
     tiktokUrl: string | string[] | null;
-    logo: {
+    logoUrl: {
       url: string;
     } | null;
   };
