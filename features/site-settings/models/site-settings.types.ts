@@ -12,7 +12,7 @@ export interface SiteSettings {
   logoUrl: string | null;
 }
 
-export interface SiteSettingsApiResponse {
+export type SiteSettingsApiResponse = {
   data: {
     siteName: string;
     siteSubtitle: string;
@@ -20,12 +20,10 @@ export interface SiteSettingsApiResponse {
     addresss: string | null;
     phone: string | null;
     email: string | null;
-    instagramUrl: string | string[] | null;
-    facebookUrl: string | string[] | null;
-    youtubeUrl: string | string[] | null;
-    tiktokUrl: string | string[] | null;
-    logoUrl: {
-      url: string;
-    } | null;
+    instagramUrl: string | null;
+    facebookUrl: string | null;
+    youtubeUrl: string | null;
+    tiktokUrl: string | null;
+    logoUrl: { url: string } | null;
   };
-}
+};
