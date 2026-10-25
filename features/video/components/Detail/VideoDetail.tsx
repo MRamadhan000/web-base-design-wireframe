@@ -23,19 +23,11 @@ export function VideoDetail({ video }: VideoDetailProps) {
         <VideoShare />
       </div>
 
-      <VideoPlayer title={video.title} videoUrl={video.videoUrl} />
+      <VideoPlayer title={video.title} videoUrl={video.url} />
 
       <div className="mt-8 space-y-4 text-sm leading-relaxed text-black sm:text-base">
-        {video.description.map((paragraph, index) => (
-          <p
-            key={`${video.id}-${index}`}
-            className={index === 0 ? "font-medium text-black" : ""}
-          >
-            {paragraph}
-          </p>
-        ))}
+        <p>{video.description}</p>
       </div>
-
     </article>
   );
 }

@@ -21,9 +21,9 @@ export function VideoRelated({ videoList }: VideoRelatedProps) {
             className="group flex items-start gap-3"
           >
             <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-lg bg-black">
-              {item.thumbnail && (
+              {item.url && (
                 <img
-                  src={item.thumbnail}
+                  src={item.url}
                   alt={item.title}
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />

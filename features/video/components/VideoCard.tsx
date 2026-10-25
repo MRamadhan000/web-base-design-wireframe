@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaCalendarAlt, FaPlay } from "react-icons/fa";
 
 import { Video } from "../models/video.types";
+import { VideoPlayer } from "./Detail/VideoPlayer";
 
 interface VideoCardProps {
   video: Video;
@@ -13,15 +14,13 @@ export function VideoCard({ video }: VideoCardProps) {
   return (
     <article className="group flex flex-col justify-between rounded-xl border border-border/80 bg-surface p-4 shadow-sm transition-all hover:border-primary-light hover:shadow-md">
       <div>
-        <div className="relative h-48 w-full overflow-hidden rounded-lg bg-black">
-          {video.thumbnail && (
-            <img
-              src={video.thumbnail}
-              alt={video.title}
-              className="h-full w-full object-cover opacity-90 transition-transform duration-300 group-hover:scale-105"
-            />
-          )}
-        </div>
+        {video.url ? (
+          <VideoPlayer title={video.title} videoUrl={video.url} />
+        ) : (
+          <div className="relative mt-6 flex aspect-video w-full items-center justify-center overflow-hidden rounded-xl bg-black text-sm text-white/70">
+            Video tidak tersedia
+          </div>
+        )}
 
         <div className="mt-4 flex items-center gap-2 text-xs font-medium text-muted">
           <FaCalendarAlt className="h-3.5 w-3.5 text-muted-light" />

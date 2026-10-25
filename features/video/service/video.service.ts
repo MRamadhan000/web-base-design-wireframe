@@ -37,6 +37,7 @@ export async function getLatestVideos(): Promise<Video[]> {
     { limit: 3 },
     "Gagal mengambil video terbaru",
   );
+
   return data.map(toVideo);
 }
 
