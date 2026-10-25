@@ -1,12 +1,12 @@
 "use client";
 
 import { Container } from "@/components/ui/layout/Container";
-import { Breadcrumb } from "@/components/ui/navigation/Breadcrumb";
 import { ErrorState } from "@/components/ui/state/ErrorState";
 import { Pagination } from "@/components/ui/navigation/Pagination";
 
 import { BeritaList } from "../components/BeritaList";
 import { useAllBeritaViewModel } from "../hooks/useAllBeritaViewModel";
+import { PageHeaderView } from "@/shared/components/PageHeaderView";
 
 export function BeritaPageView({
   page,
@@ -31,30 +31,13 @@ export function BeritaPageView({
 
   return (
     <div className="min-h-screen bg-background font-sans antialiased text-black">
-      {/* HEADER */}
-      <section className="border-b border-border/80 bg-surface py-12 md:py-16">
-        <Container>
-          <Breadcrumb
-            items={[
-              { label: "Beranda", href: "/" },
-              { label: "Berita & Pengumuman" },
-            ]}
-          />
+      <PageHeaderView
+        title="Berita &"
+        highlight="Informasi Publik"
+        description="Akses cepat dan transparan ke seluruh rilisan berita resmi, pengumuman, serta dokumentasi program kerja Pemerintah Kota Batu."
+        showBackButton={true}
+      />
 
-          <div className="max-w-3xl">
-            <h1 className="text-3xl font-extrabold tracking-tight text-black sm:text-4xl">
-              Berita & <span className="text-primary">Informasi Publik</span>
-            </h1>
-
-            <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
-              Akses cepat dan transparan ke seluruh rilisan berita resmi,
-              pengumuman, serta dokumentasi program kerja Pemerintah Kota Batu.
-            </p>
-          </div>
-        </Container>
-      </section>
-
-      {/* LIST */}
       <section className="py-12">
         <Container>
           <BeritaList
