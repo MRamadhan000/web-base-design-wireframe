@@ -1,6 +1,6 @@
 import { FaCalendarAlt } from "react-icons/fa";
 
-import { BeritaDetail as BeritaDetailType } from "../../models/berita.types";
+import { Berita as BeritaDetailType } from "../../models/berita.types";
 import { BeritaShare } from "./BeritaShare";
 
 interface BeritaDetailProps {
@@ -32,18 +32,7 @@ export function BeritaDetail({ berita }: BeritaDetailProps) {
       </div>
 
       <div className="mt-8 space-y-4 text-sm leading-relaxed text-black sm:text-base">
-        {berita.content.map((paragraph, index) => (
-          <p
-            key={index}
-            className={
-              index === 0
-                ? "font-medium text-black"
-                : ""
-            }
-          >
-            {paragraph}
-          </p>
-        ))}
+        <p>{berita.content}</p>
       </div>
 
     </article>
