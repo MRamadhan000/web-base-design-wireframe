@@ -1,10 +1,10 @@
 
-import { GaleriItem } from "../models/galeri.types";
+import { Galeri } from "../models/galeri.types";
 import { GaleriCard } from "./GaleriCard";
 import { GaleriCardSkeleton } from "./GaleriCardSkeleton";
 
 interface GaleriGridProps {
-  items: GaleriItem[];
+  items: Galeri[];
   preview?: boolean;
   isLoading?: boolean;
   skeletonCount?: number;

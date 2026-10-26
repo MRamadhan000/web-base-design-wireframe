@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-import { GaleriItem } from "../models/galeri.types";
+import { Galeri } from "../models/galeri.types";
 
 interface GaleriCardProps {
-  item: GaleriItem;
+  item: Galeri;
   preview?: boolean;
 }
 
