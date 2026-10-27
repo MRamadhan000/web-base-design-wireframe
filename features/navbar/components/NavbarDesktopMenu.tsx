@@ -2,20 +2,20 @@ import Link from "next/link";
 
 const navItems = [
   {
-    label: "Nav 1",
-    href: "#",
+    label: "Berita",
+    href: "#berita",
   },
   {
-    label: "Nav 2",
-    href: "#",
+    label: "Video",
+    href: "#video",
   },
   {
-    label: "Nav 3",
-    href: "#",
+    label: "Galeri",
+    href: "#galeri",
   },
   {
-    label: "Nav 4",
-    href: "#",
+    label: "Layanan",
+    href: "#layanan",
   },
 ];
 

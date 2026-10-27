@@ -10,7 +10,7 @@ export default function QuickActionSection() {
   const { actions, isLoading, error, refetch } = useQuickActionsViewModel();
 
   return (
-    <section className="w-full border-b border-border bg-background py-16 font-sans antialiased">
+    <section id="layanan" className="w-full border-b border-border bg-background py-16 font-sans antialiased scroll-mt-28">
       <Container>
         <div className="mb-12 text-center">
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-black">

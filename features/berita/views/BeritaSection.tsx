@@ -30,7 +30,7 @@ export function BeritaSection() {
   }
 
   return (
-    <section className="w-full border-b border-border bg-background py-16 font-sans antialiased">
+    <section id="berita" className="w-full border-b border-border bg-background py-16 font-sans antialiased scroll-mt-28">
       <Container>
         <div className="mb-10 border-b border-border pb-6">
           <h2 className="mt-3 text-center text-3xl font-bold tracking-tight text-black">
