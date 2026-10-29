@@ -7,6 +7,7 @@ import { Pagination } from "@/components/ui/navigation/Pagination";
 import { BeritaList } from "../components/BeritaList";
 import { useAllBeritaViewModel } from "../hooks/useAllBeritaViewModel";
 import { PageHeaderView } from "@/shared/components/PageHeaderView";
+import { useRouter } from "next/navigation";
 
 export function BeritaPageView({
   page,
@@ -15,6 +16,7 @@ export function BeritaPageView({
   page: number;
   limit: number;
 }) {
+  const router = useRouter();
   const { allBerita, pagination, isLoading, error, refetch } =
     useAllBeritaViewModel(page, limit);
 
@@ -36,6 +38,7 @@ export function BeritaPageView({
         highlight="Informasi Publik"
         description="Akses cepat dan transparan ke seluruh rilisan berita resmi, pengumuman, serta dokumentasi program kerja Pemerintah Kota Batu."
         showBackButton={true}
+        onBack={() => router.push("/#berita")}
       />
 
       <section className="py-12">

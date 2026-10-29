@@ -8,6 +8,7 @@ import { Pagination } from "@/components/ui/navigation/Pagination";
 import { VideoList } from "../components/VideoList";
 import { useAllVideoViewModel } from "../hooks/useAllVideoViewModel";
 import { PageHeaderView } from "@/shared/components/PageHeaderView";
+import { useRouter } from "next/navigation";
 
 export function VideoPageView({
   page = 1,
@@ -16,6 +17,7 @@ export function VideoPageView({
   page?: number;
   limit?: number;
 }) {
+  const router = useRouter();
   const { allVideos, pagination, isLoading, error, refetch } =
     useAllVideoViewModel(page, limit);
 
@@ -40,6 +42,7 @@ export function VideoPageView({
         title="Video &"
         highlight="Dokumentasi Kegiatan"
         description="Saksikan berbagai dokumentasi kegiatan resmi, liputan khusus, dan video potensi daerah Pemerintah Kota Batu secara lengkap."
+        onBack={() => router.push("/#video")}
       />
 
       <section className="py-12">

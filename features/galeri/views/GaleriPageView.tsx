@@ -8,6 +8,7 @@ import { Pagination } from "@/components/ui/navigation/Pagination";
 import { GaleriGrid } from "../components/GaleriGrid";
 import { useAllGaleriViewModel } from "../hooks/useAllGaleriViewModel";
 import { PageHeaderView } from "@/shared/components/PageHeaderView";
+import { useRouter } from "next/navigation";
 
 export function GaleriPageView({
   page = 1,
@@ -16,6 +17,7 @@ export function GaleriPageView({
   page?: number;
   limit?: number;
 }) {
+  const router = useRouter();
   const { allGaleri, pagination, isLoading, error, refetch } =
     useAllGaleriViewModel(page, limit);
 
@@ -43,6 +45,7 @@ export function GaleriPageView({
         highlight="Foto Daerah"
         description="Kumpulan dokumentasi visual mengenai potensi wisata, kegiatan pemerintah, seni budaya, serta momen berharga di Kota Batu."
         showBackButton={true}
+        onBack={() => router.push("/#galeri")}
       />
 
       {/* DAFTAR GALERI */}
