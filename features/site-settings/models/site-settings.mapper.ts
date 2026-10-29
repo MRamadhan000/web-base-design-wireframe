@@ -1,7 +1,7 @@
 import { getImageUrl } from "@/shared/utils/image";
-import type { SiteSettings, SiteSettingsApiResponse } from "./site-settings.types";
+import type { SiteSettings, SiteSettingsRaw } from "./site-settings.types";
 
-type RawData = SiteSettingsApiResponse["data"];
+type RawData = SiteSettingsRaw;
 
 function getExternalUrl(value: string | string[] | null): string | null {
   const url = Array.isArray(value) ? value[0] : value;
