@@ -21,10 +21,6 @@ export function GaleriPageView({
   const { allGaleri, pagination, isLoading, error, refetch } =
     useAllGaleriViewModel(page, limit);
 
-  if (isLoading) {
-    return <LoadingState message="Loading galeri..." />;
-  }
-
   if (error) {
     return (
       <ErrorState
@@ -51,7 +47,7 @@ export function GaleriPageView({
       {/* DAFTAR GALERI */}
       <section className="py-12">
         <Container>
-          <GaleriGrid items={allGaleri} />
+          <GaleriGrid items={allGaleri} isLoading={isLoading} skeletonCount={6}/>
 
           {pagination && (
             <Pagination
