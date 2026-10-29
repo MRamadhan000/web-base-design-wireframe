@@ -20,7 +20,7 @@ export function BeritaDetail({ berita }: BeritaDetailProps) {
           <span>{berita.date}</span>
         </div>
 
-        <BeritaShare />
+        <BeritaShare title={berita.title} />
       </div>
 
       <div className="relative mt-6 h-[260px] w-full overflow-hidden rounded-xl bg-accent-soft sm:h-[380px]">
@@ -34,7 +34,6 @@ export function BeritaDetail({ berita }: BeritaDetailProps) {
       <div className="mt-8 space-y-4 text-sm leading-relaxed text-black sm:text-base">
         <p>{berita.content}</p>
       </div>
-
     </article>
   );
 }

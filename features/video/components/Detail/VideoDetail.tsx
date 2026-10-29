@@ -20,7 +20,7 @@ export function VideoDetail({ video }: VideoDetailProps) {
           <FaCalendarAlt className="text-primary" />
           <span>{video.date}</span>
         </div>
-        <VideoShare />
+        <VideoShare title={video.title}/>
       </div>
 
       <VideoPlayer title={video.title} videoUrl={video.url} />
