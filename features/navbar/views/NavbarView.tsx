@@ -38,12 +38,7 @@ export default function NavbarView({ children }: NavbarViewProps) {
 
           {/* Kanan */}
           <div className="flex shrink-0 items-center justify-end">
-            <NavbarActions
-              isDarkMode={isDarkMode}
-              isMobileMenuOpen={isMobileMenuOpen}
-              onToggleDarkMode={toggleDarkMode}
-              onToggleMobileMenu={toggleMobileMenu}
-            />
+       
           </div>
         </nav>
 
