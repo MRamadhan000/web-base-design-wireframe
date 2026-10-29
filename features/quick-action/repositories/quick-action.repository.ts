@@ -69,10 +69,15 @@ function toQuickAction(item: QuickActionApiItem): QuickActionItem {
   };
 }
 
+
 export async function findAllQuickActions(): Promise<QuickActionItem[]> {
   const requestUrl = new URL(getApiUrl("/quick-actions"));
-  requestUrl.searchParams.set("populate", "*");
 
+  requestUrl.searchParams.set("populate", "*");
+  requestUrl.searchParams.set(
+    "filters[organization][documentId][$eq]",
+    process.env.NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID ?? "",
+  );
   const response = await fetch(requestUrl);
 
   if (!response.ok) {
