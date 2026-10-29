@@ -88,24 +88,14 @@ Satu arah: **View → ViewModel → Repository → Service**. Layer di bawah tid
 
 ---
 
-
-docker build -t fe .
-
-docker run -d \
-  --name fe \
-  -p 3000:3000 \
-  --restart unless-stopped \
-  fe
-
-docker build --no-cache -t fe .
-
-docker stop fe
-
-docker rm fe
+docker build \
+  --build-arg NEXT_PUBLIC_API_BASE_URL=http://10.0.1.249/backend/api \
+  --build-arg NEXT_PUBLIC_IMAGE_BASE_URL=http://10.0.1.249/backend \
+  --build-arg NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID=iv4f6jflnq4lst18pu7owh23 \
+  -t web-base-design-wireframe .
 
 
 docker run -d \
-  --name fe \
+  --name web-base-design-wireframe \
   -p 3000:3000 \
-  --restart unless-stopped \
-  fe
+  web-base-design-wireframe
