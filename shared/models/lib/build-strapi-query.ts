@@ -1,7 +1,4 @@
-
 import { QueryParams } from "../pagination";
-
-const organizationId = "3" 
 
 export function buildStrapiQuery({
   page = 1,
@@ -9,8 +6,10 @@ export function buildStrapiQuery({
   populate = "*",
   ...filters
 }: QueryParams = {}): string {
+  const organizationId = process.env.NEXT_PUBLIC_ORGANIZATION_ID;
+
   if (!organizationId) {
-    throw new Error("VITE_ORGANIZATION_ID belum diatur di .env");
+    throw new Error("NEXT_PUBLIC_ORGANIZATION_ID belum diatur di .env / .env.local");
   }
 
   const query = new URLSearchParams({
