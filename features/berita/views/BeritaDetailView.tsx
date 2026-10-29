@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 
 import { Container } from "@/components/ui/layout/Container";
@@ -16,6 +16,8 @@ interface BeritaDetailViewProps {
 }
 
 export function BeritaDetailView({ slug }: BeritaDetailViewProps) {
+  const router = useRouter();
+
   const {
     berita,
     isLoading: isLoadingDetail,
@@ -62,13 +64,14 @@ export function BeritaDetailView({ slug }: BeritaDetailViewProps) {
         {/* BACK BUTTON */}
         <div className="mb-6">
           <div className="flex items-center border-b border-border pb-4">
-            <Link
-              href="/berita"
+            <button
+              type="button"
+              onClick={() => router.back()}
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2 text-xs font-semibold text-black transition-all hover:border-primary hover:text-primary hover:shadow-sm"
             >
               <FaArrowLeft className="h-3 w-3" />
-              <span>Kembali ke Berita</span>
-            </Link>
+              <span>Kembali</span>
+            </button>
           </div>
         </div>
 

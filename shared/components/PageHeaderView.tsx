@@ -28,7 +28,7 @@ export function PageHeaderView({
       return;
     }
 
-    router.push("/");
+    router.back();
   };
 
   return (
