@@ -21,10 +21,6 @@ export function VideoPageView({
   const { allVideos, pagination, isLoading, error, refetch } =
     useAllVideoViewModel(page, limit);
 
-  if (isLoading) {
-    return <LoadingState message="Loading video..." />;
-  }
-
   if (error) {
     return (
       <ErrorState
@@ -47,7 +43,7 @@ export function VideoPageView({
 
       <section className="py-12">
         <Container>
-          <VideoList videoList={allVideos} />
+          <VideoList videoList={allVideos} isLoading={isLoading} />
 
           {pagination && (
             <Pagination

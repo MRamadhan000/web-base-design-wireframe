@@ -5,7 +5,7 @@ import { VideoCardSkeleton } from "./VideoCardSkeleton";
 
 interface VideoListProps {
   videoList: Video[];
-  isLoading?: boolean;
+  isLoading: boolean;
   skeletonCount?: number;
 }
 
