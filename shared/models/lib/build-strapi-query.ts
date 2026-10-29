@@ -6,17 +6,17 @@ export function buildStrapiQuery({
   populate = "*",
   ...filters
 }: QueryParams = {}): string {
-  const organizationId = process.env.NEXT_PUBLIC_ORGANIZATION_ID;
+  const organizationDocumentId = process.env.NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID;
 
-  if (!organizationId) {
-    throw new Error("NEXT_PUBLIC_ORGANIZATION_ID belum diatur di .env / .env.local");
+  if (!organizationDocumentId) {
+    throw new Error("NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID belum diatur di .env / .env.local");
   }
 
   const query = new URLSearchParams({
     populate: String(populate),
     "pagination[page]": String(page),
     "pagination[pageSize]": String(limit),
-    "filters[organization][id][$eq]": organizationId,
+    "filters[organization][documentId][$eq]": organizationDocumentId,
   });
 
   Object.entries(filters).forEach(([key, value]) => {

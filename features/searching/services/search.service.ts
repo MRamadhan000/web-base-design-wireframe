@@ -16,8 +16,8 @@ import {
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 const ORG_ID = () => {
-  const id = process.env.NEXT_PUBLIC_ORGANIZATION_ID;
-  if (!id) throw new Error("NEXT_PUBLIC_ORGANIZATION_ID belum diatur di .env");
+  const id = process.env.NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID;
+  if (!id) throw new Error("NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID belum diatur di .env");
   return id;
 };
 
@@ -35,7 +35,7 @@ function buildSearchQuery(
     populate: "*",
     "pagination[page]": String(page),
     "pagination[pageSize]": String(pageSize),
-    "filters[organization][id][$eq]": ORG_ID(),
+    "filters[organization][documentId][$eq]": ORG_ID(),
   });
 
   orFields.forEach((field, index) => {
