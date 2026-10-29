@@ -50,7 +50,7 @@ export default function WireframeHero() {
   );
 
   const showDropdown =
-    isDropdownOpen && isEnabled && (results !== null || isLoading);
+    isDropdownOpen && isEnabled && (Boolean(results) || isLoading);
 
   // ── Hormati prefers-reduced-motion ─────────────────────────────────────────
   useEffect(() => {

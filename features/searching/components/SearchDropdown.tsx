@@ -149,7 +149,7 @@ function SkeletonRows() {
 // ─── Main component ──────────────────────────────────────────────────────────
 
 interface SearchDropdownProps {
-  results: SearchResult | null;
+  results?: SearchResult | null;
   keyword: string;
   isLoading?: boolean;
   /** Index opsi yang sedang disorot keyboard; -1 jika tidak ada. */
@@ -179,7 +179,7 @@ export function SearchDropdown({
     : false;
 
   // Hasil lama dipertahankan (dimudarkan) saat pencarian baru berjalan
-  const isStale = isLoading && results !== null;
+  const isStale = isLoading && Boolean(results);
 
   let optionIndex = 0;
 
