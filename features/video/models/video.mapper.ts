@@ -3,7 +3,6 @@ import type {
   Video,
   VideoDetail,
   VideoRaw,
-  VideoRelated,
 } from "./video.types";
 
 function toYouTubeEmbedUrl(url: string | null | undefined): string {
@@ -55,18 +54,5 @@ export function toVideoDetail(item: VideoRaw): VideoDetail {
     ...item,
     url: toYouTubeEmbedUrl(item.url),
     description: item.description ?? "",
-  };
-}
-
-export function toVideoRelated(item: VideoRaw): VideoRelated {
-  const { id, documentId, title, date, slug, url } = item;
-
-  return {
-    id,
-    documentId,
-    title,
-    date,
-    slug,
-    url: toYouTubeEmbedUrl(url),
   };
 }

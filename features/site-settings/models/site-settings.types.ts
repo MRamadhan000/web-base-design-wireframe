@@ -1,4 +1,4 @@
-export interface SiteSettings {
+export interface SiteSettings<TLogo = string | null> {
   siteName: string;
   siteSubtitle: string;
   description: string;
@@ -9,29 +9,15 @@ export interface SiteSettings {
   facebookUrl: string | null;
   youtubeUrl: string | null;
   tiktokUrl: string | null;
-  logoUrl: string | null;
+  logoUrl: TLogo;
 }
 
-export interface SiteSettingsRaw {
-  siteName: string;
-  siteSubtitle: string;
-  description: string | null;
-  address: string | null;
-  phone: string | null;
-  email: string | null;
-  instagramUrl: string | null;
-  facebookUrl: string | null;
-  youtubeUrl: string | null;
-  tiktokUrl: string | null;
-  logoUrl: { url: string } | null;
-}
+export type SiteSettingsRaw = SiteSettings<{ url: string } | null>;
 
-/** Response dari endpoint list (filter by organization documentId) */
 export type SiteSettingsListResponse = {
   data: SiteSettingsRaw[];
 };
 
-/** @deprecated Gunakan SiteSettingsListResponse */
 export type SiteSettingsApiResponse = {
   data: SiteSettingsRaw;
 };

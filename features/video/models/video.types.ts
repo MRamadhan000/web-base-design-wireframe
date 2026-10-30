@@ -1,21 +1,20 @@
 import type { Pagination } from "@/shared/models/pagination";
 
-export interface VideoRaw {
+export interface Video<TDescription = string | null> {
   id: number;
   documentId: string;
   title: string;
   date: string;
   slug: string;
   url: string;
-  description: string | null;
+  description: TDescription;
 }
 
-export type Video = VideoRaw;
+export type VideoRaw = Video<string | null>;
 
-export type VideoDetail = Omit<Video, "description"> & {
-  description: string;
+export type VideoDetail = Video<string>;
+
+export type PaginatedVideos = {
+  data: VideoRaw[];
+  pagination: Pagination;
 };
-
-export type VideoRelated = Omit<Video, "description">;
-
-export type PaginatedVideos = { data: Video[]; pagination: Pagination };

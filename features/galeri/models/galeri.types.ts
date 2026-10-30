@@ -1,20 +1,22 @@
 import type { Pagination } from "@/shared/models/pagination";
 
-export interface GaleriRaw {
+export interface Galeri<
+  TImage = string,
+  TDescription = string,
+> {
   id: number;
   documentId: string;
   title: string;
   slug: string;
-  description: string | null;
-  image: { url: string } | null;
+  description: TDescription;
+  image: TImage;
 }
 
-export type Galeri = Omit<GaleriRaw, "image" | "description"> & {
-  image: string;
-  description: string;
-};
+export type GaleriRaw = Galeri<{ url: string }>;
 
-/** Detail galeri — sama shape-nya dengan Galeri, tapi bisa dikembangkan nanti */
 export type GaleriDetail = Galeri;
 
-export type PaginatedGaleri = { data: Galeri[]; pagination: Pagination };
+export type PaginatedGaleri = {
+  data: Galeri[];
+  pagination: Pagination;
+};

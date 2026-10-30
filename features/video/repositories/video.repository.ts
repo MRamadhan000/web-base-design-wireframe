@@ -1,13 +1,11 @@
 import type {
   Video,
   VideoDetail,
-  VideoRelated,
   PaginatedVideos,
 } from "../models/video.types";
 import {
   getAllVideos,
   getLatestVideos,
-  getRelatedVideos,
   getVideoBySlug,
 } from "../service/video.service";
 
@@ -26,10 +24,4 @@ export function findAllVideos(
 
 export function findVideoBySlug(slug: string): Promise<VideoDetail | null> {
   return getVideoBySlug(slug);
-}
-
-export function findRelatedVideos(
-  slug: string,
-): Promise<VideoRelated[]> {
-  return getRelatedVideos(slug);
 }

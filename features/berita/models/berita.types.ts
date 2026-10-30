@@ -1,16 +1,20 @@
 import type { Pagination } from "@/shared/models/pagination";
 
-export interface BeritaRaw {
+export interface Berita<TImage = string> {
   id: number;
   documentId: string;
   title: string;
   date: string;
   slug: string;
   content: string;
-  image: { url: string } | null;
+  image: TImage;
 }
 
-export type Berita = Omit<BeritaRaw, "image"> & { image: string };
+export type BeritaRaw = Berita<{ url: string } | null>;
 
 export type BeritaRelated = Omit<Berita, "slug" | "content">;
-export type PaginatedBerita = { data: Berita[]; pagination: Pagination };
+
+export type PaginatedBerita = {
+  data: Berita[];
+  pagination: Pagination;
+};

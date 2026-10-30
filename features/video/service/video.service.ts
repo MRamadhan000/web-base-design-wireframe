@@ -7,10 +7,9 @@ import type {
   Video,
   VideoDetail,
   VideoRaw,
-  VideoRelated,
   PaginatedVideos,
 } from "../models/video.types";
-import { toVideo, toVideoDetail, toVideoRelated } from "../models/video.mapper";
+import { toVideo, toVideoDetail } from "../models/video.mapper";
 import { buildStrapiQuery } from "@/shared/models/lib/build-strapi-query";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
@@ -56,14 +55,4 @@ export async function getVideoBySlug(
     "Gagal mengambil detail video",
   );
   return data[0] ? toVideoDetail(data[0]) : null;
-}
-
-export async function getRelatedVideos(
-  slug: string,
-): Promise<VideoRelated[]> {
-  const { data } = await request(
-    { "filters[slug][$ne]": slug, limit: 2 },
-    "Gagal mengambil video terkait",
-  );
-  return data.map(toVideoRelated);
 }
