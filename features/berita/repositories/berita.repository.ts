@@ -18,7 +18,7 @@ export function findAllBerita(
   page = 1,
   limit = DEFAULT_PAGE_SIZE,
 ): Promise<PaginatedBerita> {
-  return getAllBerita({ page, limit });
+  return getAllBerita({ page, limit },);
 }
 
 export function findBeritaBySlug(slug: string): Promise<Berita | null> {

@@ -3,7 +3,12 @@ import {
   type StrapiListResponse,
 } from "@/shared/models/pagination";
 
-import type { Galeri, GaleriDetail, GaleriRaw, PaginatedGaleri } from "../models/galeri.types";
+import type {
+  Galeri,
+  GaleriDetail,
+  GaleriRaw,
+  PaginatedGaleri,
+} from "../models/galeri.types";
 import { toGaleri } from "../models/galeri.mapper";
 import { buildStrapiQuery } from "@/shared/models/lib/build-strapi-query";
 
@@ -17,12 +22,22 @@ const ENDPOINT = `${BASE_URL}/galleries`;
  * @param errorMessage - Pesan error jika request gagal.
  * @returns Response Strapi yang berisi data galeri dan metadata pagination.
  */
+
 async function request(
   params: QueryParams,
   errorMessage: string,
 ): Promise<StrapiListResponse<GaleriRaw>> {
-  const response = await fetch(`${ENDPOINT}?${buildStrapiQuery(params)}`);
-  if (!response.ok) throw new Error(errorMessage);
+  const query = new URLSearchParams(buildStrapiQuery(params));
+
+  query.delete("populate");
+  query.set("populate[image][fields][0]", "url");
+
+  const response = await fetch(`${ENDPOINT}?${query.toString()}`);
+
+  if (!response.ok) {
+    throw new Error(errorMessage);
+  }
+
   return response.json();
 }
 
@@ -41,7 +56,9 @@ export async function getAllGaleri(
   return { data: data.map(toGaleri), pagination: meta.pagination };
 }
 
-export async function getGaleriBySlug(slug: string): Promise<GaleriDetail | null> {
+export async function getGaleriBySlug(
+  slug: string,
+): Promise<GaleriDetail | null> {
   const { data } = await request(
     { "filters[slug][$eq]": slug },
     "Gagal mengambil detail galeri",

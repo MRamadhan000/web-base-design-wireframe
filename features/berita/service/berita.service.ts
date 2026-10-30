@@ -26,8 +26,19 @@ async function request(
   params: QueryParams,
   errorMessage: string,
 ): Promise<StrapiListResponse<BeritaRaw>> {
-  const response = await fetch(`${ENDPOINT}?${buildStrapiQuery(params)}`);
-  if (!response.ok) throw new Error(errorMessage);
+  const query = buildStrapiQuery(params);
+
+  const searchParams = new URLSearchParams(query);
+
+  searchParams.delete("populate");
+  searchParams.set("populate[image][fields][0]", "url");
+
+  const response = await fetch(`${ENDPOINT}?${searchParams.toString()}`);
+
+  if (!response.ok) {
+    throw new Error(errorMessage);
+  }
+
   return response.json();
 }
 
@@ -36,7 +47,6 @@ export async function getLatestBerita(): Promise<Berita[]> {
     { limit: 3 },
     "Gagal mengambil berita terbaru",
   );
-  console.log(data.map(toBerita))
   return data.map(toBerita);
 }
 
