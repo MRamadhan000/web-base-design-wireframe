@@ -5,17 +5,19 @@ import { useEffect, useRef } from "react";
 import type { IconType } from "react-icons";
 import { FaNewspaper, FaPhotoVideo, FaPlay, FaVideo } from "react-icons/fa";
 import type { SearchResult } from "../types/search.types";
+import { SkeletonRows } from "./SkeletonRows";
+import { Thumb } from "./Thumb";
 
 // ─── Types & config ──────────────────────────────────────────────────────────
 
-interface ResultItem {
+export interface ResultItem {
   id: string | number;
   slug: string;
   title: string;
   image?: string | null;
 }
 
-interface SectionConfig {
+export interface SectionConfig {
   key: "berita" | "video" | "galeri";
   label: string;
   basePath: string;
@@ -24,7 +26,7 @@ interface SectionConfig {
   thumbClass: string;
 }
 
-const SECTIONS: SectionConfig[] = [
+export const SECTIONS: SectionConfig[] = [
   {
     key: "berita",
     label: "Berita",
@@ -96,58 +98,8 @@ function Highlight({ text, keyword }: { text: string; keyword: string }) {
   );
 }
 
-function Thumb({
-  item,
-  config,
-}: {
-  item: ResultItem;
-  config: SectionConfig;
-}) {
-  const base = `${config.thumbClass} flex-shrink-0 rounded`;
-
-  if (!item.image) {
-    return (
-      <div className={`${base} flex items-center justify-center bg-white/10`}>
-        <config.Icon className="h-3.5 w-3.5 text-white/40" />
-      </div>
-    );
-  }
-
-  return (
-    <div className={`${base} relative overflow-hidden`}>
-      <img
-        src={item.image}
-        alt=""
-        loading="lazy"
-        className="h-full w-full object-cover"
-      />
-      {config.key === "video" && (
-        <span className="absolute inset-0 flex items-center justify-center bg-black/30">
-          <FaPlay className="h-3 w-3 text-white/90" />
-        </span>
-      )}
-    </div>
-  );
-}
-
-function SkeletonRows() {
-  return (
-    <div className="animate-pulse motion-reduce:animate-none" aria-hidden="true">
-      {[0, 1, 2].map((i) => (
-        <div key={i} className="flex items-center gap-3 px-4 py-3">
-          <div className="h-9 w-14 rounded bg-white/10" />
-          <div className="flex-1 space-y-2">
-            <div className="h-3 w-4/5 rounded bg-white/10" />
-            <div className="h-3 w-2/5 rounded bg-white/10" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 // ─── Main component ──────────────────────────────────────────────────────────
-
 interface SearchDropdownProps {
   results?: SearchResult | null;
   keyword: string;
