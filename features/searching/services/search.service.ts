@@ -1,18 +1,14 @@
 import type { StrapiListResponse } from "@/shared/models/pagination";
 import type {
-  SearchBeritaItem,
-  SearchBeritaRaw,
-  SearchGaleriItem,
-  SearchGaleriRaw,
   SearchParams,
-  SearchVideoItem,
-  SearchVideoRaw,
 } from "../types/search.types";
-import {
-  toSearchBeritaItem,
-  toSearchGaleriItem,
-  toSearchVideoItem,
-} from "../types/search.mapper";
+
+import { Berita, BeritaRaw } from "@/features/berita/models/berita.types";
+import { Video, VideoRaw } from "@/features/video/models/video.types";
+import { Galeri, GaleriRaw } from "@/features/galeri/models/galeri.types";
+import { toVideo } from "@/features/video/models/video.mapper";
+import { toGaleri } from "@/features/galeri/models/galeri.mapper";
+import { toBerita } from "@/features/berita/models/berita.mapper";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 const ORG_ID = () => {
@@ -52,16 +48,16 @@ function buildSearchQuery(
 
 export async function searchBerita(
   params: SearchParams,
-): Promise<{ data: SearchBeritaItem[]; pagination: StrapiListResponse<SearchBeritaRaw>["meta"]["pagination"] }> {
+): Promise<{ data: Berita[]; pagination: StrapiListResponse<BeritaRaw>["meta"]["pagination"] }> {
   const { keyword, page = 1, pageSize = 10 } = params;
   const qs = buildSearchQuery(keyword, ["title", "content", "author"], page, pageSize);
 
   const res = await fetch(`${BASE_URL}/beritas?${qs}`);
   if (!res.ok) throw new Error("Gagal mencari berita");
 
-  const json: StrapiListResponse<SearchBeritaRaw> = await res.json();
+  const json: StrapiListResponse<BeritaRaw> = await res.json();
   return {
-    data: json.data.map(toSearchBeritaItem),
+    data: json.data.map(toBerita),
     pagination: json.meta.pagination,
   };
 }
@@ -70,16 +66,16 @@ export async function searchBerita(
 
 export async function searchVideo(
   params: SearchParams,
-): Promise<{ data: SearchVideoItem[]; pagination: StrapiListResponse<SearchVideoRaw>["meta"]["pagination"] }> {
+): Promise<{ data: Video[]; pagination: StrapiListResponse<VideoRaw>["meta"]["pagination"] }> {
   const { keyword, page = 1, pageSize = 10 } = params;
   const qs = buildSearchQuery(keyword, ["title", "description"], page, pageSize);
 
   const res = await fetch(`${BASE_URL}/videos?${qs}`);
   if (!res.ok) throw new Error("Gagal mencari video");
 
-  const json: StrapiListResponse<SearchVideoRaw> = await res.json();
+  const json: StrapiListResponse<VideoRaw> = await res.json();
   return {
-    data: json.data.map(toSearchVideoItem),
+    data: json.data.map(toVideo),
     pagination: json.meta.pagination,
   };
 }
@@ -88,7 +84,7 @@ export async function searchVideo(
 
 export async function searchGaleri(
   params: SearchParams,
-): Promise<{ data: SearchGaleriItem[]; pagination: StrapiListResponse<SearchGaleriRaw>["meta"]["pagination"] }> {
+): Promise<{ data: Galeri[]; pagination: StrapiListResponse<GaleriRaw>["meta"]["pagination"] }> {
   const { keyword, page = 1, pageSize = 10 } = params;
   // Note: API uses "descrption" (typo) per schema
   const qs = buildSearchQuery(keyword, ["title", "descrption"], page, pageSize);
@@ -96,9 +92,9 @@ export async function searchGaleri(
   const res = await fetch(`${BASE_URL}/galleries?${qs}`);
   if (!res.ok) throw new Error("Gagal mencari galeri");
 
-  const json: StrapiListResponse<SearchGaleriRaw> = await res.json();
+  const json: StrapiListResponse<GaleriRaw> = await res.json();
   return {
-    data: json.data.map(toSearchGaleriItem),
+    data: json.data.map(toGaleri),
     pagination: json.meta.pagination,
   };
 }

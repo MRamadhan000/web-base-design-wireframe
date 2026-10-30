@@ -1,65 +1,12 @@
+import { Berita } from "@/features/berita/models/berita.types";
+import { Galeri } from "@/features/galeri/models/galeri.types";
+import { Video } from "@/features/video/models/video.types";
 import type { Pagination } from "@/shared/models/pagination";
 
-// ─── Search Item (Berita) ────────────────────────────────────────────────────
-export interface SearchBeritaRaw {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  date: string;
-  author?: string | null;
-  image: { url: string } | null;
-}
-
-export interface SearchBeritaItem {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  date: string;
-  image: string;
-}
-
-// ─── Search Item (Video) ─────────────────────────────────────────────────────
-export interface SearchVideoRaw {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  date: string;
-  description: string | null;
-}
-
-export interface SearchVideoItem {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  date: string;
-}
-
-// ─── Search Item (Galeri) ────────────────────────────────────────────────────
-export interface SearchGaleriRaw {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  image: { url: string } | null;
-}
-
-export interface SearchGaleriItem {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  image: string;
-}
-
-// ─── Aggregated Search Result ────────────────────────────────────────────────
 export interface SearchResult {
-  berita: SearchBeritaItem[];
-  video: SearchVideoItem[];
-  galeri: SearchGaleriItem[];
+  berita: Berita[];
+  video: Video[];
+  galeri: Galeri[];
   pagination: {
     berita: Pagination;
     video: Pagination;
@@ -72,4 +19,3 @@ export interface SearchParams {
   page?: number;
   pageSize?: number;
 }
-

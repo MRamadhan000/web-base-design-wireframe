@@ -12,8 +12,6 @@ export interface Berita<TImage = string> {
 
 export type BeritaRaw = Berita<{ url: string } | null>;
 
-export type BeritaRelated = Omit<Berita, "slug" | "content">;
-
 export type PaginatedBerita = {
   data: Berita[];
   pagination: Pagination;

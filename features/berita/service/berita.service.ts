@@ -6,10 +6,9 @@ import {
 import type {
   Berita,
   BeritaRaw,
-  BeritaRelated,
   PaginatedBerita,
 } from "../models/berita.types";
-import { toBerita, toBeritaRelated } from "../models/berita.mapper";
+import { toBerita } from "../models/berita.mapper";
 import { buildStrapiQuery } from "@/shared/models/lib/build-strapi-query";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
@@ -54,14 +53,4 @@ export async function getBeritaBySlug(slug: string): Promise<Berita | null> {
   );
 
   return data[0] ? toBerita(data[0]) : null;
-}
-
-export async function getRelatedBerita(
-  documentId: string,
-): Promise<BeritaRelated[]> {
-  const { data } = await request(
-    { "filters[documentId][$ne]": documentId, limit: 2 },
-    "Gagal mengambil berita terkait",
-  );
-  return data.map(toBeritaRelated);
 }

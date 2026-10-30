@@ -1,13 +1,11 @@
 import type {
   Berita,
-  BeritaRelated,
   PaginatedBerita,
 } from "../models/berita.types";
 import {
   getAllBerita,
   getBeritaBySlug,
   getLatestBerita,
-  getRelatedBerita,
 } from "../service/berita.service";
 
 const DEFAULT_PAGE_SIZE = 9;
@@ -25,10 +23,4 @@ export function findAllBerita(
 
 export function findBeritaBySlug(slug: string): Promise<Berita | null> {
   return getBeritaBySlug(slug);
-}
-
-export function findRelatedBerita(
-  documentId: string,
-): Promise<BeritaRelated[]> {
-  return getRelatedBerita(documentId);
 }

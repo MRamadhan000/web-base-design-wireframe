@@ -1,10 +1,6 @@
 import type { SearchParams, SearchResult } from "../types/search.types";
 import { searchBerita, searchGaleri, searchVideo } from "../services/search.service";
 
-/**
- * Menjalankan ketiga pencarian secara bersamaan (Promise.all) dan
- * mengembalikan hasil gabungan berita, video, dan galeri.
- */
 export async function findSearchResults(
   params: SearchParams,
 ): Promise<SearchResult> {
@@ -25,4 +21,3 @@ export async function findSearchResults(
     },
   };
 }
-
