@@ -7,12 +7,36 @@ export type Pagination = {
 
 export type StrapiListResponse<T> = {
   data: T[];
-  meta: { pagination: Pagination };
+  meta: {
+    pagination: Pagination;
+  };
+};
+
+export type PopulateFields = {
+  [relation: string]: string[];
 };
 
 export type QueryParams = {
   page?: number;
   limit?: number;
-  [key: string]: string | number | undefined;
-};
 
+  // Search
+  keyword?: string;
+  orFields?: string[];
+
+  // Field content type biasa
+  fields?: string[];
+
+  // Field relasi/media
+  populateFields?: PopulateFields;
+
+  // Filter dinamis
+  [key: string]:
+    | string
+    | number
+    | boolean
+    | string[]
+    | PopulateFields
+    | undefined
+    | null;
+};

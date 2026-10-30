@@ -1,30 +1,42 @@
 import type {
   SiteSettings,
-  SiteSettingsListResponse,
+  SiteSettingsRaw,
 } from "../models/site-settings.types";
 
+import type { QueryParams } from "@/shared/models/pagination";
+
 import { toSiteSettings } from "../models/site-settings.mapper";
+import { buildStrapiQuery } from "@/shared/models/lib/build-strapi-query";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
-const ORG_DOCUMENT_ID = process.env.NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID;
+
+if (!BASE_URL) {
+  throw new Error("NEXT_PUBLIC_API_BASE_URL belum diatur.");
+}
+
 const ENDPOINT = `${BASE_URL}/site-settings`;
+
+type SiteSettingsListResponse = {
+  data: SiteSettingsRaw[];
+};
 
 async function request(
   errorMessage: string,
 ): Promise<SiteSettingsListResponse> {
-  if (!ORG_DOCUMENT_ID) {
-    throw new Error(
-      "NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID belum diatur di .env / .env.local",
-    );
+  const params: QueryParams = {
+    limit: 1,
+    populateFields: {
+      logoUrl: ["url"],
+    },
+  };
+
+  const query = buildStrapiQuery(params);
+
+  const response = await fetch(`${ENDPOINT}?${query}`);
+
+  if (!response.ok) {
+    throw new Error(errorMessage);
   }
-
-  const params = new URLSearchParams({
-    "populate[logoUrl][fields][0]": "url",
-  });
-
-  const response = await fetch(`${ENDPOINT}?${params.toString()}`);
-
-  if (!response.ok) throw new Error(errorMessage);
 
   return response.json();
 }
