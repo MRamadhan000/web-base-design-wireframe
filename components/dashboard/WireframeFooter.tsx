@@ -9,8 +9,15 @@ import {
   FaPhoneAlt,
   FaEnvelope,
   FaMapMarkerAlt,
+  FaGithub,
 } from "react-icons/fa";
 import { useSiteSettingsViewModel } from "@/features/site-settings/hooks/useSiteSettingsViewModel";
+
+// Ganti dengan nama & link GitHub kalian berdua
+const CREDITS = [
+  { name: "Titan", githubUrl: "https://github.com/username-kamu" },
+  { name: "Bibi", githubUrl: "https://github.com/username-temanmu" },
+];
 
 export default function Footer() {
   const { settings, isLoading, error } = useSiteSettingsViewModel();
@@ -124,7 +131,7 @@ export default function Footer() {
               {settings.address && (
                 <li className="flex items-start gap-3">
                   <FaMapMarkerAlt className="mt-0.5 shrink-0 text-primary-light" />
-                  <span className="leading-relaxed">{settings.address}</span>
+                  <span className="leading-relaxed">{settings.address} efef</span>
                 </li>
               )}
 
@@ -185,11 +192,30 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* SECTION BAWAH: COPYRIGHT */}
+      {/* SECTION BAWAH: COPYRIGHT & KREDIT PEMBUAT */}
       <div className="border-t border-white/10 bg-black/50 py-6">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-center sm:flex-row sm:text-left">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 text-center sm:flex-row sm:text-left">
           <p className="text-xs text-muted">
             &copy; {new Date().getFullYear()} {settings.siteName}
+          </p>
+
+          <p className="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 text-xs text-muted">
+            <span>Dirancang &amp; dikembangkan oleh</span>
+            {CREDITS.map(({ name, githubUrl }, index) => (
+              <span key={name} className="flex items-center gap-1.5">
+                {index > 0 && <span aria-hidden="true">&amp;</span>}
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`GitHub ${name}`}
+                  className="inline-flex items-center gap-1 font-semibold text-white transition-colors hover:text-primary-light"
+                >
+                  {/* <FaGithub className="h-3.5 w-3.5" aria-hidden="true" /> */}
+                  {name}
+                </a>
+              </span>
+            ))}
           </p>
         </div>
       </div>

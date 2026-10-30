@@ -22,7 +22,7 @@ export function toSiteSettings(raw: RawData): SiteSettings {
     siteName: raw.siteName,
     siteSubtitle: raw.siteSubtitle,
     description: raw.description ?? "",
-    address: raw.addresss ?? "",
+    address: raw.address ?? "",
     phone: raw.phone ?? "",
     email: raw.email ?? "",
     instagramUrl: getExternalUrl(raw.instagramUrl),

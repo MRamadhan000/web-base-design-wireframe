@@ -16,7 +16,7 @@ export interface SiteSettingsRaw {
   siteName: string;
   siteSubtitle: string;
   description: string | null;
-  addresss: string | null;
+  address: string | null;
   phone: string | null;
   email: string | null;
   instagramUrl: string | null;
