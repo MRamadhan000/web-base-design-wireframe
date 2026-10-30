@@ -2,12 +2,16 @@ import type {
   SiteSettings,
   SiteSettingsListResponse,
 } from "../models/site-settings.types";
+
 import { toSiteSettings } from "../models/site-settings.mapper";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 const ORG_DOCUMENT_ID = process.env.NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID;
+const ENDPOINT = `${BASE_URL}/site-settings`;
 
-function buildEndpoint(): string {
+async function request(
+  errorMessage: string,
+): Promise<SiteSettingsListResponse> {
   if (!ORG_DOCUMENT_ID) {
     throw new Error(
       "NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID belum diatur di .env / .env.local",
@@ -15,28 +19,20 @@ function buildEndpoint(): string {
   }
 
   const params = new URLSearchParams({
-    "filters[organization][documentId][$eq]": ORG_DOCUMENT_ID,
-    populate: "logoUrl",
+    "populate[logoUrl][fields][0]": "url",
   });
 
-  return `${BASE_URL}/site-settings?${params.toString()}`;
+  const response = await fetch(`${ENDPOINT}?${params.toString()}`);
+
+  if (!response.ok) throw new Error(errorMessage);
+
+  return response.json();
 }
 
-/**
- * Mengambil data pengaturan situs dari Strapi berdasarkan organization documentId.
- * Menggunakan filter sehingga response berbentuk list; diambil item pertama.
- *
- * @returns Data site settings yang sudah dimapping.
- */
 export async function getSiteSettings(): Promise<SiteSettings> {
-  const response = await fetch(buildEndpoint());
+  const { data } = await request("Gagal mengambil pengaturan situs");
 
-  if (!response.ok) {
-    throw new Error("Gagal mengambil pengaturan situs");
-  }
-
-  const json: SiteSettingsListResponse = await response.json();
-  const item = json.data[0];
+  const item = data[0];
 
   if (!item) {
     throw new Error("Data site settings tidak ditemukan");
