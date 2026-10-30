@@ -36,6 +36,7 @@ export async function getLatestBerita(): Promise<Berita[]> {
     { limit: 3 },
     "Gagal mengambil berita terbaru",
   );
+  console.log(data.map(toBerita))
   return data.map(toBerita);
 }
 
@@ -51,6 +52,5 @@ export async function getBeritaBySlug(slug: string): Promise<Berita | null> {
     { "filters[slug][$eq]": slug },
     "Gagal mengambil detail berita",
   );
-
   return data[0] ? toBerita(data[0]) : null;
 }

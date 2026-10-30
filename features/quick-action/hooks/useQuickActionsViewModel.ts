@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { findAllQuickActions } from "../repositories/quick-action.repository";
+import { getAllQuickActions } from "../repository/quick-action-repository";
 
 export function useQuickActionsViewModel() {
   const query = useQuery({
     queryKey: ["quick-actions"],
-    queryFn: findAllQuickActions,
+    queryFn: getAllQuickActions,
   });
 
   return {

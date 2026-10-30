@@ -1,24 +1,23 @@
-export interface QuickActionItem {
+export interface QuickAction {
   id: number;
   documentId: string;
   title: string;
   description: string;
   iconUrl: string | null;
-  href: string | null;
+  link: string;
 }
 
-export interface QuickActionApiItem {
+export interface QuickActionRaw {
   id: number;
   documentId: string;
   title: string;
   description: string | null;
-  link: string | string[] | null;
+  link: string;
   ikon: {
     url: string;
-    alternativeText: string | null;
-  } | null;
+  };
 }
 
 export interface QuickActionApiResponse {
-  data: QuickActionApiItem[];
+  data: QuickActionRaw[];
 }
