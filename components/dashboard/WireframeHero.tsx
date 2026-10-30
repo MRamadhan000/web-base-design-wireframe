@@ -237,15 +237,8 @@ export default function WireframeHero() {
                   </button>
                 )}
 
-                <button
-                  type="submit"
-                  disabled={trimmed.length < MIN_QUERY_LENGTH}
-                  className="rounded-full bg-white/90 px-6 py-2.5 font-sans text-xs font-semibold uppercase tracking-wider text-black transition-all hover:bg-white active:scale-95 disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100"
-                >
-                  Cari
-                </button>
+          
               </form>
-
               {/* Hint: baru 1 karakter */}
               {isSearchFocused && isTooShort && (
                 <div

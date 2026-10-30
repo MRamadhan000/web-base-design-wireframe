@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { Galeri } from "../models/galeri.types";
 
@@ -8,9 +11,16 @@ interface GaleriCardProps {
 }
 
 export function GaleriCard({ item, preview = false }: GaleriCardProps) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/galeri/${item.slug}`);
+  };
+
   return (
     <div
-      className="group relative h-64 overflow-hidden rounded-xl border border-border/80 bg-accent-soft shadow-sm transition-all duration-300 hover:border-primary-light hover:shadow-md"
+      onClick={handleClick}
+      className="group relative h-64 cursor-pointer overflow-hidden rounded-xl border border-border/80 bg-accent-soft shadow-sm transition-all duration-300 hover:border-primary-light hover:shadow-md"
     >
       {item.image && (
         <Image
