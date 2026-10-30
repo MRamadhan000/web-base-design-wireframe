@@ -14,4 +14,7 @@ export type Galeri = Omit<GaleriRaw, "image" | "description"> & {
   description: string;
 };
 
+/** Detail galeri — sama shape-nya dengan Galeri, tapi bisa dikembangkan nanti */
+export type GaleriDetail = Galeri;
+
 export type PaginatedGaleri = { data: Galeri[]; pagination: Pagination };

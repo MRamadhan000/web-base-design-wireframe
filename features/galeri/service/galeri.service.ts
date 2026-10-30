@@ -3,7 +3,7 @@ import {
   type StrapiListResponse,
 } from "@/shared/models/pagination";
 
-import type { Galeri, GaleriRaw, PaginatedGaleri } from "../models/galeri.types";
+import type { Galeri, GaleriDetail, GaleriRaw, PaginatedGaleri } from "../models/galeri.types";
 import { toGaleri } from "../models/galeri.mapper";
 import { buildStrapiQuery } from "@/shared/models/lib/build-strapi-query";
 
@@ -39,4 +39,12 @@ export async function getAllGaleri(
 ): Promise<PaginatedGaleri> {
   const { data, meta } = await request(params, "Gagal mengambil daftar galeri");
   return { data: data.map(toGaleri), pagination: meta.pagination };
+}
+
+export async function getGaleriBySlug(slug: string): Promise<GaleriDetail | null> {
+  const { data } = await request(
+    { "filters[slug][$eq]": slug },
+    "Gagal mengambil detail galeri",
+  );
+  return data[0] ? toGaleri(data[0]) : null;
 }
