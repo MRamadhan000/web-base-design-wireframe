@@ -1,16 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FaBuilding } from "react-icons/fa";
-import { QuickActionItem } from "../models/quick-action.types";
+import { QuickAction } from "../models/quick-action.types";
 
 interface QuickActionCardProps {
-  action: QuickActionItem;
+  action: QuickAction;
 }
 
 export function QuickActionCard({ action }: QuickActionCardProps) {
   const className =
     "group relative flex min-h-[220px] flex-col items-center justify-center rounded-2xl border border-border bg-surface px-6 py-10 text-center shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-primary-light hover:bg-accent/20 hover:shadow-xl hover:shadow-primary-light/10";
-  const isExternal = /^https?:\/\//i.test(action.href ?? "");
+  const isExternal = /^https?:\/\//i.test(action.link ?? "");
 
   const content = (
     <>
@@ -43,13 +43,13 @@ export function QuickActionCard({ action }: QuickActionCardProps) {
     </>
   );
 
-  if (!action.href) {
+  if (!action.link) {
     return <div className={className}>{content}</div>;
   }
 
   return (
     <Link
-      href={action.href}
+      href={action.link}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
       className={className}
