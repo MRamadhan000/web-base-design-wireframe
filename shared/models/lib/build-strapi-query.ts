@@ -1,3 +1,4 @@
+
 import type { QueryParams } from "../pagination";
 
 export function buildStrapiQuery({
@@ -24,23 +25,34 @@ export function buildStrapiQuery({
   query.set("pagination[page]", String(page));
   query.set("pagination[pageSize]", String(limit));
 
-  // Fields biasa
+  // Main fields
   fields?.forEach((field, index) => {
     query.set(`fields[${index}]`, field);
   });
 
-  // Populate media atau relasi dengan field terbatas
+  // Populate relation dengan selected fields
   if (populateFields) {
-    Object.entries(populateFields).forEach(([relation, selectedFields]) => {
-      selectedFields.forEach((field, index) => {
-        query.set(`populate[${relation}][fields][${index}]`, field);
-      });
-    });
+    Object.entries(populateFields).forEach(
+      ([relation, selectedFields]) => {
+        query.set(`populate[${relation}][fields][0]`, selectedFields[0]);
+
+        selectedFields.slice(1).forEach((field, index) => {
+          query.set(
+            `populate[${relation}][fields][${index + 1}]`,
+            field,
+          );
+        });
+      },
+    );
   }
 
-  // Filter dinamis
+  // Dynamic filters
   Object.entries(filters).forEach(([key, value]) => {
-    if (value !== undefined && value !== null && typeof value !== "object") {
+    if (
+      value !== undefined &&
+      value !== null &&
+      typeof value !== "object"
+    ) {
       query.set(key, String(value));
     }
   });
@@ -48,12 +60,18 @@ export function buildStrapiQuery({
   // Search OR
   if (keyword?.trim() && orFields.length > 0) {
     orFields.forEach((field, index) => {
-      query.set(`filters[$or][${index}][${field}][$containsi]`, keyword.trim());
+      query.set(
+        `filters[$or][${index}][${field}][$containsi]`,
+        keyword.trim(),
+      );
     });
   }
 
   // Organization wajib
-  query.set("filters[organization][documentId][$eq]", organizationDocumentId);
+  query.set(
+    "filters[organization][documentId][$eq]",
+    organizationDocumentId,
+  );
 
   return query.toString();
 }

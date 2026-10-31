@@ -249,9 +249,9 @@ Variabel `NEXT_PUBLIC_*` harus diberikan saat **build** lewat `--build-arg`:
 
 ```bash
 docker build \
-  --build-arg NEXT_PUBLIC_API_BASE_URL=http://x.x.x.x/backend/api \
-  --build-arg NEXT_PUBLIC_IMAGE_BASE_URL=http://x.x.x.x/backend \
-  --build-arg NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID=<ORGANIZATION_DOCUMENT_ID> \
+  --build-arg NEXT_PUBLIC_API_BASE_URL=http://10.0.1.249/backend/api \
+  --build-arg NEXT_PUBLIC_IMAGE_BASE_URL=http://10.0.1.249/backend \
+  --build-arg NEXT_PUBLIC_ORGANIZATION_DOCUMENT_ID=iv4f6jflnq4lst18pu7owh23 \
   -t web-base-design-wireframe .
 ```
 
