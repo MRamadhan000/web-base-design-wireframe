@@ -20,18 +20,12 @@ if (!BASE_URL) {
 
 const ENDPOINT = `${BASE_URL}/beritas`;
 
-/**
- * Mengambil data berita dari Strapi berdasarkan query params.
- *
- * @param params - Parameter filter, pagination, search, dan populate.
- * @param errorMessage - Pesan error jika request gagal.
- * @returns Response Strapi yang berisi data berita dan metadata pagination.
- */
 async function request(
   params: QueryParams,
   errorMessage: string,
 ): Promise<StrapiListResponse<BeritaRaw>> {
   const query = buildStrapiQuery({
+    "sort[0]": "date:desc",
     ...params,
     populateFields: {
       image: ["url"],

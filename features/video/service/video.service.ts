@@ -32,7 +32,10 @@ async function request(
   params: QueryParams,
   errorMessage: string,
 ): Promise<StrapiListResponse<VideoRaw>> {
-  const query = buildStrapiQuery(params);
+  const query = buildStrapiQuery({
+    "sort[0]": "date:desc",
+    ...params,
+  });
 
   const response = await fetch(`${ENDPOINT}?${query}`);
 

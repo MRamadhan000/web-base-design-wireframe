@@ -9,10 +9,16 @@ import type {
   GaleriRaw,
   PaginatedGaleri,
 } from "../models/galeri.types";
+
 import { toGaleri } from "../models/galeri.mapper";
 import { buildStrapiQuery } from "@/shared/models/lib/build-strapi-query";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
+
+if (!BASE_URL) {
+  throw new Error("NEXT_PUBLIC_API_BASE_URL belum diatur.");
+}
+
 const ENDPOINT = `${BASE_URL}/galleries`;
 
 /**
@@ -22,14 +28,17 @@ const ENDPOINT = `${BASE_URL}/galleries`;
  * @param errorMessage - Pesan error jika request gagal.
  * @returns Response Strapi yang berisi data galeri dan metadata pagination.
  */
-
 async function request(
   params: QueryParams,
   errorMessage: string,
 ): Promise<StrapiListResponse<GaleriRaw>> {
-  const query = new URLSearchParams(buildStrapiQuery(params));
+  const query = new URLSearchParams(
+    buildStrapiQuery({
+      "sort[0]": "date:desc",
+      ...params,
+    }),
+  );
 
-  query.delete("populate");
   query.set("populate[image][fields][0]", "url");
 
   const response = await fetch(`${ENDPOINT}?${query.toString()}`);
@@ -43,9 +52,12 @@ async function request(
 
 export async function getLatestGaleri(): Promise<Galeri[]> {
   const { data } = await request(
-    { limit: 4 },
+    {
+      limit: 4,
+    },
     "Gagal mengambil galeri terbaru",
   );
+
   return data.map(toGaleri);
 }
 
@@ -53,15 +65,23 @@ export async function getAllGaleri(
   params: QueryParams = {},
 ): Promise<PaginatedGaleri> {
   const { data, meta } = await request(params, "Gagal mengambil daftar galeri");
-  return { data: data.map(toGaleri), pagination: meta.pagination };
+
+  return {
+    data: data.map(toGaleri),
+    pagination: meta.pagination,
+  };
 }
 
 export async function getGaleriBySlug(
   slug: string,
 ): Promise<GaleriDetail | null> {
   const { data } = await request(
-    { "filters[slug][$eq]": slug },
+    {
+      "filters[slug][$eq]": slug,
+      limit: 1,
+    },
     "Gagal mengambil detail galeri",
   );
+
   return data[0] ? toGaleri(data[0]) : null;
 }
